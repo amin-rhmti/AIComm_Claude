@@ -1,0 +1,4 @@
+How to Modify Paths
+
+You only need to change the path in one single place: at the top of the swiss_survey_insta_experiment.do file. The sub_programs.do file does not contain any paths; it correctly uses the global variable defined in swiss_survey_insta_experiment.do.
+

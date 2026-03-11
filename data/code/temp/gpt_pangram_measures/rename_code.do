@@ -1,0 +1,11 @@
+rename Post_personal_anecdote Post_personal_anecdote
+rename Post_emotional_appeal Post_emotional_appeal
+rename Post_scientific_argument Post_scientific_argument
+rename Post_moral_narratives Post_moral_narratives
+rename Post_causal_narratives Post_causal_narratives
+rename Post_meaningfulness Post_meaningfulness
+rename Post_typos_count Post_typos_count
+rename Post_pangram_headline Post_pangram_headline 
+rename Post_fraction_ai Post_fraction_ai 
+rename Post_fraction_ai_assisted Post_fraction_ai_assisted 
+rename Post_fraction_human Post_fraction_human
