@@ -1,0 +1,281 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{blue_text}{RGB}{0,115,197}
+\definecolor{blue1}{RGB}{26,129,203}
+\definecolor{blue2}{RGB}{102,171,220}
+\definecolor{blue3}{RGB}{154,199,232}
+
+\definecolor{green1}{RGB}{0,128,0}
+\definecolor{green2}{RGB}{204,229,204}
+\definecolor{green3}{RGB}{229,242,229}
+
+\definecolor{lightblue2}{RGB}{204,227,243}
+\definecolor{lightblue3}{RGB}{229,241,249}
+
+\definecolor{orange0}{RGB}{255,116,0}
+\definecolor{blue0}{RGB}{0,103,169}%vaidya
+\definecolor{green0}{RGB}{0,148,104}
+
+
+\setbeamercolor*{palette tertiary}{bg=blue1,fg=white}
+\setbeamercolor*{palette secondary}{bg=blue2,fg=white}
+\setbeamercolor*{palette primary}{bg=blue3,fg=black}
+
+\setbeamercolor{titlelike}{bg=white,fg=blue_text}
+\setbeamertemplate{title page}[default][rounded=false, shadow=false]
+
+\setbeamercolor{frametitle}{bg=white,fg=blue_text}
+
+\setbeamercolor{item projected}{bg=blue_text}
+
+\setbeamertemplate{blocks}[rounded]%[shadow]
+\setbeamercolor{block title example}{bg=green2,fg=green1}
+\setbeamercolor{block body example}{bg=green3,fg=black}
+
+\setbeamercolor{block title}{bg=lightblue2,fg=blue_text}
+\setbeamercolor{block body}{bg=lightblue3,fg=black}
+
+\setbeamercolor{button}{bg=blue2,fg=white}
+
+\setbeamertemplate{navigation symbols}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{eqnarray,amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern} 
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{changepage}
+\usepackage{array,booktabs}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{plotmarks}
+\usepgfplotslibrary{fillbetween}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\prob}{Pr}
+
+\usepackage{transparent}
+\newcommand{\semitransp}[2][35]{\color{fg!#1}#2}
+
+\usetikzlibrary{arrows.meta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%====================================================
+%========== DEFINITION OF AUTHORS ETC...=============
+%====================================================
+
+\author[Ash, Lou, Song]{%
+    \texorpdfstring{%
+    \begin{columns}
+        \column{.3333\linewidth}
+        \centering
+        Elliot Ash \\\vspace{.5em} \small ETH Zurich
+        \column{.3333\linewidth}
+        \centering
+        Yichuan Lou \\\vspace{.5em} \small UTokyo
+        \column{.3333\linewidth}
+        \centering
+        Lena Song \\\vspace{.5em} \small UIUC
+    \end{columns}}{Elliot Ash, Yichuan Lou, Lena Song}
+}
+
+\title[AI and Communication]{AI and Communication}
+%\subtitle{Subtitle}
+\date[Conference Name]{September 2025}
+
+
+
+
+%====================================================
+%========== BEGINNING OF DOCUMENT ===================
+%====================================================
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+
+
+
+
+\begin{frame}{Theoretical Framework: Overview}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Framework based on Benabou and Tirole (2006) to model social signaling with image concerns in the presence of AI senders/receivers
+    \item Two novel ingredients: outside option and privacy concerns
+    \item Human sender makes a binary participation decision 
+    \item Human sender makes his decision based on
+    \begin{enumerate}
+        \item intrinsic motivation
+        \item participation cost
+        \item image concerns
+        \item privacy concerns
+    \end{enumerate}
+\end{itemize}
+    
+\end{frame}
+
+
+
+\begin{frame}{Composition of Senders}
+
+\begin{itemize}
+    \item Three identity groups: humans, Gen-AI bots, and rule-based bots
+    \item Denote by $m_h,m_g,m_r$ the number of different groups of senders 
+\end{itemize}
+    
+\end{frame}
+
+
+
+\begin{frame}{Timing}
+
+\begin{enumerate}\setlength{\itemsep}{1em}
+    \item A sender is matched with a receiver
+    \item The sender's identity (human or bot) and type ($v\in [\underline{v},\overline{v}]$ if human) is initially unknown to the receiver
+    \item The human sender chooses whether to participate in the signaling game
+    \item If the human sender chooses to not participate, he obtains outside option with payoff $u_0$
+    \item If the human sender chooses to participate, he incurs a fixed cost $c$
+    \begin{itemize}
+        \item the belief about the sender's identity and type is updated
+        \item the human sender's payoff is then realized
+    \end{itemize}
+\end{enumerate}
+    
+\end{frame}
+
+
+\begin{frame}{Human Sender}
+If a human sender chooses to participate, he obtains
+\begin{align*}
+    U = v - c + \prob(\text{human}|\text{participate})\Big[\underbrace{\mu E(v|\text{participate})}_{\text{image concerns}} - \underbrace{\gamma}_{{\text{privacy concern}}}\Big]
+\end{align*}
+\vspace{1em}
+
+\begin{itemize}
+    \item $\prob(\text{human}|\text{participate})$ is the posterior probability that the sender is human
+    \item $E(v|\text{participate})$ is the posterior expectation of the human sender's type $v$ 
+    \item $\mu$ captures the strength of the human sender's image concerns
+    \item $\gamma$ captures the human sender's concern about privacy leakage, i.e., the risk of revealing his identity (human v.s. bot), which is independent of the belief about $v$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bot Senders}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A bot sender, whether Gen-AI or rule-based, has no private types or preferences
+    \item Each bot sender follows a fixed action pattern
+\end{itemize}
+\vspace{1em}
+
+\begin{exampleblock}{Assumption 1}
+    A rule-based bot sender always chooses a detectable action $a_r$ that is neither 'participate' nor 'not participate'.
+\end{exampleblock}
+
+\begin{exampleblock}{Assumption 2}
+    A Gen-AI sender always randomizes between 'participate' and a detectable action $a_g$: it plays 'participate' w.p. $\alpha$ and $a_g$ w.p. $(1-\alpha)$.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Equilibrium with cutoff $v^*$}
+
+We focus on threshold equilibria characterized by a cutoff $v^*$. In such an equilibrium, the human sender chooses
+\begin{itemize}
+    \item 'not participate' if $v\in [\underline{v},v^*)$
+    \item 'participate' if $v\in (v^*,\overline{v}]$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Human Sender Decision Making}
+
+Let $v$ be drawn from a cdf $F\sim \Delta([\underline{v},\overline{v}])$
+\vspace{1em}
+
+Let $\rho\equiv\frac{m_g}{m_h+m_g}$ the relative probability of Gen-AI bots versus human senders
+
+\vspace{1em}
+
+Let $T(v^*)\equiv \mu E(v|v\geq v^*) - \gamma$
+
+\vspace{1em}
+
+Let $\pi(v^*)\equiv \frac{(1-\rho)(1-F(v^*)}{\rho\alpha + (1-\rho)(1-F(v^*))}$ be the probability that the sender is human conditional on participation
+
+\vspace{1em}
+Given any candidate cutoff $v^*$, a human sender with type $v$ participates iff
+\begin{align*}
+    v - c + \pi(v^*)T(v^*)\geq u_0
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Equilibrium}
+Let $\Phi(v^*)\equiv v^* + \pi(v^*)T(v^*)$ be the human sender's total return from participating
+\vspace{1em}
+
+The threshold equilibrium with cutoff $v^*$ thus solves
+\begin{align*}
+    \Phi(v^*) = u_0+c
+\end{align*}
+
+
+\begin{exampleblock}{Lemma 1}
+    In any stable equilibrium, $\Phi$ is increasing in $v^*$, i.e., $\Phi'(v^*)>0$. 
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Set of Equilibria}
+\vspace{-.5em}
+Let $a=0$ denote 'not participate' and $a=1$ denote 'participate'
+\begin{exampleblock}{Proposition 1}
+    When $\Phi$ is strictly increasing, then there is a unique equilibrium:
+    \begin{itemize}
+        \item if $u_0+c\in(\Phi(\underline{v}),\Phi(\overline{v}))$, $a=0$ for $v\in[\underline{v},v^*)$ and $a=1$ for $(v^*,\overline{v}]$, where $v^*$ solves $\Phi(v^*)=u_0+c$
+        \item if $u_0+c>\Phi(\overline{v})$, $a=0$ for all $v\in[\underline{v},\overline{v}]$
+        \item if $u_0+c<\Phi(\underline{v})$, $a=1$ for all $v\in[\underline{v},\overline{v}]$
+    \end{itemize}
+    When $\Phi$ is strictly decreasing, then 
+    \begin{itemize}
+        \item if $u_0+c\in (\Phi(\overline{v}),\Phi(\underline{v}))$, there are three equilibria: $a=0$ for all $v\in[\underline{v},\overline{v}]$, $a=1$ for all $v\in [\underline{v},\overline{v}]$, and an unstable equilibrium $a=0$ for $v\in [\underline{v},v^*)$ and $a=1$ for $v\in(v^*,\overline{v}]$ where $v^*$ solves $\Phi(v^*)=u_0+c$
+        \item if $u_0+c>\Phi(\underline{v})$, there is a unique corner equilibrium with $a=0$
+        \item if $u_0+c<\Phi(\overline{v})$, there is a unique corner equilibrium with $a=1$
+    \end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{Comparative Statics of $v^*$}
+
+\begin{exampleblock}{Proposition 2}
+    Let $v^*\in (\underline{v},\overline{v})$ be an interior equilibrium cutoff with $\Phi'(v^*)>0$. Then
+    \begin{enumerate}
+        \item the comparative statics of $v^*$ wrt $\rho$ and $\alpha$ both depend on $T(v^*)$:
+        \begin{itemize}
+            \item if $T(v^*)<0$, then $\frac{\diff v^*}{\diff \rho}<0$ and $\frac{\diff v^*}{\diff \alpha}<0$
+            \item if $T(v^*)>0$, then $\frac{\diff v^*}{\diff \rho}>0$ and $\frac{\diff v^*}{\diff \alpha}>0$
+        \end{itemize}
+        \item the cutoff $v^*$ increases in $\gamma$: $\frac{\diff v^*}{\diff \gamma}>0$
+        \item the cutoff $v^*$ decreases in $\mu$: $\frac{\diff v^*}{\diff \mu}<0$
+    \end{enumerate}
+\end{exampleblock}
+    
+\end{frame}
+
+
+
+
+\end{document}

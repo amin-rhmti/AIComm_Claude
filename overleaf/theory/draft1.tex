@@ -1,0 +1,333 @@
+\documentclass[english,12pt]{article}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\doublespace
+\usepackage{esint}  
+\usepackage[authoryear]{natbib}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{enumerate}
+\makeatletter
+\makeatother
+%\numberwithin{equation}{section} %numbering equation with section number
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usepackage{babel}
+\usepackage{bbm}
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{\protect\theoremname}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{\protect\theoremname}
+\theoremstyle{definition}
+\newtheorem{definition}{\protect\definitionname}
+\theoremstyle{definition}
+\newtheorem*{definition*}{\protect\definitionname}
+\theoremstyle{assumption}
+\newtheorem{assumption}{\protect\assumptionname}
+\theoremstyle{plain}
+\newtheorem{corollary}{\protect\corollaryname}
+\theoremstyle{plain}
+\newtheorem{lemma}{\protect\lemmaname}
+\theoremstyle{plain}
+\newtheorem{proposition}{\protect\propositionname}
+\theoremstyle{plain}
+\newtheorem{conjecture}{\protect\conjecturename}
+\theoremstyle{definition}%%%12/28/2019
+\newtheorem{remark}{\protect\remarkname}
+\theoremstyle{plain}
+\newtheorem{claim}{\protect\claimname}
+\theoremstyle{plain}
+\newtheorem{fact}{\protect\factname}
+\theoremstyle{plain}
+\newtheorem{result}{\protect\resultname}
+\theoremstyle{plain}
+\newtheorem{observation}{\protect\observationname}
+\theoremstyle{plain}
+\newtheorem{prediction}{\protect\predictionname}
+
+\providecommand{\claimname}{Claim}
+\providecommand{\conjecturename}{Conjecture}
+\providecommand{\corollaryname}{Corollary}
+\providecommand{\lemmaname}{Lemma}
+\providecommand{\definitionname}{Definition}
+\providecommand{\assumptionname}{Assumption}
+\providecommand{\examplename}{Example}
+\providecommand{\factname}{Fact}
+\providecommand{\propositionname}{Proposition}
+\providecommand{\remarkname}{Remark}
+\providecommand{\theoremname}{Theorem}
+\providecommand{\resultname}{Result}
+\providecommand{\observationname}{Observation}
+\providecommand{\predictionname}{Prediction}
+
+
+\usepackage{subcaption}
+\makeatletter
+\renewcommand{\fnum@figure}{Figure \thefigure}
+\makeatother
+
+%%%%%%%%%%OWN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[font=footnotesize]{caption} 
+
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\supp}{Supp}
+\DeclareMathOperator{\proj}{Proj}
+
+\usepackage{istgame}
+\usetikzlibrary{shapes.geometric,arrows}
+
+\usepackage{xcolor}
+
+\newcommand{\pdfcolor}{blue!85!black}
+\hypersetup{colorlinks=true,linkcolor=\pdfcolor,citecolor=\pdfcolor,urlcolor=\pdfcolor}
+
+
+\usepackage{bm}
+%%%%%%%%END%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\title{Intelligence or Interference?\\ AI and Online Social Interactions}
+
+\author{\large
+\begin{tabular}{ccccccccccc}
+Elliot Ash\thanks{ETH Zurich. E-mail:.} &&&&&  Yichuan Lou\thanks{Department of Economics, University of Tokyo. E-mail: \url{yichuanlou@e.u-tokyo.ac.jp}.}  &&&&& Lena Song\thanks{UIUC. E-mail:.}
+\end{tabular}
+}
+
+\date{\today}
+
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+\noindent
+
+
+\end{abstract}
+
+
+
+\newpage
+
+\paragraph{Related literature.} Building on \cite{Bernheim:94} and \cite{BenabouTirole:06}, our theoretical framework adopts a signaling approach to social interactions, where individuals are concerned with how prosocial they are perceived by others and thus behave strategically to influence those social perceptions. We innovate in two key aspects. First, in our framework, individuals care about how they are perceived by different identity groups (humans, gen-AI bots, and rule-based bots) and hence assign different weights to each group in their reputation utility. Relatedly, see \cite{astensmith:05} and \cite{BursztynJensen:17}. Second, in addition to intrinsic utility and reputation utility, our model introduces a third component, social interaction utility, to capture the utility derived from engaging with others on social media that is independent of the individual's true or perceived type. This component highlights the social benefits of interaction, distinct from inherent satisfaction or reputation. In Appendix \ref{sec:partisan}, we extend our basic framework to behavior regarding divisive issues (e.g., gun control, abortion, health care, etc), where there is disagreement on what constitutes ``good" and ``bad" behavior. Relatedly, see \cite{PerezCruces:17} and \cite{Tirole:23}.
+
+
+\section{Theoretical Framework}\label{sec:nonpartisan}
+
+\subsection{Model}
+
+This model follows the tradition of a signaling approach to social interactions, as in \cite{Bernheim:94} and in \cite{BenabouTirole:06}.
+
+Both senders and receivers consist of three identity groups: humans, gen-AI bots, and rule-based bots. Denote by $\bm{p} \triangleq (p_h,p_g,p_r)$ the probability measure of different identity groups of senders. Denote by $\bm{q} \triangleq (q_h,q_g,q_r)$ the probability measure of different identity groups of receivers.
+
+\paragraph{Human sender.} 
+
+We study the motivations of human senders to contribute content on social media. A human sender has a private type $\theta\in \{\theta^-,\theta^+\}$ with $0<\theta^-<\theta^+$, which measures how important it is for the sender to contribute and thus can be viewed as his prosocial attitude. There is a common prior that $\theta=\theta^+$ with probability $\mu_0$. Each human sender chooses a contribution level $a\in \mathbb{R}$, at cost $C(a)$. The cost function $C(\cdot)$ is strictly increasing and convex, with $C(0)=0$. Let $P = P(a)$ denote the perceived probability that the sender is a high type human, given his contribution $a$.
+
+A human sender's utility is
+\begin{equation*}
+    (\theta + \lambda )a - C(a) + \gamma P,
+\end{equation*}
+where $\theta a$, $\gamma P$, $\lambda a$ capture the intrinsic utility, reputation utility, social interaction utility, respectively.
+
+The term, $\theta a$, represents the personal satisfaction or benefit the human sender derives from taking action $a$. Higher intrinsic types ($\theta^+$) derive more utility from the same action compared to lower intrinsic types ($\theta^-$). This component captures the human sender's intrinsic motivation to contribute on social media, such as the fun of content making or experiential warm glow from behaving prosocially.
+
+The term, $\gamma P$, represents the utility the human sender gains from being perceived as a high-type individual. The parameter $\gamma$ measures the sender's concern for reputation. We assume generally $\gamma=\gamma(\bm{q})\geq 0$ and will discuss it more shortly.
+
+The term, $\lambda a$, represents the utility the human sender derives from engaging with others on social media that is independent of his true or perceived type. This component emphasizes the social benefits of interaction, distinct from inherent satisfaction or reputation. The multiplicative form indicates that the utility from social interaction is directly proportional to the level of action taken by the sender, reflecting the idea that greater effort (or contribution) leads to more social interactions and thus higher social interaction utility. The parameter $\lambda$ measures the intensity of social interaction among the senders and receivers. We assume generally $\lambda = \lambda(\bm{p},\bm{q})\geq 0$ and will discuss it further shortly.
+
+
+Some notation will be helpful. We use $a^+$ and $a^-$ to denote the generic actions chosen by type $\theta^+$ and type $\theta^-$, respectively. Given any type $\theta$, a unique action, denoted $\hat{a}(\theta,\lambda)$, maximizes the non-reputational utility $(\theta+\lambda)a - C(a)$. In particular, the first order condition yields $\hat{a}(\theta,\lambda) = C'^{-1}(\theta+\lambda)$. The convexity of $C(\cdot)$ ensures that $\hat{a}(\cdot)$ is increasing in both $\theta$ and $\lambda$.
+
+
+\paragraph{Bot sender.} A bot sender, whether it is gen-AI or rule-based, has no types or preferences. Additionally, we assume that a bot sender always chooses a fixed contribution level.
+
+\begin{assumption}
+    A rule-based bot sender always chooses $a_r=0$. A gen-AI bot sender always chooses $a^+$.
+\end{assumption}
+
+
+\paragraph{Equilibrium.} We analyze separating equilibria, where human senders of different types make distinct choices, i.e., $a^+\neq a^-$. A particular candidate for a separating equilibrium outcome, which we call the Riley outcome (after \citealt{Riley:79}), is constructed as follows. The low type $\theta^-$ chooses the unique contribution level that maximizes $(\theta^-+\lambda)a - C(a)$. That is, type $\theta^-$ picks the best contribution level for himself, given that receivers believe that he is not type $\theta^+$. So $a^- = \hat{a}(\theta^-,\lambda)$. Then the high type $\theta^+$ chooses the unique contribution level that maximizes $(\theta^++\lambda)a - C(a) + \gamma$, subject to the constraint that $(\theta^-+\lambda)a^- - C(a^-)\geq (\theta^-+\lambda)a - C(a) + \gamma$. In words, type $\theta^+$ chooses the best contribution level for himself, assuming that receivers believe that he is high type, subject to the constraint that $\theta^-$ would not strictly prefer to choose this contribution level over $a^-$.
+
+The Riley outcome, characterized in the following proposition, is the only equilibrium outcome that survives the Intuitive Criterion (\citealt{ChoKreps:87}). To state the proposition, let $\theta^*\triangleq\theta^*(\theta^-,\lambda,\gamma)$ be defined as the type that satisfies $(\theta^-+\lambda)\hat{a}(\theta^-,\lambda) - C(\hat{a}(\theta^-,\lambda)) = (\theta^-+\lambda)\hat{a}(\theta^*,\lambda) - C(\hat{a}(\theta^*,\lambda)) + \gamma$.
+
+
+
+\begin{proposition}\label{prop:riley_outcome}
+    Fix $\lambda$ and $\gamma$. The unique perfect Bayesian equilibrium surviving the Intuitive Criterion generates the Riley outcome, which is characterized by $\{a^-,a^+\}$:
+    \begin{align*}
+    \begin{cases}
+        a^- = \hat{a}(\theta^-,\lambda), &a^+ =\hat{a}(\theta^*,\lambda) \quad\text{if } \theta^+\leq \theta^*\\
+        a^- =\hat{a}(\theta^-,\lambda), & a^+ = \hat{a}(\theta^+,\lambda) \quad\text{otherwise.}
+    \end{cases}
+    \end{align*}
+    Moreover, the cutoff function $\theta^*(\cdot)$ is increasing in both $\theta^-$ and $\gamma$. If $C'''(\cdot)>0$, then $\theta^*(\cdot)$ is increasing in $\lambda$; if $C'''(\cdot)<0$, then $\theta^*(\cdot)$ is decreasing in $\lambda$.
+\end{proposition}
+
+Note that when the Riley outcome $(a^-,a^+)$ is played, the posterior belief that the sender is a high type human is equal to $0$ upon observing $a^-$, and is equal to $\frac{p_h\mu_0}{p_h\mu_0+p_g}$ upon observing $a^+$.
+
+
+A numerical example would help us fix ideas:
+
+\paragraph{Example 1.} Assume $C(a) = \frac{1}{2}a^2$. Then, $\hat{a}(\theta,\lambda) = \theta+\lambda$ and $\theta^*(\theta^-,\lambda,\gamma) = \theta^-+\sqrt{2\gamma}$. Consequently, when $\theta^+> \theta^-+\sqrt{2\gamma}$, we have $a^-=\theta^-+\lambda$ and $a^+=\theta^++\lambda$, indicating that both actions increase with the social interaction parameter $\lambda$. When $\theta^+\leq \theta^-+\sqrt{2\gamma}$, the actions become $a^-=\theta^-+\lambda$ and $a^+=\theta^*+\lambda = \theta^-+\sqrt{2\gamma}+\lambda$. Hence, both actions increase with the social interaction parameter $\lambda$, and additionally, $a^+$ increases in the image-related parameter $\gamma$.
+
+
+\subsection{Assumptions on social image motivation $\gamma$}
+
+%$\gamma=\gamma(\bm{p},\bm{q})$ is decreasing in $p_h$.???
+
+\begin{assumption}\label{assumption:gamma}
+    $\gamma$ depends only on $q_h$ and is an increasing function. That is, $\gamma=\gamma(q_h)$ and $\gamma'(\cdot)>0$.
+\end{assumption}
+
+The assumption reflects the idea that the sender's concern for reputation increases with the proportion of human receivers. The justification for this is that human senders care primarily about the opinions of human receivers and derive reputation utility from being perceived favorably by them. Bots, whether gen-AI or rule-based, do not influence the sender's reputation concerns.
+
+A special case that satisfies Assumption \ref{assumption:gamma} is $\gamma(\bm{q}) = \alpha q_h$ for some fixed parameter $\alpha>0$. In this case, $\gamma$ depends linearly on the proportion of human receivers.
+
+
+\subsection{Assumptions on social interaction motivation $\lambda$}
+
+\begin{assumption}\label{assumption:lambda}
+    The partial derivatives of $\lambda=\lambda(q_h,q_g,q_r)$ satisfy $\lambda_1(\cdot)>0$, $\lambda_2(\cdot)>0$, and $\lambda_3(\cdot)=0$. Moreover, with $q_r$ fixed, there exists a threshold $q_r^*\in [0,1)$ such that (i) if $q_r<q_r^*$, then $\lambda$ first increases and then decreases in $q_g$ on the segment $[0,1-q_r]$; (ii) if $q_r\geq q_r^*$, then $\lambda$ always decreases in $q_g$ on the segment $[0,1-q_r]$.
+\end{assumption}
+
+The first part of the assumption is justified as follows. First, human receivers enhance the quality and richness of social interactions. They are more likely to provide meaningful discussions, responses, and feedback that contribute to an engaging social media experience. Second, gen-AI receivers also contribute to the interactive environment by generating responses and maintaining activity levels. While their interactions might not be as rich or nuanced as those from human receivers, they offer consistency and availability, ensuring that interactions are sustained. Also, AI can quickly adapt to different topics and provide informative or entertaining content, which can stimulate further engagement from human senders. Lastly, rule-based bots do not increase $\lambda$ because they are typically simplistic and mechanical in their responses. They lack the capability to engage in meaningful interactions. 
+
+The second part of the assumption ensures that there is potential complementarity between human and AI receivers. When the proportion of AI receivers is low, an increase in $q_g$ (equivalently, a decrease in $q_h$), still increases the social interaction value, even though $\lambda_1>\lambda_2$.
+
+A special case that satisfies Assumption \ref{assumption:lambda} is $\lambda(\bm{q}) = \beta_1q_h+\beta_2q_g + \beta_3q_hq_g$, where $\beta_1,\beta_2,\beta_3\geq 0$ are fixed parameters with $\beta_2<\beta_1<\beta_2+\beta_3$. In this case, it is easy to show that $q_r^* = \frac{\beta_3-(\beta_1-\beta_2)}{\beta_3}$. The multiplicative term $q_h q_g$ captures the complementarity between human and AI receivers.
+
+
+
+\textcolor{red}{Not done yet:} how does $\lambda$ depend on $p$? 
+
+
+\subsection{Comparative statics on \texorpdfstring{$\bm{q}$}{q}}
+
+In this subsection, we provide the comparative statics results for the equilibrium outcome $\{a^-,a^+\}$ as the composition of receivers $\bm{q}$ changes. Specifically, we fix the proportion of rule-based bot receivers $q_r$, and then examine how variations in the proportion of gen-AI receivers $q_g$ affect the equilibrium outcome.
+
+
+Proposition \ref{prop:riley_outcome}, together with Assumptions \ref{assumption:gamma} and \ref{assumption:lambda}, leads to the following result.
+
+\begin{proposition}
+    The equilibrium action of the low type $a^-$ is always equal to $\hat{a}(\theta^-,\lambda)$. When $q_r<q_r^*$, $a^-$ first increases and then decreases in $q_g$ on the segment $[0,1-q_r]$; when $q_r\geq q_r^*$, $a^-$ always decreases in $q_g$ on the segment $[0,1-q_r]$.
+
+    The equilibrium action of the high type $a^+$ depends on whether $\theta^+>\theta^*$ or not. When $\bm{q}=(q_h,q_g,q_r)$ falls in the range such that $\theta^+>\theta^*$, then $a^+ = \hat{a}(\theta^+,\lambda)$ and its comparative statics with respect to $q_g$ is the same as $a^-$. When $\bm{q}=(q_h,q_g,q_r)$ falls in the range such that $\theta^+\leq\theta^*$, then $a^+ = \hat{a}(\theta^*,\lambda)$ and its comparative statics with respect to $q_g$ is undetermined due to the complex dependence of $\theta^*$ on $\lambda$ and $\gamma$.
+\end{proposition}
+
+
+To understand and highlight these features, think back to \textbf{Example 1} with additional assumptions about $\gamma$ and $\lambda$.
+
+\paragraph{Example 1 (enriched).} Let $C(a) = \frac{1}{2}a^2$, $\gamma(\bm{q}) = \alpha q_h$, $\lambda(\bm{q}) = \beta_1q_h+\beta_2q_g+\beta_3q_hq_g$ with $\beta_2<\beta_1<\beta_2+\beta_3$. Assume $q_r<q_r^* = \frac{\beta_3-(\beta_1-\beta_2)}{\beta_3}$. There are two cases:
+\begin{itemize}
+    \item[(1)] For $\theta^+>\theta^-+\sqrt{2\gamma} = \theta^-+\sqrt{2\alpha(1-q_r-q_g)}$, we have
+    \begin{align*}
+        a^-&= \theta^-+\big[-\beta_3q_g^2 + (-\beta_1+\beta_2+(1-q_r)\beta_3)q_g+\beta_1(1-q_r)\big],\\
+        a^+ &= \theta^++\big[-\beta_3q_g^2 + (-\beta_1+\beta_2+(1-q_r)\beta_3)q_g+\beta_1(1-q_r)\big].
+    \end{align*}
+    Moreover, $a^-$ and $a^+$ increase in $q_g$ for $q_g\in[0,\frac{q_r^*-q_r}{2}]$ and decrease in $q_g$ for $q_g\in(\frac{q_r^*-q_r}{2},1-q_r]$.
+    \item[(2)] For $\theta^+\leq \theta^-+\sqrt{2\gamma} = \theta^-+\sqrt{2\alpha(1-q_r-q_g)}$, we have
+    \begin{align*}
+        a^-&= \theta^-+\big[-\beta_3q_g^2 + (-\beta_1+\beta_2+(1-q_r)\beta_3)q_g+\beta_1(1-q_r)\big],\\
+        a^+ &= \theta^-+\sqrt{2\alpha(1-q_r-q_g)}+\big[-\beta_3q_g^2 + (-\beta_1+\beta_2+(1-q_r)\beta_3)q_g+\beta_1(1-q_r)\big].
+    \end{align*}
+    Moreover, $a^-$ increases in $q_g$ for $q_g\in[0,\frac{q_r^*-q_r}{2}]$ and decreases in $q_g$ for $q_g\in(\frac{q_r^*-q_r}{2},1-q_r]$. For $a^+$, if $-\frac{\alpha}{\sqrt{2\alpha(1-q_r)}} + (-\beta_1+\beta_2+(1-q_r)\beta_3)\leq 0$, then $a^+$ decreases in $q_g$ for $q_g\in [0,1-q_r]$; otherwise, $a^+$ first increases and then decreases in $q_g$ for $q_g\in[0,1-q_r]$.
+\end{itemize}
+
+
+\subsection{Predictions}
+
+Given the analysis above, we outline the following two theoretical predictions:
+
+\begin{prediction}
+    When the proportion of rule-based bot receivers ($q_r$) is fixed and small, the presence of gen-AI receivers (i.e., $q_r$ becoming positive from zero) often increases a human sender's incentive to invest, resulting in larger $a^-$ and $a^+$.
+\end{prediction}
+
+
+\begin{prediction}
+    When the proportions of human receivers ($q_h$) and gen-AI receivers ($q_g$) are close (i.e., $q_h\simeq q_g$), an increase in $q_h$ (for fixed $q_g$) results in a greater increase in equilibrium actions $a^-$ and $a^+$ than an equivalent increase in $q_g$ (for fixed $q_h$).\footnote{In this case, we allow $q_r$ to vary.} Moreover, $a^+$ increases more than $a^-$ when $q_h$ increases due to the extra reputation effect.
+\end{prediction}
+
+
+\newpage
+\appendix
+\section{Proofs}
+
+\subsection{Proof of Proposition \ref{prop:riley_outcome}}
+
+The derivation of the Riley outcome is already provided in the main text. We only need to prove the comparative statics of the cutoff function $\theta^*(\theta^-,\lambda,\gamma)$ w.r.t. its variables.
+
+Recall that $\theta^*(\theta^-,\lambda,\gamma)$ is defined by the indifference condition 
+\begin{align}
+    (\theta^-+\lambda)\hat{a}(\theta^-,\lambda) - C(\hat{a}(\theta^-,\lambda)) = (\theta^-+\lambda)\hat{a}(\theta^*,\lambda) - C(\hat{a}(\theta^*,\lambda)) + \gamma,
+\end{align}
+By the implicit function theorem, 
+\begin{align}\label{eq:theta^*_derivative}
+    \frac{\partial \theta^*}{\partial \theta^-}(\theta^-,\lambda,\gamma) &= \frac{\hat{a}(\theta^*,\lambda)- \hat{a}(\theta^-,\lambda)}{(\theta^* - \theta^-)\hat{a}_1(\theta^*,\lambda)}>0,\notag\\
+    \frac{\partial \theta^*}{\partial \gamma}(\theta^-,\lambda,\gamma) &= \frac{1}{(\theta^* - \theta^-)\hat{a}_1(\theta^*,\lambda)}>0,\notag\\
+    \frac{\partial \theta^*}{\partial \lambda}(\theta^-,\lambda,\gamma) &= \frac{\hat{a}(\theta^*,\lambda)-\hat{a}(\theta^-,\lambda) -(\theta^*-\theta^-)\hat{a}_2(\theta^*,\lambda)}{(\theta^* - \theta^-)\hat{a}_1(\theta^*,\lambda)}.
+\end{align}
+Note that the curvature of $\hat{a}(\theta,\lambda)$ w.r.t. $\theta$ depends on the curvature of $C(\cdot)$. In particular, if $C'''(\cdot)>0$, then $\hat{a}(\theta,\lambda)$ is strictly concave in $\theta$; if $C'''(\cdot)<0$, then $\hat{a}(\theta,\lambda)$ is strictly convex in $\theta$; if $C'''(\cdot)=0$, then $\hat{a}(\theta,\lambda)$ is linear in $\theta$. Moreover, since $C'(\hat{a}(\theta,\lambda)) = \theta+\lambda$, it must be that $\hat{a}_2(\theta,\lambda) = \hat{a}_1(\theta,\lambda)$. 
+
+Combining the above two observations, and applying Taylor's theorem, we obtain that the numerator in the RHS of (\ref{eq:theta^*_derivative}) is strictly negative if $C'''(\cdot)>0$, strictly positive if $C'''(\cdot)>0$, and zero if $C'''(\cdot)=0$. Therefore, the comparative statics of the cutoff function $\theta^*(\theta^-,\lambda,\gamma)$ w.r.t. $\lambda$ is summarized as follows:
+\begin{align*} 
+    \begin{cases}
+        \frac{\partial \theta^*(\theta^-,\lambda,\gamma)}{\partial \lambda}>0\quad &\text{if }C'''(\cdot)>0,\\
+        \frac{\partial \theta^*(\theta^-,\lambda,\gamma)}{\partial \lambda}<0\quad &\text{if }C'''(\cdot)<0,\\
+        \frac{\partial \theta^*(\theta^-,\lambda,\gamma)}{\partial \lambda}=0\quad &\text{if }C'''(\cdot)=0.
+    \end{cases}
+\end{align*}
+
+
+\section{Partisan Framework}\label{sec:partisan}
+
+In this Appendix, we present a partisan signaling model of social behavior concerning divisive issues such as immigration, gun control, and abortion. This contrasts with the standard non-partisan signaling model of prosocial behavior in Section \ref{sec:nonpartisan}, which addresses actions that are unambiguously perceived as good by all peers. In non-partisan signaling, senders of all types prefer to be perceived as a certain type, whereas in partisan signaling, senders of different types prefer to be perceived as different types.
+
+
+The identity compositions of senders and receivers are the same as those in Section \ref{sec:nonpartisan}: $\bm{p} = (p_h,p_g,p_r)$ and $\bm{q}  (q_h,q_g,q_r)$ are the respective probability measures of different identity groups for senders and receivers.
+
+
+\paragraph{Human agents.} Each human (sender or receiver) has a private ideology type $\theta$, distributed on some interval $[\underline{\theta},\overline{\theta}]$ according to the cumulative distribution function $F$, with $\underline{\theta}<0<\overline{\theta}$. The parameter $\theta$ represents the political leaning of an individual: $\theta<0$ ($\theta>0$) indicates a preference for left-wing (right-wing) ideology. Each human sender chooses an action $a\in \{-1,0,+1\}$: $a=-1$ means participating in a left-wing activity, $a=+1$ means participating in a right-wing activity, and $a=0$ means abstaining or staying neutral.
+
+
+A human sender's non-image utility from action $a$ is
+\begin{align*}
+    \theta a  - c|a| + \lambda |a|
+\end{align*}
+
+$\theta a$ captures the intrinsic payoff from participation. The parameter $c>0$ represents a fixed participation cost. $\lambda |a|$ captures the residual interaction utility from participation that depends neither on $\theta$ nor on perceptions of $\theta$; the parameter $\lambda$ could depend on both $\bm{p}$ and $\bm{q}$, i.e., $\lambda=\lambda(\bm{p},\bm{q})$.
+
+
+
+
+
+
+
+\newpage
+\bibliography{related_lit.bib}
+\bibliographystyle{jpe} 
+
+\end{document}

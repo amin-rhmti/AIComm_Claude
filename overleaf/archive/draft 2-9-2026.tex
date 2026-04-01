@@ -1,0 +1,1137 @@
+%% LyX 2.3.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,notitlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1in,rmargin=1in}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[authoryear]{natbib}
+\onehalfspacing
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\DeclareTextSymbolDefault{\textquotedbl}{T1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{pdflscape}
+
+\setcounter{MaxMatrixCols}{10}
+
+\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
+
+% This gives Roman section numbers
+%\renewcommand{\thesection}{\Roman{section}} 
+%\renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+
+% This gives assumption numbers
+\usepackage{amsmath}  
+%\newtheorem{assumption}{Assumption}
+%\newtheorem{lemma}{Lemma}
+% Scalars
+%\input{../input/results/scalars}
+
+%\usepackage[latin9]{inputenc}
+%\usepackage{geometry}
+%\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\doublespace
+\usepackage{esint}  
+\usepackage[authoryear]{natbib}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{enumerate}
+\makeatletter
+\makeatother
+%\numberwithin{equation}{section} %numbering equation with section number
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usepackage{babel}
+%\usepackage{bbm}
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{\protect\theoremname}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{\protect\theoremname}
+\theoremstyle{definition}
+\newtheorem{definition}{\protect\definitionname}
+\theoremstyle{definition}
+\newtheorem*{definition*}{\protect\definitionname}
+\theoremstyle{assumption}
+\newtheorem{assumption}{\protect\assumptionname}
+\theoremstyle{plain}
+\newtheorem{corollary}{\protect\corollaryname}
+\theoremstyle{plain}
+\newtheorem{lemma}{\protect\lemmaname}
+\theoremstyle{plain}
+\newtheorem{proposition}{\protect\propositionname}
+\theoremstyle{plain}
+\newtheorem{conjecture}{\protect\conjecturename}
+\theoremstyle{definition}%%%12/28/2019
+\newtheorem{remark}{\protect\remarkname}
+\theoremstyle{plain}
+\newtheorem{claim}{\protect\claimname}
+\theoremstyle{plain}
+\newtheorem{fact}{\protect\factname}
+\theoremstyle{plain}
+\newtheorem{result}{\protect\resultname}
+\theoremstyle{plain}
+\newtheorem{observation}{\protect\observationname}
+
+\providecommand{\claimname}{Claim}
+\providecommand{\conjecturename}{Conjecture}
+\providecommand{\corollaryname}{Corollary}
+\providecommand{\lemmaname}{Lemma}
+\providecommand{\definitionname}{Definition}
+\providecommand{\assumptionname}{Assumption}
+\providecommand{\examplename}{Example}
+\providecommand{\factname}{Fact}
+\providecommand{\propositionname}{Proposition}
+\providecommand{\remarkname}{Remark}
+\providecommand{\theoremname}{Theorem}
+\providecommand{\resultname}{Result}
+\providecommand{\observationname}{Observation}
+
+
+\usepackage{subcaption}
+\makeatletter
+\renewcommand{\fnum@figure}{Figure \thefigure}
+\makeatother
+
+%%%%%%%%%%OWN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[font=footnotesize]{caption} 
+
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\supp}{Supp}
+\DeclareMathOperator{\proj}{Proj}
+
+\usepackage{istgame}
+\usetikzlibrary{shapes.geometric,arrows}
+
+\usepackage{xcolor}
+
+\newcommand{\pdfcolor}{blue!85!black}
+\hypersetup{colorlinks=true,linkcolor=\pdfcolor,citecolor=\pdfcolor,urlcolor=\pdfcolor}
+
+
+\usepackage{bm}
+
+\makeatother
+
+\begin{document}
+\title{Opinion Sharing under AI Presence: A Theory and Evidence from Online Interactions}
+
+% Privacy, Social Image, and Online Content Production in the Presence of AI
+
+%When AI Increases Participation: Privacy and Online Content Production
+%AI Agents, Privacy, and Human Participation in Online Content Production
+%Intelligence or Interference? AI and Online Interactions
+
+\author{Elliott Ash, Yichuan Lou, and Lena Song\thanks{Ash: ETH Zurich, ashe@ethz.ch. Lou: UTokyo, yichuanlou@e.u-tokyo.ac.jp.
+Song: University of Illinois Urbana-Champaign, lenasong@illinois.edu.
+We thank Sahil Adane and Amin Rahmati for excellent research assistance. The study
+was approved by Institutional Review Boards at University of Illinois
+Urbana-Champaign (IRB24-0588). This experiment was registered in the American Economic Association Registry for randomized control trials under trial number AEARCTR-0013548. }}
+\maketitle
+\begin{abstract}
+\noindent We study how the presence of artificial intelligence (AI) agents affects human content production in online interactions. Building on the signaling approach of \cite{BenabouTirole:06}, we develop a theoretical framework of social interaction, in which a human sender with both social image concerns and disclosure concerns composes messages for a human receiver. The model characterizes conditions under which the presence of AI co-senders alters human behavior. It predicts that disclosure concerns reduce participation in content production, but that the presence of AI can increase participation by mitigating these concerns. We test the model's predictions using an online survey experiment. The results are consistent with the theory: the effect of AI presence on participation depends critically on whether the sender's identity may be disclosed. When identity disclosure is possible, the presence of AI increases participation, consistent with reduced disclosure concerns. In contrast, when senders remain anonymous, AI presence has no effect or reduces participation, potentially due to diminished signaling value. These effects are more pronounced for women than for men. Our findings contribute to ongoing debates about the societal impact of AI by showing that AI can reshape content production not only through machine-generated content, but also by altering the incentives and disclosure considerations of human contributors.
+
+\end{abstract}
+
+\medskip{}
+
+--------------------------------------------------------------------------------
+
+\textbf{Preliminary draft - please do not distribute}
+
+\begin{comment}
+Use latex comment fields for documenting sources of all claims and
+numbers in the text. These never get removed.
+\end{comment}
+
+\medskip{}
+\doublespacing 
+
+\newpage{}
+\begin{quote}
+\begin{flushright}
+\textit{``On the Internet, nobody knows you're a dog.'' -- The New
+Yorker, 1993 }
+\par\end{flushright}
+\end{quote}
+
+\section{Introduction} 
+
+% increase in public awareness of AI 
+
+In November 2022, ChatGPT, an online chatbot powered by generative
+artificial intelligence (gen-AI), went viral. It demonstrated unprecedented
+abilities in understanding and generating natural language, engaging
+users with coherent and contextually relevant conversations. By May
+2024, over a hundred million people were using ChatGPT every week.\footnote{https://openai.com/index/gpt-4o-and-more-tools-to-chatgpt-free/}
+This revolutionized public perception of AI's capabilities, sparked
+debates about its societal implications, and drew scrutiny from regulators.
+For example, in October 2023, the US government issued an executive
+order on the safe, secure, and trustworthy development and use of
+AI, noting guidance for AI management as ``generative AI products
+become widely available and common in online platforms.''\footnote{https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/} 
+
+% AI and social media 
+
+One type of online platform likely to be significantly impacted is
+social media (\citealt{aridor2024economics}; \citealt{cookson2024}).
+There are concerns about AI's role in generating and spreading misinformation
+and toxic content online, and whether it poses a threat to election
+security.\footnote{https://www.cbsnews.com/news/generative-ai-threat-to-election-security-federal-intelligence-agencies-warn/}\textsuperscript{,}\footnote{https://www.theatlantic.com/technology/archive/2023/05/generative-ai-social-media-integration-dangers-disinformation-addiction/673940/}\textsuperscript{,}\footnote{https://www.weforum.org/agenda/2024/01/ai-democracy-election-year-2024-disinformation-misinformation/}
+At the same time, more optimistic narratives suggest that AI could
+make online conversations more civil.\footnote{https://hbr.org/2024/03/genai-could-make-online-conversations-more-civil}\textsuperscript{,}\footnote{https://www.newscientist.com/article/2398407-hundreds-of-chatbots-could-show-us-how-to-make-social-media-less-toxic}
+Social media platforms appear to be cautiously embracing this change,
+incorporating generative AI. Meta, for example, introduced AI personas
+on WhatsApp, Messenger, and Instagram.\footnote{https://about.fb.com/news/2023/09/introducing-ai-powered-assistants-characters-and-creative-tools/ } 
+
+% role of AI in online interactions 
+
+This paper explores the effects of AI presence on the content production
+of human users on social media. As social media platforms evolve with
+the introduction of AI agents by both platforms and users, the nature
+of social interactions and user engagement could fundamentally change.
+On the one hand, AI has the capability to generate high-quality content
+at a very low cost, potentially enhancing online engagement. On the
+other hand, if users value interacting with real humans, the difficulty
+in discerning between human and AI-generated content could discourage
+their participation on these platforms. 
+
+% model 
+
+We first develop a parsimonious theoretical framework for social interactions,
+following the signaling approach in \citet{BenabouTirole:06}. In
+this framework, human senders can interact with three distinct types
+of receivers: humans, rule-based bots, and AI bots.\footnote{The presence of bots on social media is not a new phenomenon. \citet{Varol_Ferrara_Davis_Menczer_Flammini_2017},
+for example, showed the prevalence of bots on Twitter during the 2010s.
+We distinguish between traditional rule-based bots and technologically
+sophisticated conversational AI bots, in order to isolate the unique
+effects of AI agents. }  A human sender has private information about her type and chooses
+a contribution level. She maximizes her utility, which consists of
+intrinsic utility from contribution, social interaction utility and
+a reputation component. In the only equilibrium outcome that survives
+the Intuitive Criterion (\citealp{ChoKreps:87}), a high type sender
+will choose higher contribution than her lower type counterpart. However,
+in the presence of AI, this contribution is reduced because of diminished
+reputational concerns.  That is, the mere presence of AI could decrease
+engagement because people are motivated to signal their type to other
+humans, not to bots.
+
+% design 
+
+In a survey experiment guided by our conceptual framework, we examine
+how the presence of AI agents influences content production and willingness
+to engage on social media. Distilling social media to its elements,
+the experiment involves participants acting as senders who compose
+messages for a group of receivers, who can respond with reactions
+and replies. We experimentally vary the audience composition---ranging
+from humans with differing ideologies, to rule-based bots, and AI
+bots---to explore how this affects the sender's beliefs and behavior.
+We measure the effects of AI interaction on human investment in content
+production and engagement behaviors, as well as on their expectations
+of interaction quality.
+
+% results 
+
+Preliminary findings from a pilot suggest that human senders generally
+have a positive perception of AI receivers. They believe AI receivers
+are more responsive than human receivers of any ideology, and that
+they provide higher quality replies. However, at the same time, senders
+exert less effort in composing messages shared with AI receivers,
+which may be partly driven by reduced image concerns in the presence
+of AI.  This suggests that even when AI is perceived as high-quality,
+its presence could still reduce overall engagement in the context
+of online communications.
+
+% social implications 
+
+These results have implications for how online interactions will evolve
+as perceptions change about AI presence on social media. By late 2023,
+awareness of generative AI had significantly increased, with 63\%
+of respondents indicating they had heard of ChatGPT \citep{loewen2024}.
+This evolving public awareness and perception of AI will have significant
+impacts on online platforms. The findings suggest that the mere \textit{perceived}
+presence of AI on online communications -- where distinguishing between
+human and machine is challenging -- can significantly influence beliefs
+and behaviors. Even if AI is viewed positively, perceptions of its
+presence can interefere with engagement in digital communication environments.
+
+% related literature 
+
+This paper contributes to the growing body of literature on content
+production on social media. As reviewed in \citet{aridor2024economics},
+various nonmonetary incentives, including intrinsic or altruistic
+motives, reputation, attention, feedback, and persuasion, drive content
+production. The most closely related paper is \citet{srinivasan2023},
+who finds that randomly allocating AI-generated replies to Reddit
+posts increases content production of producers. In Srinivasan (2023),
+there are diminishing returns to adding AI replies, potentially because
+they are of lower quality or diversity than human replies.Accordingly,
+our preliminary results suggest that even when responses are perceived
+as high quality, engagement could still decrease if the sender believes
+the receivers are AI bots rather than humans.
+
+A related literature in experimental economics has explored human-AI
+interaction \citep{chugunova2022we}. For example, \citet{marechal2020}
+show that people are more likely to cheat when they are interacting
+with machines rather than humans. \citealt{bogliacino2023} find that
+when participants have the option to use ChatGPT-generated promises,
+they make promises more often but earn less trust, leading to outcomes
+that are comparable to those seen in human-only communications. 
+
+Building on \citet{Bernheim:94} and \citet{BenabouTirole:06}, our
+theoretical framework adopts a signaling approach to social interactions,
+where individuals are concerned with how they are perceived by others
+and thus behave strategically to influence those social perceptions.
+We innovate in two key aspects. First, in our framework, individuals
+care about how they are perceived by different identity groups (humans,
+gen-AI bots, and rule-based bots) and hence assign different weights
+to each group in their reputation utility.  Second, in addition to
+intrinsic utility and reputation utility, our model introduces a third
+component, social interaction utility, to capture the utility derived
+from engaging with others on social media that is independent of the
+individual's true or perceived type. This component highlights the
+social benefits of interaction, distinct from inherent satisfaction
+or reputation. In Appendix \ref{sec:partisan}, we extend our basic
+framework to behavior regarding divisive issues (e.g., gun control,
+abortion, health care, etc), where there is disagreement on what constitutes
+``good'' and ``bad'' behavior. Relatedly, see \citet{PerezCruces:17}
+and \citet{Tirole:23}. \textcolor{red}{[privacy literature...]}
+
+On the empirical side, reputational or social image concerns on social
+media have been shown to influence behaviors such as misinformation
+sharing (\citealt{guriev2023}) and protests (\citealt{enikolopov2020social}).
+These concerns have been incorporated into models of online misinformation
+(e.g., \citealt{siderius2023}). Our paper explores how the rapid
+evolution of technology, specifically advancements that make machines
+indistinguishable from humans online, mediates these important drivers
+of human behavior.
+
+% need to add more in these last two paragraphs on lit review 
+
+The rest of the paper is structured as follows. Section 2 outlines
+the theoretical framework. Section 3 describes the experimental design.
+Section 4 presents the results. Section 5 concludes. 
+
+
+
+%\newpage
+
+\section{Theoretical Framework}\label{sec:nonpartisan}
+
+\subsection{Model}
+
+The model builds on the large theoretical and empirical literature that explains prosocial behavior as the outcome of intrinsic motivation, participation costs, and social image concerns. We extend this framework to an environment in which human agents coexist with automated agents whose actions may be observationally indistinguishable from human behavior. Two features are central. First, we allow for non-human agents---generative AI and rule-based bots---that can take the same participation action as humans (e.g., posting content and contributing messages), thereby diluting the informational content of participation. Second, beyond standard social image concerns, we incorporate privacy concerns: conditional on being perceived as human, participation may entail an additional utility cost arising from potential identity leakage. Together, these features capture how the presence of bot agents reshapes the incentives for human participation in prosocial activities.
+
+
+\paragraph{Agents, types, and actions.} There is a continuum of agents. Each agent belongs to one of the three identity groups: humans ($h$), generative-AI bots ($g$), and rule-based bots ($r$). Let $(p_h,p_g,p_r)$ denote the population shares, with $p_h+p_g+p_r=1$.
+
+Human agents have private type $v\in[\underline{v},\overline{v}]$, interpreted as intrinsic motivation to participate. The prior distribution of $v$ is $F$, which we assume to be continuous. Each human agent makes a binary decision: $a\in \{0,1\}$, where $a=1$ represents participation and $a=0$ represents abstention. Participation entails a cost $c>0$. If a human agent abstains, she receives outside option $u_0\in\mathbb R$. If she participates, she receives \textit{direct utility} $v-c$ plus an indirect payoff that depends on how observers interpret participation.
+
+Bots do not have private types. A generative-AI bot chooses $a=1$ with probability $\alpha\in(0,1)$ and takes a detectable action $a_g\notin\{0,1\}$ with probability $1-\alpha$. A rule-based bot always takes a detectable action $a_r\notin\{0,1\}$. Detectable actions are interpreted as non-human and thus never pooled with human participation/abstention.
+
+
+\paragraph{Information, beliefs, and payoffs.} Observers see the realized action. If they observe a detectable action ($a_g$ or $a_r$), they assign probability one to the agent being a bot. The interesting inference problem arises after observing participation $a=1$, which can be generated by humans and, with probability $\alpha$, by generative-AI bots. Let $P(h\mid a=1)$ denote the perceived probability that a participant is human. 
+
+For human agents, participation has reputational consequences beyond its direct payoff. As in \cite{BenabouTirole:06}, participation can serve as a signal of prosocial motivation and thus generate social approval: observers who attribute the action to a human may update upward their assessment of the agent's intrinsic motivation. At the same time, participation may expose the agent to unwanted inference about her identity or traits, giving rise to a reputational cost. In our setting, both the approval benefit and the privacy cost are belief-based and thus are relevant only insofar as the participant is believed to be human; if participation is attributed to a non-human sender, neither prosocial credit nor privacy exposure is at stake.
+
+
+
+
+Let $\mu\ge 0$ denote the strength of image concerns and $\gamma\ge 0$ the strength of privacy concerns. The \textit{indirect/reputational utility} from participation for a human is
+\begin{align*}
+    P(h\mid a=1)\big[\mu E(v\mid a=1) - \gamma\big]
+\end{align*}
+Intuitively, participation yields an image benefit from being perceived as prosocial, but also entails a privacy cost from being exposed; both are scaled by the likelihood that the participant is human. Thus, a human of type $v$ who participates obtains total utility
+\begin{align}
+    v-c+P(h\mid a=1)\big[\mu E(v\mid a=1) - \gamma\big]
+\end{align}
+
+If instead the human agent abstains, she receives her outside option with value $u_0$, which is independent of beliefs and carries no endogenous reputational payoff. Our key modeling assumption is therefore that indirect payoffs arising from social image and privacy concerns are attached only to participation, not to abstention. In \cite{BenabouTirole:06}'s binary-action framework, each publicly observed action carries a reputational payoff, with ``honor" from participating and ``stigma" from abstaining. By contrast, in our setting abstention is interpreted as \emph{non-observation}: if an agent does not post, there is no observable object for observers to assess and no individual-level identity inference triggered by the absence of content. Consequently, only participation generates image and privacy payoffs.
+
+Using the payoffs derived above for participation and abstention, a human agent participates whenever $v\geq u_0+c - P(h|a=1)\big[\mu E(v|a=1) - \gamma\big]$.
+
+
+\paragraph{Timing and equilibrium.} Nature first draws the agent's identity. If the agent is human, nature further draws the human agent's type $v$. The agent then chooses an action. Observers update beliefs using Bayes' rule whenever possible. A (Perfect Bayesian) equilibrium consists of (i) a strategy for each human type and (ii) beliefs over identity and, conditional on being human, over type $v$, such that strategies are optimal given beliefs and beliefs are Bayes-consistent on path.\footnote{Unlike in standard signaling games, off-the-equilibrium-path beliefs are immaterial in this environment and therefore need not to be refined \`a la \cite{ChoKreps:87}. When full participation ($a=1$) occurs on path, a human agent's deviation to $a=0$ does not generate any image or privacy payoff, so beliefs (over both identity and value $v$) following $a=0$ are payoff-irrelevant. When no participation ($a=0$) occurs on path, the action $a=1$ remains on path because gen-AI bots take $a=1$ with positive probability. In this case, following a deviation by a human agent, $P(h|a=1)$ remains zero, so the indirect payoff is again null.}
+
+
+Because only participation can be pooled between humans and generative-AI bots, the equilibrium characterization is conveniently expressed in terms of the participation cutoff $v^*$ and the posterior probability that a participant is human. In any cutoff equilibrium with threshold $v^*$, human agents participate if and only if $v\geq v^*$, so $\mathbb{E}[v\mid a=1] = \mathbb{E}[v\mid v\geq v^*]$. Define the \textit{net image-privacy surplus} conditional on being perceived as human by $T(v^*)\triangleq \mu E(v\mid v\geq v^*) - \gamma$. Let $\rho\triangleq\frac{p_g}{p_h+p_g}$ denote the share of generative-AI bots among agents whose actions may be confounded with human participation. Under a cutoff strategy at $v^*$, Bayes' rule implies that the posterior probability a participant is human is $\pi(v^*)\triangleq P(h\mid a=1) =  \frac{(1-\rho)(1-F(v^*))}{\rho \alpha + (1-\rho)(1-F(v^*))}$. Given a candidate cutoff $v^*$, a human type $v$ prefers participation if and only if $v-c+\pi(v^*)T(v^*)\geq u_0$. 
+
+
+Define the operator $\Phi(v)\triangleq v - c + \pi(v)T(v)$, where $\pi(v)T(v)$ captures the indirect payoff from participation through prosocial image and privacy channels. We say that participation decisions exhibit \textit{strategic complementarity} if $(\pi(v)T(v))'<0$ and \textit{strategic substitutes} if $(\pi(v)T(v))'>0$. To see the intuition, note that a marginal expansion of participation corresponds to a decrease in the cutoff $v$. When $(\pi(v)T(v))'<0$, lowering the cutoff improves the indirect value of participation, as the participation pool becomes more favorable in terms of perceived human identity and expected type. As a result, an increase in participation raises the indirect payoff from participation, giving rise to strategic complementarity. When $(\pi(v)T(v))'>0$, an expansion of participation instead lowers the indirect payoff, yielding strategic substitutability. The sign and magnitude of $(\pi(v)T(v))'$ further determine equilibrium stability. Since $\phi'(v) = 1+(\pi(v)T(v))'$, the response of marginal types to a small expansion of participation depends on whether the induced change in the indirect payoff is strong enough to offset the decline in intrinsic motivation at the margin. When $(\pi(v)T(v))'<-1$, the the increase in the indirect payoff dominates the loss in intrinsic motivation, so marginal types in $[v^*-\diff v,v^*]$, who initially preferred to abstain, now strictly prefer to participate. This self-reinforcing feedback leads to further participation and continued improvement of the participation pool, implying that only corner equilibria are locally stable. By contrast, when $(\pi(v)T(v))'>-1$, either complementarity is too weak or participation decisions are strategically substitutable, the improvement in the indirect payoff is insufficient to overturn the marginal loss in intrinsic motivation. As a result, types just below the cutoff continue to prefer abstention following a small expansion of participation, and the interior cutoff equilibrium is locally stable.
+
+We henceforth impose $\Phi'(v)>0$ on $(\underline v,\overline v)$ to ensure a unique stable equilibrium. This condition is always satisfied when participation decisions are strategic substitutes, or when they are strategic complements but the complementarity is sufficiently weak so that the induced increase in the indirect payoff does not outweigh the marginal decline in intrinsic motivation.
+
+\begin{proposition}\label{prop:equilibrium}
+    There is a unique equilibrium:
+    \begin{itemize}
+        \item[(i)] If $u_0\in(\Phi(\underline{v}),\Phi(\overline{v}))$, then $a=0$ for $v\in[\underline{v},v^*)$ and $a=1$ for $(v^*,\overline{v}]$, where $v^*$ uniquely solves $\Phi(v^*)=u_0$.
+        \item[(ii)] If $u_0\geq\Phi(\overline{v})$, then $a=0$ for all $v\in[\underline{v},\overline{v}]$.
+        \item[(iii)] If $u_0\leq \Phi(\underline{v})$, then $a=1$ for all $v\in[\underline{v},\overline{v}]$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    Consider a candidate cutoff $v^*$. The marginal type $v^*$ is indifferent between participation and abstention if and only if $u_0 = \Phi(v^*)$. Under the assumption that $\Phi'(v)>0$ on $(\underline v,\overline v)$, the equation $\Phi(v)=u_0$ has at most one solution. If $u_0\in(\Phi(\underline v),\Phi(\overline v))$, existence of a solution $v^*\in(\underline v,\overline v)$ follows from continuity and the intermediate value theorem, and uniqueness follows from strict monotonicity, establishing (i). If $u_0\ge \Phi(\overline v)$, then $\Phi(v)\le u_0$ for all $v$, so no type strictly prefers participation; thus $a=0$ for all $v$, establishing (ii). The argument for (iii) is symmetric.
+\end{proof}
+
+
+
+
+\subsection{Key Predictions}
+
+
+%The presence of Gen-AI receivers could increase or decrease human sender's incentive to invest, depending on the functional form of $\lambda(\cdot)$. 
+
+% we don't need to outline these 3 predictions. but for whatever predictions we keep we should have a test for it in the empirical section. E.g., for this prediction can we say more here, to make the prediction testable empirically?
+
+
+In an interior equilibrium, the cutoff $v^*$ satisfies
+\[
+u_0=v^*-c+\pi(v^*)T(v^*)
+\]
+where
+$\pi(v^*) = \frac{(1-\rho)(1-F(v^*))}{\rho \alpha + (1-\rho)(1-F(v^*))}$ is the posterior probability that a participant is human, and $T(v^*)=\big[\mu E(v\mid v\geq v^*) - \gamma\big]$ is the net image-privacy surplus conditional on being perceived as human. The product $\pi(v^*)T(v^*)$ highlights that the indirect payoff from participation depends on two components: how likely participation is to be attributed to a human, and how valuable it is to be perceived as human. Within $T(v^*)$, we refer to $\mu E(v\mid v\geq v^*)$ as the ``honor"  conferred by participation, capturing the image benefit from being perceived as intrinsically motivated to contribute, and to $\gamma$ as the ``exposure" cost, reflecting the disutility from potential identity exposure induced by participation. 
+
+We now describe how the equilibrium cutoff $v^*$ responds to changes in the environment. The effect of gen-AI bots operates through \textit{dilution}: an increase in either $\rho$ (a higher share of generative-AI bots) or $\alpha$ (a higher probability that bots mimic participation) makes participation a noisier signal of human identity, thereby lowering $\pi(v^*)$. Whether the dilution discourages or encourages human participation depends on whether honor or exposure is the dominant reputational concern. When honor dominates exposure ($T(v^*)>0$), participation is on net rewarding conditional on being human, so dilution weakens the indirect benefit from participation, making participation less attractive and raising the cutoff $v^*$. When exposure dominates honor ($T(v^*)<0$), participation is on net costly conditional on being human, so dilution instead attenuates this indirect loss, making participation more attractive and lowering the cutoff $v^*$.
+
+By contrast, the parameters $\mu$ and $\gamma$ affect the equilibrium more directly by shifting the value of being perceived as human. An increase in $\mu$ raises the honor associated with participation, increasing $T(v^*)$ and thereby lowering the cutoff $v^*$. An increase in $\gamma$ raises exposure, reducing $T(v^*)$ and thereby increasing the cutoff $v^*$.
+
+The following proposition summarizes these comparative statics.
+
+
+\begin{proposition}[Comparative Statics on $v^*$]\label{prop:comparative_statics}
+    Let $v^*\in (\underline{v},\overline{v})$ be an interior equilibrium. 
+    \begin{itemize}
+        \item[(i)] An increase in $\rho$ or $\alpha$ dilutes the likelihood that a participant is human ($\pi(v^*)$ decreases). If the net image-privacy surplus $T(v^*)>0$, this lowers the indirect payoff from participation and therefore increases the cutoff $v^*$. If $T(v^*)<0$, the same dilution attenuates the (negative) indirect payoff and therefore decreases the cutoff $v^*$.
+        \item[(ii)] An increase in prosocial concern $\mu$ raises $T(v^*)$, increasing the indirect payoff from participation and thereby decreasing the cutoff $v^*$.
+        \item[(iii)] An increase in privacy concern $\gamma$ lowers $T(v^*)$, decreasing the indirect payoff from participation and thereby increasing the cutoff $v^*$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    For an interior equilibrium, $v^*$ solves the indifference condition
+    \[
+    u_0=\Phi(v^*)=v^*-c+\pi(v^*)T(v^*).
+    \]
+    Since $\Phi'(v^*)>0$, the implicit function theorem applies and yields, for any parameter $\theta$,
+    \[
+    \frac{\partial v^*}{\partial \theta}=-\frac{\partial_\theta\Phi(v^*)}{\Phi'(v^*)},
+    \]
+    so the sign of $\partial v^*/\partial\theta$ is the opposite of the sign of $\partial_\theta\Phi(v^*)$.
+    
+    \emph{(i) $\theta = \rho,\alpha$.} The parameters $\rho$ and $\alpha$ enter $\Phi$ only through $\pi(\cdot)$. Hence
+    \[
+    \partial_\rho\Phi(v^*)=T(v^*)\,\partial_\rho\pi(v^*),\qquad
+    \partial_\alpha\Phi(v^*)=T(v^*)\,\partial_\alpha\pi(v^*).
+    \]
+    From the expression $\pi(v) = \frac{(1-\rho)(1-F(v))}{\rho \alpha + (1-\rho)(1-F(v))}$, we have $\partial_\rho\pi(v^*)<0$ and $\partial_\alpha\pi(v^*)<0$ (a higher gen-AI bot share or a higher mimicry rate lowers the posterior probability that a participant is human). It follows that $\partial_\rho\Phi(v^*)$ and $\partial_\alpha\Phi(v^*)$ have the opposite sign of $T(v^*)$, implying that $\partial v^*/\partial\rho$ and $\partial v^*/\partial \alpha$ have the same sign as $T(v^*)$. This establishes (i).
+    
+    \emph{(ii) $\theta=\mu$.} The parameter $\mu$ enters $\Phi$ only through $T(v^*)=\mu\,E[v\mid v\ge v^*]-\gamma$. Thus
+    \[
+    \partial_\mu\Phi(v^*)=\pi(v^*)\,\partial_\mu T(v^*)=\pi(v^*)\,E[v\mid v\ge v^*]>0,
+    \]
+    so $\partial v^*/\partial\mu<0$.
+    
+    \emph{(iii) $\theta=\gamma$.} Similarly,
+    \[
+    \partial_\gamma\Phi(v^*)=\pi(v^*)\,\partial_\gamma T(v^*)=-\pi(v^*)<0,
+    \]
+    so $\partial v^*/\partial\gamma>0$.
+\end{proof}
+
+
+\section{Experimental Design\label{sec:Design}}
+
+\subsection{Design Overview}
+
+\paragraph{Recruitment.} We recruited via the University Registration Center for Study (UAST) at ETH Zurich and the University of Zurich . The inclusion criteria are: aged 18+ and a current student at University of Zurich or ETH Zurich. The survey was administered online in batches, with participants required to complete it within a fixed time window.
+
+\paragraph{Survey Overview.} The survey begins with a screener, informed consent, demographic questions, and baseline measures of attitudes toward climate change. Participants also respond to an open-ended question about climate change, which provides a baseline measure of key outcome variables (e.g., message
+length). In addition, participants report their social media usage and are given an opportunity to donate to a charity, providing a behavioral measure of prosocial tendencies related to climate change. Donation behavior is elicited through a lottery, following prior work (e.g., \citealt{song2024} and \citealt{alesina2023immigration}; see \citealt{stantchevasurveys2023} for a review). This approach allows us to measure the extent to which participants are willing to donate, if at all, to organization working on issues of climate change. For a full list of the survey instruments, see Appendix \ref{app:SurveyInstrument}. 
+
+
+To ensure shared understanding of key concepts, we include a brief explanation of the differences between traditional rule-based bots and conversational generative AI (Gen-AI) bots. We defined rule-based bots as having ``a specific, limited functionality, and it is easy to distinguish them from humans.'' In contrast, we described generative AI bots as ``difficult to distinguish from humans.'' 
+
+
+Furthermore, in case the participant was unfamiliar with the capabilities of GPT-powered AI bots, we provided two excerpts discussing the importance of donating to a charitable cause -- one written by a human and the
+other by GPT-powered AI bot -- which are hard to differentiate in terms of whether they were written by a human or AI. We also provide an example excerpt from a rule-based bot. To further familiarize participants with these concepts and to elicit baseline attitudes and behavior, we collect measures of participants' baseline usage of and familiarity with bots, as well as their preferences for interacting with humans, rule-based bots, or Gen-AI bots. These measures are elicited separately in the contexts of customer service and social media.
+
+
+
+Participants then complete a reading task in which they read two posts, presented one at a time, and report their reactions as well as whether they believe the author is a human, a rule-based bot, or a Gen-AI bot. The description of the message pool from which the posts are drawn (either consisting entirely of human-written posts or a mix that is mostly AI-generated) varies across the two questions. Both posts are written by humans,\footnote{We use a human-written post to mimic the design in the writing task, and to avoid deception, as a post can be human-written in both conditions.}, and the order in which the post texts are shown is randomized. This design allows us to assess whether participants can distinguish between human- and AI-generated posts and how labeling the message pool influences participants' perceptions of the posts.
+
+All participants complete an attention check. Those who indicate that they use Instagram are asked whether they would like to provide their Instagram handle, which is incentivized through entry into a CHF 100 lottery.
+
+After completing these baseline questions, participants are presented with a writing task and then complete a set of questions related to this task for the remainder of the survey.
+
+
+\paragraph{Writing Task.}
+
+In the writing task, participants are instructed to submit a short text response, with the understanding that their response may be shared in a future online survey. They are told that a future participant may read and react to their response.
+
+
+The prompt reads as follows:
+\begin{quote}
+\textit{We have a writing task for you. For this task, we invite you to write a post on the following topic:}
+\\
+\\
+\textbf{How can you and other students in Zurich contribute to combating climate change in their daily lives?}
+\end{quote}
+
+Participants are informed that their response will be added to a database that will be used in a follow-up survey with ETH/UZH students. In the follow-up survey, each post has a 1-in-20 chance of being randomly selected, and recipients will carefully read the selected posts and report their opinions about both the author and the post.\footnote{To isolate the effects of social image and disclosure concerns, participants do not receive any response from the recipient. This design eliminates interaction effects and focuses attention on the sender's incentives and beliefs about how others will perceive them.}
+
+
+
+
+\paragraph{Randomization. }
+
+In a between-subjects design, participants who arrive at the writing task are cross-randomized along two dimensions: the composition of the co-senders and the identity disclosure condition.
+
+The primary experimental manipulation is the composition of the message pool: participants are randomized with equal probability into either a condition where their message will be pooled exclusively with human-written messages or a condition where it will be pooled with a mix of human and AI-generated content. This design allows us to examine whether the presence of AI alters how people choose to communicate and express their opinions.
+
+In the No-AI condition, participants see the following:
+
+\begin{quote}
+\textit{Your response will be added to a database of student-written posts. We will use this database in a follow-up survey with ETH/UZH students, where each post has a 1 in 20 chance of being randomly selected. In this follow-up survey, recipients will carefully read your post and share their opinion about both you and your post. They will be informed that the post is drawn from a database of 
+student-written posts.}
+\end{quote}
+
+In the AI condition, participants see the same message, with the only difference being that the two instances of ``student-written posts'' are replaced by ``75\% AI-generated posts and 25\% student-written posts.''
+
+
+Participants are independently randomized into one of two identity conditions. In the identified condition, participants are informed that, upon completing the writing task, their first name (and Instagram handle, if provided), university, major, and year of study will be displayed alongside their response in the follow-up survey. In the anonymous condition, participants are informed that their response will be shared with information about their university, major, and year of study, but without any identifying information. To ensure that AI-generated posts cannot be easily distinguished from human-generated posts, participants are informed that, if an AI-generated post is selected, it will be presented using the credentials of a member of the research team, without disclosing that it was generated by AI. 
+
+
+The main difference between the identified and anonymous conditions is the disclosure of personal identifiers. For participants who did not provide an Instagram handle, only their first name is disclosed in the identified condition; for those who did, both their first name and handle are disclosed. These additional details are intended to heighten participants’ concerns about others’ beliefs, consistent with the methodology in \citet{Henry2017MeasuringIC}. To maximize statistical power for testing predictions in the identified condition, participants are randomized such that 80\% are assigned to the identified condition and 20\% to the anonymous condition.
+
+
+\paragraph*{Quality control. }
+
+Beyond including an attention check, we implement several measures to encourage effort in the writing task. Participants are instructed to complete the task in one sitting:
+
+Participants were instructed to complete the writing task in one sitting:
+\begin{quote}
+\textit{Please complete this task in one session and avoid switching to other browser tabs, windows, or engaging in other activities until you finish.}
+\end{quote}
+
+If participants switch to another browser tab during the writing task, they receive a pop-up reminder instructing them not to do so. In addition, we disable copy-and-paste functionality in the writing task to reduce the likelihood that participants rely on external tools, such as ChatGPT, to complete the survey. We also monitor tab switching during the survey, which allows us to detect whether participants navigate to other browser tabs while completing the task.
+
+\subsection{Outcome Variables\label{subsec:Outcome-Variables}}
+Our primary outcome is whether a participant completes the survey. Given the very low attrition elsewhere in the survey, this behavioral outcome captures a binary measure of participation in content production and opinion sharing. Because participants complete an extensive baseline questionnaire before reaching the writing task, and attrition is typically low in laboratory-style samples such as ours, non-completion reflects a meaningful decision to forgo a CHF 10 participation payment as well as potential lottery payments.
+
+In addition to survey completion, we present results on two alternative measures of participation -- the length of the written response and whether the response constitutes meaningful engagement with the prompt, as classified using a GPT-based label. These secondary measures capture variation in effort and intensity in content production and opinion sharing.
+
+
+\subsection{Sample}
+We recruited approximately 1,075 current students from ETH Zurich and the University of Zurich in 2025. The sample is close to gender-balanced, with a median age of 23, and around half of participants report Switzerland as their country of origin.
+% add summary stat 
+
+
+
+\paragraph{Pre-registration}
+
+The pre-analysis plan specifies the experimental design, outcome variables, estimating equations, and moderators. 
+
+we pre-specified Our primary outcome is the effort participants put into content production
+during the writing task,
+Deviation from the PAP
+In both identity conditions, after submitting their message, participants
+are given the opportunity to pay to have their response removed from
+the message pool. We use a Becker-DeGroot-Marschak (BDM) mechanism
+to elicit an incentive-compatible valuation of how much participants
+are willing to pay to have their post removed. This enables us to
+assess how the presence of AI in the message pool affects participants'
+willingness to keep their own message private. 
+
+At the end of the survey, we include questions designed to elicit
+potential mechanisms, such as the strength of participants' signaling
+motives.We use the Becker--DeGroot--Marschak method (\citealp{becker1964measuring})
+to elicit an incentive-compatible response. 
+
+\section{Results\label{sec:Results}}
+
+\subsection{Results}
+
+
+\begin{figure}%[H]
+\caption{Reading Task - Guessing Writer in Presence of AI \label{fig:read1}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/GuessWriterAI_Dist.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows the distribution for guesses in reading task}{\small\par}
+\end{figure}
+
+% Reading task: Here is a potential social media post, drawn from a pool of four posts from 1 climate-conscious humans, and 3 GPT-powered Gen-AI bots. They were then asked to guess if the text was written by a human, a rule-based bot, or a Gen AI bot. the results are in Figure xx. 
+
+% 1. AI and human writers are hard to distinguish. When participants are asked to guess who wrote a post, when the post is drawn from a pool of four posts from 1 climate-conscious humans, and 3 GPT-powered Gen-AI bots. Many people guessed that it is AI written, when it was human-written.
+
+% ---- this is useful since human senders (who went through this reading task) understands that their writing may be mistaken as AI.
+
+\paragraph{Reading Task and Perceptions of Authorship.}
+As part of the experimental protocol, participants completed a reading task designed to assess their ability to distinguish between human- and AI-generated content. Participants were shown a single potential social media post on a climate-related topic. The post was randomly drawn from a pool of four texts, consisting of one post written by a climate-conscious human and three posts generated by GPT-powered AI agents. After reading the post, participants were asked to guess whether the text had been written by a human, a rule-based bot, or a generative AI system. The distribution of responses is shown in Figure \ref{fig:read1}.
+
+The results indicate that human and AI authorship is difficult for readers to distinguish in this setting. A substantial fraction of participants classified human-written posts as AI-generated. In other words, even when a post was produced by a human author, readers frequently inferred that it was written by a generative AI system. This misclassification occurs despite the fact that the human posts were produced by climate-conscious individuals rather than by automated or scripted systems.
+
+This finding is important for interpreting subsequent behavior in the experiment. Human senders who participate in the reading task are made aware that their writing may plausibly be mistaken for AI-generated content by others. As a result, the presence of AI in the environment does not merely add machine-generated messages. It also changes the informational and reputational context in which humans communicate. In particular, the possibility that human content may be perceived as AI-generated weakens the link between authored content and personal identity, which is a key channel through which disclosure concerns operate in the theoretical framework.
+
+
+Writing task: Your response will be added to a database of 75\% AI-generated posts and 25\% student-written posts. 
+
+2. key predictions of the model
+\begin{itemize}
+    \item Identified decreases participation
+    \item under identified AI increase participation
+    \item under not identified, AI does not increase participation  
+\end{itemize}
+Discuss how outcome variable is a hard outcome. people already did a lengthy baseline set of questions and they are quitting late. Attrition usually low on these surveys (as evident in the not-identified conditions) 
+
+3. Robustness - use GPT to measure people writing something meaningful, look at log text length 
+
+4. Heterogeneity by privacy concern
+(and say there is not much variation by image concern) -- impact is larger for those with higher privacy concerns (true both in the full sample, as well as in the Instagram user only sample) 
+
+
+5. Heterogeneity by demographics 
+\begin{itemize}
+    \item younger people more likely to drop out than older people, but impact are qualitatively similarly
+    \item swiss are more likely to drop out than non-swiss. similarly impacts qualitatively
+    \item women much more privacy concerned, and differential impact by AI 
+\end{itemize}
+
+6. we also have those who donate more are less likely to attrite on average, but they are more likely to attrite under the no AI identified condition. Not sure how to explain this; potentially exclude for now? (this figure is on github: %https://github.com/lenasong/AIComm/blob/main/analysis/output/hte/hte_ciplot_no_interaction/sample2/Finished_hte_by_DonationBinary_pos_ciplot_NoControl.pdf
+
+
+
+
+\begin{figure}%[H]
+\caption{Main Outcomes by Treatment Group \label{fig:finished}}
+
+\centering A. Finished Study
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/ciplot_attrition_fullsample.pdf}
+\par\end{centering}
+% {\small{}Notes: This figure shows finishing the study by the treatment groups}{\small\par}
+% \end{figure}
+
+% \begin{figure}[H]
+% \caption{Meaningful Post by Treatment Group \label{fig:finished}}
+
+\medskip{}
+
+\centering B. Wrote Meaningful Post
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/ciplot_meaningful_post_fullsample.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows our main outcomes, finishing the study (Panel A) and writing a meaningful post Panel B), by the treatment groups}{\small\par}
+\end{figure}
+
+
+\begin{figure}[H]
+\caption{Post Length by Treatment Group \label{fig:finished}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/ciplot_PostTextLength_log_sample2_raw.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows finishing the study by the treatment groups}{\small\par}
+\end{figure}
+
+
+\begin{figure}[H]
+\caption{Heterogeneity by Privacy Concern - Full Sample \label{fig:finished}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/Finished_hte_by_not_shared_handle_ciplot_NoControl.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows finishing the study by the treatment groups and privacy concern}{\small\par}
+\end{figure}
+
+
+\begin{figure}[H]
+\caption{Heterogeneity by Privacy Concern - Instagram User Sample \label{fig:finished}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/Finished_hte_by_not_shared_handle_ciplot_NoControl_IGUsers.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows finishing the study by the treatment groups and privacy concern for Instagram Users only}{\small\par}
+\end{figure}
+
+
+\begin{figure}[H]
+\caption{Heterogeneity by Age \label{fig:finished}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/Finished_hte_by_AgeBinary_p50_ciplot_NoControl.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows finishing the study by the treatment groups and age}{\small\par}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\caption{Heterogeneity by Gender \label{fig:finished}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/Finished_hte_by_Female_ciplot_NoControl.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows finishing the study by the treatment groups and gender}{\small\par}
+\end{figure}
+
+
+\begin{figure}[H]
+\caption{Heterogeneity by Nationality \label{fig:finished}}
+
+\medskip{}
+
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{input/Finished_hte_by_Switzerland_ciplot_NoControl.pdf}
+\par\end{centering}
+{\small{}Notes: This figure shows finishing the study by the treatment groups and nationality}{\small\par}
+\end{figure}
+
+\subsection{Estimation}
+
+To compare across receiver compositions, define $Y_{i}$ as an outcome
+for participant $i$. $Y_{i}$ could represent effort in the writing
+task or perceptions post-task. Define $G_{i}$ as the treatment group
+indicator, and the composition of 3 Democrat Prolific participants
+to be the omitted category. Define $\boldsymbol{X}_{i}$ as a vector
+of covariates. We estimate the effects of the receiver composition
+using the following regression:
+
+\begin{equation}
+Y_{i}=\tau G_{i}+\beta\boldsymbol{X}_{i}+\varepsilon_{i}.\label{eq:ATE}
+\end{equation}
+
+The covariates included in our analysis are age, gender, race, education,
+income, and baseline attitudes. The controls are coded in the following
+manner: an indicator for age (above the median), gender (male), race
+(with a category for multiple races), education (college degree or
+higher), and income (above the median). 
+
+Additionally, an index is created for attitudes towards environmental
+policies and climate change. To construct this index variable, we
+orient the variables such that higher values represent more conservative
+views. Each outcome variable is then normalized into standard deviation
+units based on the mean and standard deviation of the control group.
+Finally, we calculate the average of these normalized variables, using
+weights derived from the inverse covariance matrix as described by
+Anderson (2008). 
+
+
+\subsection{Baseline Qualitative Evidence}
+
+When asked about their preferences for interacting with human agents,
+traditional rule-based bots, or conversational Gen-AI bots, participants
+display a strong preference for human interactions. This preference
+for humans is similar in levels in both customer service and social
+media contexts. However, the aversion to bots is somewhat more pronounced
+in the social media setting.  In comparisons between rule-based bots
+and conversational AI bots, participants showed a slight preference
+for AI bots, potentially reflecting the more human-like interactions
+that AI bots can provide.
+
+\begin{comment}
+    
+\subsection{Senders Expect More Beneficial Engagement with AI Receivers}
+
+All figures and tables below present results for the analysis sample,
+although sample sizes sometimes differ across outcomes due to missing
+data. 
+
+Figure 1 and 2 present the average treatment effect on the survey
+outcomes elicited after the writing task for the analysis sample who
+were randomized into one of the receiver composition conditions. Participants
+predict that AI receivers would be significantly more responsive (Figure
+1).\footnote{Interestingly, people do not necessarily expect AI bots to always
+respond to their messages. This perception may stem from the fact
+that the bot is framed as a social media bot, which behaves differently
+from a chatbot like ChatGPT that responds all the time.}
+
+Contrary to pessimistic narratives suggesting that AI might lead to
+the production of low-quality content, participants expect higher
+quality replies from AI receivers (Figure 2). 
+
+% Need to add something on signaling value and BDM valuation after the next pilot
+
+\subsection{Senders Invest Less Effort in Writing Posts to AI Receivers}
+
+Using the measures outlined in Section \ref{subsec:Outcome-Variables},
+we look at the effect of receiver composition on effort participants
+exerted in the writing task. Figure 3 presents the average treatment
+effect on two key measures of effort for the analysis sample. When
+composing messages for AI receivers, participants exert significantly
+less effort, as evidenced by the number of words in the post. Interestingly,
+the differences in effort when composing messages for a Democrat versus
+a non-Democrat audience are not statistically significant. This suggests
+that the distinction between human and AI receivers has a greater
+influence on the effort in content production than ideological differences.
+
+\subsection{Senders Would Accept Lower Wage For Further Interaction with AI Receivers}
+
+To recap, sender respondents expect higher-quality engagement and
+interest with AI receivers. Further, they exert lower effort with
+AI receivers. One interpretation of these results is that senders
+have both higher benefits and lower costs from interacting with AI's.
+Hence, the overall net value proposition for interacting with AI's
+might be higher. To check this, we ask how much we would have to pay
+Prolific participants for further interaction with the same composition
+of receivers in a future task. Figure 4 shows suggestive evidence
+consistent with this interpretation. While the difference is not statistically
+significant with the small pilot sample, we see that the demanded
+wage for future interaction is lower with AI receivers. 
+\end{comment}
+
+
+\section{Conclusion}
+
+% Recap
+
+Many social media platforms are founded on the premise of connecting
+users with each other. But what happens when the ``other'' in these
+interactions is no longer human? Our paper provides a theoretical
+framework and suggestive evidence on how AI's presence affects user
+perception and engagement in online conversations. Despite AI being
+perceived as high-quality and engaging, human senders tend to exert
+less effort in composing messages when they know their audience is
+made of AI rather than human receivers.
+
+% Additional questions
+
+Our results do not necessarily imply that AI will lead to a decline
+in human user engagement on social media. As our study design precludes
+repeated interaction, one area for future research is to understand
+the dynamics of online social interaction in the presence of AI over
+time. Even though humans may engage less with AI bots, their responsiveness
+could mean that their presence drives up engagement on certain types
+of content. Such increased engagement could attract larger audiences
+for content producers, thereby boosting their incentives to create
+more content. 
+
+Another important area for future research is to understand the implications
+of the presence of AI senders, especially when AI and human content
+producers have to compete for attention. Further, there is scope for
+human-AI collaboration in the production of content. Future work in
+these directions could contribute to our understanding of what humanity
+means in the digital age.
+
+% I'm undecided on whether the last sentence is too much. Feel free to delete 
+
+\newpage\leftskip=0em 
+\parindent=-2em
+\onehalfspacing
+
+\bibliographystyle{aea}
+\bibliography{AIComms_Bibliography}
+
+\parindent=2em
+\leftskip=0em
+
+\clearpage{}
+
+ADD FIGURES
+
+\pagebreak{}
+
+\appendix
+\begin{center}
+\textbf{Online Appendix: Not for Publication}
+\par\end{center}
+
+\bigskip{}
+
+\begin{center}
+Intelligence or Interference? AI and Online Interactions
+\par\end{center}
+
+\begin{center}
+\emph{Elliott Ash, Yichuan Lou, Lena Song}
+\par\end{center}
+
+\setcounter{figure}{0} \renewcommand{\thefigure}{A\arabic{figure}}
+
+\setcounter{table}{0} \renewcommand{\thetable}{A\arabic{table}}\pagestyle{fancy}
+\lhead{Online Appendix} \rhead{Ash, Lou, and Song}
+
+\newpage{}
+
+\clearpage{}
+
+% \section{Model Appendix}
+
+% \subsection{Partisan Framework\label{sec:partisan}}
+
+% In this Appendix, we present a partisan signaling model of social
+% behavior concerning divisive issues such as immigration, gun control,
+% and abortion. This contrasts with the standard non-partisan signaling
+% model of prosocial behavior in Section \ref{sec:nonpartisan}, which
+% addresses actions that are unambiguously perceived as good by all
+% peers. In non-partisan signaling, senders of all types prefer to be
+% perceived as a certain type, whereas in partisan signaling, senders
+% of different types prefer to be perceived as different types.
+
+% The identity compositions of senders and receivers are the same as
+% those in Section \ref{sec:nonpartisan}: $\bm{p}=(p_{h},p_{g},p_{r})$
+% and $\bm{q}(q_{h},q_{g},q_{r})$ are the respective probability measures
+% of different identity groups for senders and receivers.
+
+% \paragraph{Human agents.}
+
+% Each human (sender or receiver) has a private ideology type $\theta$,
+% distributed on some interval $[\underline{\theta},\overline{\theta}]$
+% according to the cumulative distribution function $F$, with $\underline{\theta}<0<\overline{\theta}$.
+% The parameter $\theta$ represents the political leaning of an individual:
+% $\theta<0$ ($\theta>0$) indicates a preference for left-wing (right-wing)
+% ideology. Each human sender chooses an action $a\in\{-1,0,+1\}$:
+% $a=-1$ means participating in a left-wing activity, $a=+1$ means
+% participating in a right-wing activity, and $a=0$ means abstaining
+% or staying neutral.
+
+% A human sender's non-image utility from action $a$ is 
+% \begin{align*}
+% \theta a-c|a|+\lambda|a|
+% \end{align*}
+
+% $\theta a$ captures the intrinsic payoff from participation. The
+% parameter $c>0$ represents a fixed participation cost. $\lambda|a|$
+% captures the residual interaction utility from participation that
+% depends neither on $\theta$ nor on perceptions of $\theta$; the
+% parameter $\lambda$ could depend on both $\bm{p}$ and $\bm{q}$,
+% i.e., $\lambda=\lambda(\bm{p},\bm{q})$.
+
+
+% \newpage{}
+
+\section{Experimental Design Appendix\label{app:Design}}
+
+
+\subsection{Survey Instruments \label{app:SurveyInstrument}}
+
+\emph{Demographic Questions}
+\begin{enumerate}
+\item Age: What is your age? {[}number entry box{]}
+\item Gender: What gender do you most strongly identify with? {[}Male / Female / Other or Non-binary{]}
+\item University: Which university are you at? {[}ETH / UZH / Other{]}
+\item GradYear: What is your anticipated year of graduation? {[}2024 or earlier / 2025 / 2026 / 2027 / 2028 or after{]}
+\item FirstName: What is your first name? {[}text entry box{]}
+\item OriginCountry: What is your country of origin? {[}dropdown menu{]}
+\item Education: What level of education are you currently pursuing? {[}Bachelor's degree / Master’s degree / PhD / Other{]}
+\end{enumerate}
+
+\emph{Field of Study}
+\begin{enumerate}
+\item ETHFaculty: {[}If ETH{]} What faculty do you study in?
+{[}Architecture and Civil Engineering / Engineering Sciences / Natural Sciences and Mathematics / System-oriented Natural Sciences / Management and Social Sciences{]}
+\item UZHFaculty: {[}If UZH{]} What faculty do you study in?
+{[}Faculty of Theology / Faculty of Law / Faculty of Business, Economics, and Informatics / Faculty of Medicine / Vetsuisse Faculty / Faculty of Arts and Social Sciences / Faculty of Science{]}
+\end{enumerate}
+
+\emph{Political and Climate Opinions}
+\begin{enumerate}
+\item SwissPoliticalParty: Which party did you vote for in the last election?
+{[}Did not vote / Swiss People's Party / Social Democratic Party / FDP.The Liberals / Green Party / The Centre / Green Liberal Party / Evangelical People's Party / Federal Democratic Union / Ticino League / Swiss Labour Party / Small leftist parties / Center Left-CSP / Liberal-Democratic Party / Movement of the Citizens of French-speaking Switzerland / Pirate Party Switzerland / Mixed vote / Other{]}
+\item ClimateWorry: How worried are you about climate change? {[}Not at all worried / Not very worried / Moderately worried / Very worried / Extremely worried{]}
+\item ClimatePersonal: To what extent do you feel a personal responsibility to try to reduce climate change?
+{[}Not at all responsible / Slightly responsible / Moderately responsible / Very responsible / Extremely responsible{]}
+\item ClimateLong: What do you think are the most serious consequences of climate change for Europe and the world? {[}open text{]}
+\end{enumerate}
+
+\emph{Social Media Use}
+\begin{enumerate}
+\item SocialMediaPlatform: Which of the following social media platforms do you use? {[}Facebook / Instagram / Snapchat / TikTok / X (Twitter) / BlueSky / LinkedIn / Reddit / YouTube / Other / I don’t use social media{]} {[}multiple answer{]}
+\item UseImageConcern: {[}If uses social media{]} How important is it to you that other people perceive you positively on social media?
+{[}Not important at all / Slightly important / Moderately important / Very important / Extremely important{]}
+\end{enumerate}
+
+\emph{Prosocial Behavior}
+\begin{enumerate}
+\item Donation: As part of completing this survey, you are automatically enrolled in a lottery to win CHF \emph{X}. Would you be willing to donate part of your winnings to an organization working on issues of climate change? Enter the amount you would like to donate, if any. {[}number entry box{]}
+\item DonateOrg: {[}If Donation $>$ 0{]} Which organization would you like your donation to support? {[}text entry box{]}
+\end{enumerate}
+
+\emph{Bot and AI Opinions}
+
+Participants were first shown an explanation distinguishing \emph{rule-based bots} from \emph{conversational generative AI (Gen-AI) bots}:
+
+BotExplain: In this study, we are interested in your views about two types of “bots” – that is, automated programs designed to perform tasks or engage in conversations with humans. 
+
+The first type, known as `rule-based bots,' operate on a set of predefined rules and responses. They are programmed to recognize specific commands and provide corresponding answers. These bots are often found in customer service chat functions, where they can efficiently handle routine inquiries without human intervention. Rule-based bots have a specific, limited functionality, and it is easy to distinguish them from humans.
+
+The second type represents a more advanced form of technology: `Conversational Generative AI (Gen-AI) bots.' These bots leverage artificial intelligence to perform complex problem-solving tasks and to generate responses that mimic human conversation. Unlike their rule-based counterparts, Gen-AI bots can understand and respond to a wider range of queries with greater nuance, variability, and creativity. They learn from interactions to improve their responses, making them more adaptable and capable of handling deep conversations. As a result, Gen-AI bots are difficult to distinguish from humans.
+
+
+\begin{enumerate}
+\item BotKnow: How familiar are you with ChatGPT and other Gen-AI bots?
+{[}Very familiar and use frequently / Somewhat familiar and use occasionally / Somewhat familiar but rarely use / Aware but do not use / Not familiar at all{]}
+\item BotSupport: When seeking customer service or support, what are your preferences for interacting with humans, traditional rule-based bots, or conversational Gen-AI bots?
+{[}5-point Likert scale from Strongly Prefer Not to Strongly Prefer{]}
+\item BotSocialMedia: On social media, what are your preferences for interacting with humans, traditional rule-based bots, or conversational Gen-AI bots?
+{[}5-point Likert scale from Strongly Prefer Not to Strongly Prefer{]}
+\end{enumerate}
+
+Participants are then presented with examples: 
+
+\emph{Here is a potential social media post:}
+
+\begin{quote}
+Some of us start closer to the finish line than others. Some individuals need a boost to get their lives back on track. It feels good to give when you are fortunate to have enough. Let's all do our part and donate to things that matter to us.
+\end{quote}
+
+\begin{enumerate}
+\item PostReact: How would you react if you saw this post on your social media timeline? {[}Like / Dislike / I would not react to this post{]}
+\end{enumerate}
+
+On the next page, participants were informed that the post they just reacted to was written by a human.
+
+\vspace{0.5em}
+
+For your information, here is a potential social media post, written by a GPT-powered Gen-AI bot:
+
+\begin{quote}
+Many people face obstacles that are too big to tackle alone. Donating provides essential support to those who need a little extra help to overcome challenges. When we contribute to causes close to our hearts, we create a ripple of positive change in the world. Let's all pitch in and make a difference where we can.
+\end{quote}
+
+Here is another potential social media post, written by a rule-based bot:
+
+\begin{quote}
+I am a bot programmed to remind people that donating is important because it helps those in need.
+\end{quote}
+
+\emph{On the next page, participants answered the following question:}
+
+\begin{enumerate}
+\item InitialAIEffective: How effective do you think Gen-AI bots are at producing persuasive messages?
+{[}Not at all effective / Slightly effective / Moderately effective / Very effective / Extremely effective{]}
+\end{enumerate}
+
+\emph{Reading Tasks}
+
+Participants were informed that they would read and respond to social media posts that may have been written by humans, or Gen-AI bots. Participants were told that all posts written by humans were created without any AI assistance.
+
+\vspace{0.5em}
+
+\emph{Here is a potential social media post, drawn from a pool of four posts from climate-conscious humans:}
+
+\begin{quote}
+Addressing climate change is an important global issue, and it is great to see countries starting to collaborate on it. We are doing our part to help with it, too. However, while addressing climate change is important, we have other important local issues to focus on. Improving healthcare, reducing inflation and financing retirement provisions deserve our attention, too.
+\end{quote}
+
+\begin{quote}
+If we are in a spot to contribute to charity, the impacts we make can last a lifetime and impact generations to come. As of now, addressing climate change is the most important thing any of us could do. If we are in a place to donate, putting our money towards charities that help take care of the planet will impact future generations of children and animals.
+\end{quote}
+
+\emph{(One of the post was randomly drawn and shown to the participant.)}
+
+\begin{enumerate}
+\item ReadingReactHuman: How would you react if you saw this post on your social media timeline?
+{[}Like / Dislike / I would not react to this post{]}
+\item GuessWriterHuman: What is your best guess for who wrote this text?
+{[}Human / Traditional rule-based bot / Conversational Gen-AI bot{]}
+\end{enumerate}
+
+\vspace{0.75em}
+
+\emph{On the next page, participants were shown the other post, while being informed that it is drawn from a pool of four posts from 1 climate-conscious humans, and 3 GPT-powered Gen-AI bots}
+
+\begin{enumerate}
+\item ReadingReactAI: How would you react if you saw this post on your social media timeline?
+{[}Like / Dislike / I would not react to this post{]}
+\item GuessWriterAI: What is your best guess for who wrote this text?
+{[}Human / Traditional rule-based bot / Conversational Gen-AI bot{]}
+\end{enumerate}
+
+
+
+\emph{Attention Check}
+\begin{enumerate}
+\item AttnCheckExplanation: Participants were instructed to ignore the next question and instead write ``I read the instructions'' to verify attention.
+\item AttnCheck: Please describe how you think AI is impacting your daily life. {[}open text{]}
+\end{enumerate}
+
+\emph{Writing Task}
+
+Participants were randomly assigned to an identified or anonymous condition and asked to write a social media post responding to the following prompt:
+
+\begin{quote}
+How can you and other students in Zurich contribute to combating climate change in their daily lives?
+\end{quote}
+
+Posts were added to a database used in a follow-up survey, with composition varying by treatment condition.
+
+\emph{Willingness to Pay to Withdraw Post}
+\begin{enumerate}
+\item WTP: What is the maximum amount (out of your CHF 10 participation payment) you would be willing to pay to remove your post from the database?
+{[}slider from 0 to 10 CHF in 0.25 increments{]}
+\item WTPLong: Please explain the reasoning behind your decision. {[}open text{]}
+\end{enumerate}
+
+\emph{Perceptions and Mechanisms}
+\begin{enumerate}
+\item GenAIEffective: Compared to ETH/UZH students, do you think Gen-AI bots are more or less effective at writing posts that attract likes?
+{[}More effective / Equally effective / Less effective / Unsure{]}
+\item PerceiveHuman: How likely do you think the audience will believe your post is AI-generated?
+{[}Very unlikely / Somewhat unlikely / Neutral / Somewhat likely / Very likely{]}
+\item SignalValue: How important is it to you that the audience perceives you positively?
+{[}Not important at all / Slightly important / Moderately important / Very important / Extremely important{]}
+\end{enumerate}
+
+\emph{Experimenter Demand Check}
+\begin{enumerate}
+\item StudyPurposeLong: If you had to guess, what would you say our research project is about? {[}open text{]}
+\end{enumerate}
+
+\emph{Final Comments}
+\begin{enumerate}
+\item GeneralFeedbackLong: Please share any additional feedback or comments. {[}open text{]}
+\end{enumerate}
+
+
+\end{document}

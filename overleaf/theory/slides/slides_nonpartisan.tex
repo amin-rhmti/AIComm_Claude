@@ -1,0 +1,420 @@
+\documentclass[9pt,aspectratio=1610]{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{blue_text}{RGB}{0,115,197}
+\definecolor{blue1}{RGB}{26,129,203}
+\definecolor{blue2}{RGB}{102,171,220}
+\definecolor{blue3}{RGB}{154,199,232}
+
+\definecolor{green1}{RGB}{0,128,0}
+\definecolor{green2}{RGB}{204,229,204}
+\definecolor{green3}{RGB}{229,242,229}
+
+\definecolor{lightblue2}{RGB}{204,227,243}
+\definecolor{lightblue3}{RGB}{229,241,249}
+
+\definecolor{orange0}{RGB}{255,116,0}
+\definecolor{blue0}{RGB}{0,103,169}%vaidya
+\definecolor{green0}{RGB}{0,148,104}
+
+
+\setbeamercolor*{palette tertiary}{bg=blue1,fg=white}
+\setbeamercolor*{palette secondary}{bg=blue2,fg=white}
+\setbeamercolor*{palette primary}{bg=blue3,fg=black}
+
+\setbeamercolor{titlelike}{bg=white,fg=blue_text}
+\setbeamertemplate{title page}[default][rounded=false, shadow=false]
+
+\setbeamercolor{frametitle}{bg=white,fg=blue_text}
+
+\setbeamercolor{item projected}{bg=blue_text}
+
+\setbeamertemplate{blocks}[rounded]%[shadow]
+\setbeamercolor{block title example}{bg=green2,fg=green1}
+\setbeamercolor{block body example}{bg=green3,fg=black}
+
+\setbeamercolor{block title}{bg=lightblue2,fg=blue_text}
+\setbeamercolor{block body}{bg=lightblue3,fg=black}
+
+\setbeamercolor{button}{bg=blue2,fg=white}
+
+\setbeamertemplate{navigation symbols}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{eqnarray,amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern} 
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{changepage}
+\usepackage{array,booktabs}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{plotmarks}
+\usepgfplotslibrary{fillbetween}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\supp}{supp}
+
+\usepackage{transparent}
+\newcommand{\semitransp}[2][35]{\color{fg!#1}#2}
+
+\usetikzlibrary{arrows.meta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%====================================================
+%========== DEFINITION OF AUTHORS ETC...=============
+%====================================================
+
+\author[Ash, Lou, Song]{%
+    \texorpdfstring{%
+    \begin{columns}
+        \column{.3333\linewidth}
+        \centering
+        Elliot Ash \\\vspace{.5em} \small ETH Zurich
+        \column{.3333\linewidth}
+        \centering
+        Yichuan Lou \\\vspace{.5em} \small UTokyo
+        \column{.3333\linewidth}
+        \centering
+        Lena Song \\\vspace{.5em} \small UIUC
+    \end{columns}}{Elliot Ash, Yichuan Lou, Lena Song}
+}
+
+\title[Intelligence or Interference?]{Intelligence or Interference? AI Agents and Online Social Interaction}
+%\subtitle{Subtitle}
+\date[Conference Name]{May 2024}
+
+
+
+
+%====================================================
+%========== BEGINNING OF DOCUMENT ===================
+%====================================================
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+\item The first chatbot
+\end{itemize}
+
+
+\end{frame}
+
+\section{Theoretical Framework}
+
+\begin{frame}{Compositions of Senders and Recipients}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Both senders and recipients consist of three \textcolor{orange0}{identity} groups: humans, Gen-AI bots, and rule-based bots
+    \item Denote by $m_h,m_g,m_r$ the number of different groups of senders 
+    \begin{itemize}
+        \item Let $\vec{m} \triangleq (m_h,m_g,m_r)$
+    \end{itemize}
+    \item Denote by $n_h,n_g,n_r$ the number of different groups of recipients
+    \begin{itemize}
+        \item Let $\vec{n} \triangleq (n_h,n_g,n_r)$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+    
+
+\begin{frame}{Human Sender}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item We study the behavior of \textcolor{orange0}{human senders} who choose the level of their contribution in some prosocial activity \textcolor{red}{(YL: can be more specific later such as posting content)}
+    \item We assume a human sender has two types, high $(\theta^+)$ and low $(\theta^-)$
+    \item Each human sender chooses a contribution level $a\in \mathbb{R}$, at cost $C(a)$
+    \begin{itemize}
+        \item Denote by $a^+$ ($a^-$) the action chosen by type $\theta^+$ ($\theta^-$)
+    \end{itemize}
+    \item A human sender's utility depends on the three key ingredients: intrinsic motivation, social interaction incentives, and reputational concerns:
+    \begin{equation*}
+        U = (\theta + \lambda )a - C(a) + \gamma \mathbb{P}(human|a)\mathbb{P}(\theta=\theta^+|a),
+    \end{equation*}
+    \begin{itemize}
+        \item Let $\mu\triangleq \gamma \mathbb{P}(human|a)$, where $\mathbb{P}(human|a)$ is a recipient's updated belief that the sender is a human
+        \item We will show $\mathbb{P}(human|a)$ can be set independent of $a$; so $\mu$ can be treated as an exogenous parameter
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Human Sender: Intrinsic Utility}
+\begin{equation*}
+    U = (\theta + \lambda )a - C(a) + \mu \mathbb{P}(\theta=\theta^+|a),
+\end{equation*}
+\vspace{.5em}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item The term $\theta a$ captures the intrinsic utility from contribution
+    \item Intrinsic utility assumes senders derive direct utility from contribution, and leads to ``the doing of an activity for its inherent satisfactions rather than for some separable consequence"
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Human Sender: Social Interaction Utility}
+\begin{equation*}
+    U = (\theta + \lambda )a - C(a) + \mu \mathbb{P}(\theta=\theta^+|a),
+\end{equation*}
+\vspace{.5em}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item The term $\lambda a$ captures the social interaction utility from contribution
+    \item The parameter $\lambda$ measures the intensity of social interaction incentives
+    \item The social interaction utility assumes senders derive utility from interacting with different groups of recipients 
+    \item We assume $\lambda$ is increasing in $n_h,n_g,m_h,m_g$
+    \vspace{.5em}
+    \begin{itemize}
+        \item E.g., $\lambda = (n_h+n_g)(m_h+m_g)$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Human Sender: Image-Related Utility}
+\begin{equation*}
+    U = (\theta + \lambda )a - C(a) + \mu \mathbb{P}(\theta=\theta^+|a),
+\end{equation*}
+\vspace{.5em}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item The term $\mu \mathbb{P}(\theta=\theta^+|a)$ captures the reputational utility from contribution
+    \item The parameter $\mu$ measures the intensity of image concerns
+    \item We assume $\mu$ is increasing in $n_h$
+    \vspace{.5em}
+    \begin{itemize}
+        \item E.g., $\mu = n_h \mathbb{P}(human)$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bot Sender}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A bot sender, either Gen-AI or rule-based, has no types or preferences
+    \item We assume each Gen-AI or rule-based bot sender chooses some fixed actions:
+\end{itemize}
+\vspace{1em}
+
+\begin{exampleblock}{Assumption 1}
+    A rule-based bot sender always takes a sufficiently small action $a_r$.
+\end{exampleblock}
+
+\begin{exampleblock}{Assumption 2}
+    A Gen-AI sender always takes a fixed action $a_g$. We consider two different cases:
+    \begin{itemize}
+        \item Case 1: A Gen-AI bot sender always takes a non-equilibrium action, i.e., $a_g\neq a^+,a^-$.
+        \item Case 2: A Gen-AI bot sender always mimic a high type human sender's equilibrium action, i.e., $a_g=a^+$.
+    \end{itemize}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Signaling Game}
+
+Timing:
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A single sender is matched with recipients $(m_h,m_g,m_r)$ 
+    \item The sender's identity (human or bot) and type ($\theta\in \{\theta^+,\theta^-\}$ if human) is initially unknown to the recipients
+    \item The sender chooses an action $a\in \mathbb{R}$
+    \item The belief about the sender's identity and type is updated
+    \item If the sender is a human, his payoff is realized
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{Unique Equilibrium}\label{prop1}
+\begin{exampleblock}{Proposition 1}
+    Fix any positive parameters $\lambda$ and $\mu$. The unique PBE surviving the D1 criterion (Cho and Kreps, 1987) is the most efficient separating equilibrium, in which there exists a threshold $\theta^*\triangleq\tau(\theta^-,\mu,\lambda)$ such that
+    \begin{align*}
+    \begin{cases}
+        a^+ = C'^{-1}(\theta^++\lambda), &a^- = C'^{-1}(\theta^-+\lambda)  \quad\text{if } \theta^+\geq \theta^*\\ 
+        a^+ = C'^{-1}(\theta^*+\lambda), &a^- = C'^{-1}(\theta^-+\lambda)     \quad\text{otherwise.}
+    \end{cases}
+    \end{align*}
+    Moreover, the threshold function $\tau(\cdot)$ is increasing in both $\theta^-$ and $\mu$. If $C'''(\cdot)>0$, then $\tau(\cdot)$ is increasing in $\lambda$; if $C'''(\cdot)<0$, then $\tau(\cdot)$ is decreasing in $\lambda$.
+\end{exampleblock}
+\vspace{1em}
+
+Remark:
+\begin{itemize}\setlength{\itemsep}{.5em}
+    \item When $\theta^+\geq \theta^*$, both equilibrium actions $a^+$ and $a^-$ are increasing in social interaction incentives $(\lambda)$ but independent of reputational incentives ($\mu$)
+    \item When $\theta^+<\theta^*$, $a^+$ is increasing in $\mu$ for sure, whereas $a^-$ is increasing in $\lambda$ but independent of $\mu$
+    \item \textcolor{red}{(YL: how equilibrium outcomes rely on $\lambda$ and $\mu$ will allow us to study the effect of AI)}
+\end{itemize}
+
+\vspace{.5em}
+\hyperlink{proof_prop1}{\beamergotobutton{Proof}}
+
+\end{frame}
+
+
+\begin{frame}{Example: $C(a) = \frac{1}{2}a^2$}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item In this case, $\tau(\theta^-,\mu,\lambda) = \theta^- + \sqrt{2\mu}$
+    \item The equilibrium contribution levels are given by
+    \begin{align*}
+    \begin{cases}
+        a^+ = \theta^++\lambda,  &a^- = \theta^-+\lambda  \quad\text{if } \theta^+\geq \theta^-+\sqrt{2\mu} \\
+        a^+ = \theta^-+\lambda+\sqrt{2\mu}, &a^- =  \theta^-+\lambda  \quad \text{otherwise.}
+    \end{cases}
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What's Next?}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item So far we have treated $\mu$ and $\lambda$ as given and have learned how they affect equilibrium outcomes
+    \item In the following, we will conjecture and analyze how the composition of senders $\vec{m} = (m_h,m_g,m_r)$ and the composition of recipients $\vec{n} = (n_h,n_g,n_r)$ determine the values of $\mu$ and $\lambda$, and thus indirectly affect equilibrium outcomes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What determines $\mu$?}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Recall that Assumption 2 considers two cases:
+    \begin{itemize}
+        \item In Case 1, a Gen-AI sender chooses a fixed non-equilibrium action $a_g\neq a^+$
+        \item In Case 2, a Gen-AI sender mimics a high type human sender, i.e., $a_g= a^+$
+    \end{itemize}
+    \item In Case 1, upon observing $a^+$, a recipient knows the sender must be human, hence $\mathbb{P}(human|a^+)=1$, which implies 
+    \begin{align*}
+        \mu_1 \triangleq \gamma \mathbb{P}(human|a^+) = \gamma
+    \end{align*}
+    \item In Case 2, upon observing $a^+$, a recipient only knows the sender cannot be a rule-based bot, hence $\mathbb{P}(human|a^+)=\frac{m_h}{m_h+m_g}$, which implies 
+    \begin{align*}
+        \mu_2\triangleq \gamma \mathbb{P}(human|a^+) = \gamma \frac{m_h}{m_h+m_g}
+    \end{align*}
+    \item An immediate implication is the presence of Gen-AI senders may reduce a human sender's incentive to invest as it may reduce $a^+$ 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{What determines $\mu$? (Cont'd)}
+\begin{exampleblock}{Assumption 3}
+    The parameter $\gamma$ depends on the number of human recipients.
+    \begin{align*}
+        \gamma \triangleq n_h.
+    \end{align*}
+\end{exampleblock}
+\vspace{1em}
+Therefore, 
+\begin{itemize}
+    \item In Case 1,
+    \begin{align*}
+        \mu_1 = \gamma = n_h
+    \end{align*}
+    \item In Case 2,
+    \begin{align*}
+        \mu_2 = \gamma\frac{m_h}{m_h+m_g}
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What determines $\lambda$?}
+The social interaction parameter $\lambda$ takes a general form: $\lambda \triangleq \lambda(\vec{n},\vec{m})$. We assume the social interaction utility is \textcolor{orange0}{reciprocal}---``I engage more if you engage more." 
+\begin{itemize}
+    \item Since both human senders and Gen-AI senders chooses higher actions than rule-based senders, human or Gen-AI senders will make human recipients more engaged than rule-based senders. Thus an increase in $m_h$ or $m_g$ increases $\lambda$ more than an increase in $m_r$.
+    \item Likewise, we assume an increase in $n_h$ or $n_g$ increases $\lambda$ more than an increase in $n_r$. 
+    \item \textcolor{red}{(YL: we haven't model recipients' behavior here yet. So the above two are an assumption.)}
+\end{itemize}
+
+\vspace{1em}
+
+\begin{exampleblock}{Assumption 4}
+    The social interaction parameter $\lambda = \lambda(n_h,n_g,n_r,m_h,m_g,m_r)$ satisfies
+    \begin{enumerate}
+        \item $\frac{\partial \lambda}{\partial m_h}\geq \frac{\partial \lambda}{\partial m_r}$ and $\frac{\partial \lambda}{\partial m_g}\geq \frac{\partial \lambda}{\partial m_r}$
+        \item $\frac{\partial \lambda}{\partial n_h}\geq \frac{\partial \lambda}{\partial n_r}$ and $\frac{\partial \lambda}{\partial n_g}\geq \frac{\partial \lambda}{\partial n_r}$
+    \end{enumerate}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{What determines $\lambda$? (Cont'd)}
+Interesting results we may expect from experimental outcomes:
+
+\begin{enumerate}
+    \item If $m_g$ is much smaller than $m_h$, then $\frac{\partial\lambda}{\partial m_g}>\frac{\partial\lambda}{\partial m_h}$. That is, a human recipient engages more if there are some Gen-AI senders.
+    \item If $n_g$ is much smaller than $n_h$, then $\frac{\partial\lambda}{\partial n_g}>\frac{\partial\lambda}{\partial n_h}$. That is, a human sender prefers some Gen-AI recipients in the audience.
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Proof of Proposition 1}\label{proof_prop1}
+
+Let $p\triangleq \mathbb{P}(\theta=t_h)$. The sender utility function becomes
+\begin{align*}
+    U(\theta,a,p)  \triangleq (\theta+\lambda)a-C(a)+p
+\end{align*}
+Define $U^*(\theta^-) \triangleq U(\theta^-,a^-,0)$ and $U^*(\theta^+) \triangleq U(\theta^+,a^+,1)$ such that $a^-$ solves 
+\begin{align*}
+    \max_{a} U(\theta^-,a,0)
+\end{align*}
+and $a^+$ solves
+\begin{align*}
+    \max_{a} U(\theta^+,a,1)\quad \text{subject to} \quad U(\theta^-,a^+,1)\leq U^*(\theta^-)
+\end{align*}
+It is easy to see that the pair $(a^+,a^-)$ corresponds exactly to the form specified in Proposition 1.
+\vspace{1em}
+
+The above process produces a signaling strategy for the sender and a belief rule for the recipient. To complete the belief rule, assume that the recipient's belief $p = 0$ for $a<a^+$ and $p=1$ for $a\geq a^+$. It is easy to check the solution is the most efficient separating equilibrium, or the ``Riley outcome". In our setup, it is the unique equilibrium satisfying D1 criterion (Cho and Kreps, 1987). 
+\end{frame}
+
+
+\begin{frame}{Proof of Proposition 1 (Cont'd)}
+
+The threshold function $\tau(\theta^-,\mu,\lambda)$ is defined by the indifference condition $U^*(\theta^-)= U(\theta^-,\hat{a},1)$ where $\hat{a}$ solves $\max_aU(\tau(\theta^-,\mu,\lambda),a,1)$, or equivalently, $C'(\hat{a}) = \tau(\theta^-,\mu,\lambda)+\lambda$. The indifference condition becomes
+\begin{align*}
+    (\theta^-+\lambda)a^- - C(a^-) = (\theta^-+\lambda)\hat{a} - C(\hat{a})+\mu 
+\end{align*}
+By the implicit function theorem, 
+\begin{align*}
+    \frac{\partial \tau(\theta^-,\mu,\lambda)}{\partial \theta^-} &= \frac{\hat{a}- a^-}{(\tau(\theta^-,\mu,\lambda) - \theta^-)\hat{a}'}>0,\\
+    \frac{\partial \tau(\theta^-,\mu,\lambda)}{\partial \mu} &= \frac{1}{(\tau(\theta^-,\mu,\lambda) - \theta^-)\hat{a}'}>0,\\
+    \frac{\partial \tau(\theta^-,\mu,\lambda)}{\partial \lambda} &= -\frac{a^--\hat{a} +(\tau(\theta^-,\mu,\lambda)-\theta^-)\hat{a}'}{(\tau(\theta^-,\mu,\lambda) - \theta^-)\hat{a}'}.
+\end{align*}
+By Taylor's theorem, we have 
+\begin{align*} 
+    \begin{cases}
+        \frac{\partial \tau(\theta^-,\mu,\lambda)}{\partial \lambda}>0\quad &\text{if }C'''(\cdot)>0,\\
+        \frac{\partial \tau(\theta^-,\mu,\lambda)}{\partial \lambda}<0\quad &\text{if }C'''(\cdot)<0,\\
+        \frac{\partial \tau(\theta^-,\mu,\lambda)}{\partial \lambda}=0\quad &\text{if }C'''(\cdot)=0.
+    \end{cases}
+\end{align*}
+
+\vspace{1em}
+\hyperlink{prop1}{\beamerreturnbutton{Back}}
+	
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

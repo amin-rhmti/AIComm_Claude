@@ -44,13 +44,6 @@ foreach i of local RUN_SAMPLES {
 
 use input/SwissSurvey_Insta_Experiment_clean.dta, clear
 
-gen Post_AIness = .
-replace Post_AIness = 0 if (Post_pangram_headline==2 | Post_pangram_headline==3 | Post_pangram_headline==4)
-replace Post_AIness = 1 if (Post_pangram_headline==1)
-
-gen Base_AIness = .
-replace Base_AIness = 0 if (Base_pangram_headline==2 | Base_pangram_headline==3 | Base_pangram_headline==4)
-replace Base_AIness = 1 if (Base_pangram_headline==1)
 
 * ======================================================================
 * CORRELATION ANALYSIS: Shared Handle vs. Image Concern
@@ -203,7 +196,7 @@ foreach sample_number of local RUN_SAMPLES {
         local w = 1
         
         * Time variables (SD ~70-270) -> Width 50
-        if inlist("`outcome'", "TimePost", "TimeInstructionsPost", "TimeWTP", "TimeWTPExplain") local w = 50
+        if inlist("`outcome'", "TimePost", "TimeInstructionsPost", "TimeWTP", "TimeWTPExplain", "TimePost_W", "TimeInstructionsPost_W", "TimeWTP_W", "TimeWTPExplain_W") local w = 50
         
         * Text Length (SD ~300) -> Width 50
         if "`outcome'" == "PostTextLength" local w = 50
@@ -276,6 +269,10 @@ foreach raw of local PRE_TREATMENT_VARS {
 }
 
 */
+
+label define GuessWriter1 2 "Rule-based bot" 3 "Gen-AI bot", modify
+label define GuessWriter2 2 "Rule-based bot" 3 "Gen-AI bot", modify
+
 
 local RUN_SAMPLES "2 20"
 foreach sample_number of local RUN_SAMPLES {
@@ -358,9 +355,9 @@ foreach sample_number of local RUN_SAMPLES {
     * --- Discrete Variables ---
     * (The program automatically adds integer ticks. Do NOT put 1(1)3 here)
     single_hist, var(ReadingReact1)    sample_number(`sample_number') xlabel(valuelabel labsize(small) alternate)
-    single_hist, var(GuessWriterHuman) sample_number(`sample_number') xlabel(valuelabel labsize(small) alternate)
+    single_hist, var(GuessWriter1) sample_number(`sample_number') xlabel(valuelabel labsize(small))
     single_hist, var(ReadingReact2)    sample_number(`sample_number') xlabel(valuelabel labsize(small) alternate)
-    single_hist, var(GuessWriterAI)    sample_number(`sample_number') xlabel(valuelabel labsize(small) alternate)
+    single_hist, var(GuessWriter2)    sample_number(`sample_number') xlabel(valuelabel labsize(small))
     
     * --- Continuous / Index Variables ---
     * (Specify your ticks and formatting together here)
@@ -368,6 +365,14 @@ foreach sample_number of local RUN_SAMPLES {
     single_hist, var(Donation)                  sample_number(`sample_number') width(5) xlabel(0(20)100, labsize(small))
     single_hist, var(index_Image_minus_privacy) sample_number(`sample_number') width(0.2)
 	single_hist, var(index_Climate) 			sample_number(`sample_number') width(0.2)
+	
+	single_hist, var(index_Base_effort)                       sample_number(`sample_number') width(0.2)
+	single_hist, var(index_Base_nlp)                       sample_number(`sample_number') width(0.2)
+	single_hist, var(Base_AIness)                       sample_number(`sample_number') width(0.2)
+	single_hist, var(index_ai_trust)                       sample_number(`sample_number') width(0.2)
+	single_hist, var(index_bot_support)                       sample_number(`sample_number') width(0.2)
+	single_hist, var(index_react)                       sample_number(`sample_number') width(0.2)
+	single_hist, var(index_guess_human)                       sample_number(`sample_number') width(0.2)
 	
 	bot_histograms, sample(`sample_number')
 }

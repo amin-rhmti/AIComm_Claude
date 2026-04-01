@@ -4,16 +4,14 @@
 cap program drop global_variables_defining
 program global_variables_defining
 
-
 	********************************
 	**** 		Controls 		****
 	********************************
 	
 	global DEMOG Age i.Grad_degree i.Vote i.ETH i.Female i.Switzerland
-
 	global PRE_TREAT_CTRL i.Instagram_use i.ImageConcern i.not_shared_handle Donation index_Climate i.BotKnow i.InitialAIEffective i.BaseAIDiff i.ReadingReact1 i.ReadingReact2 i.GuessWriterHuman i.GuessWriterAI i.PostReact i.BotSupport_AI i.BotSocialMedia_AI
 	
-	global BASE_TEXT_CONTROLS Base_meaningfulness Base_effort_index Base_nlp_index Base_AIness
+	global BASE_TEXT_CONTROLS Base_meaningfulness index_Base_effort index_Base_nlp Base_AIness
 	
 	global CONTROLS $DEMOG $PRE_TREAT_CTRL
 	
@@ -32,22 +30,20 @@ program global_variables_defining
 	**** 		Outcomes 		****
 	********************************
 	
-    global OUTCOMES Finished Post_meaningfulness Post_effort_index Post_nlp_index Post_AIness ///
+    global OUTCOMES Post_meaningfulness Post_TextLength_log ///
+	Post_AIness index_Post_effort index_Post_nlp  ///
 	TimePost_W WTP TimeWTP_W TimeWTPExplain_W ///
 	GenAIEffective PerceiveAI SignalValue PerceiveEngaged
+	
+	global SELECTED_OUTCOMES Post_meaningfulness index_Post_effort index_Post_nlp
 		
 	global EXTRA_OUTCOMES TaskQuizCorrect WTPBinary_pos WTPBinary_p50 TimeInstructionsPost_W
-	
-
-	global SELECTED_OUTCOMES Finished Post_meaningfulness Post_overall_index 
-		
 
 	* We treat ordinal variables (like your 0/1/2 scores) as continuous in Lasso regression
 		
-	global OUTCOMES_CONT TimePost_W  Post_effort_index Post_nlp_index WTP TimeWTP_W TimeWTPExplain_W TimeInstructionsPost_W GenAIEffective PerceiveAI SignalValue PerceiveEngaged
-
+	global OUTCOMES_CONT TimePost_W index_Post_effort index_Post_nlp WTP TimeWTP_W TimeWTPExplain_W TimeInstructionsPost_W GenAIEffective PerceiveAI SignalValue PerceiveEngaged
 	global OUTCOMES_BIN Finished Post_meaningfulness Post_AIness TaskQuizCorrect WTPBinary_pos WTPBinary_p50 
-
+	
 	********************************
 	**** 	HTE MODERATORS		****
 	********************************
@@ -59,13 +55,12 @@ program global_variables_defining
 	not_shared_handle ///
 	Instagram_use ///
 	Age AgeBinary_p50 AgeBinary_adult Grad_degree Vote Switzerland Female ETH ///
-	index_Image_minus_privacy Image_minus_privacyBinary ///
+	index_Image_minus_privacy index_Image_minus_privacyBinary ///
 	BotKnow BotKnowBinary InitialAIEffective AIEffectiveBinary ///
 	BotSupport_AI BotSupport_AIBinary BotSocialMedia_AI BotSocialMedia_AIBinary ///
 	ReadingReact1Binary ReadingReact2Binary GuessHuman_asHuman GuessAI_asHuman PostReactBinary ///
 	ReadingReact1 ReadingReact2 GuessWriterHuman GuessWriterAI PostReact
 	
-
 	* Ordinal variables
 	global HTE_MODERATORS_TABLE index_Climate ///
 	Donation ///
@@ -80,109 +75,243 @@ program global_variables_defining
 	ReadingReact1Binary ReadingReact2Binary GuessHuman_asHuman GuessAI_asHuman PostReactBinary
 	
 	
-	* Binary variables only
-	global HTE_MODERATORS_CIPLOT index_ClimateBinary DonationBinary_pos ///
-	ImageConcernBinary_p50 not_shared_handle Instagram_use Image_minus_privacyBinary ///
+	* PAP ordered, last row is extra
+	
+	global HTE_MODERATORS_CIPLOT index_ClimateBinary DonationBinary_pos AIDiffBinary ///
+	ImageConcernBinary_p50 not_shared_handle BotKnowBinary ///
 	AgeBinary_adult Grad_degree Vote Switzerland Female ETH ///
-	ai_trust_indexBinary_p50 bot_support_indexBinary_p50 react_indexBinary_p50 guess_human_indexBinary_p50 
-
-
-
+	index_Base_effortBinary_p50 index_Base_nlpBinary_p50 ///
+	Instagram_use index_Image_minus_privacyBinary
+	
 end
 
 global_variables_defining
+	
 
 cap program drop nice_name_as_label
 program define nice_name_as_label
 
     * This program assigns nice labels to variables for use in graph axis titles.
 
-    capture label variable Age                        "Age"
-    capture label variable Grad_degree                "Graduate Student"
-    capture label variable Vote                       "Voted in Last Election"
-    capture label variable ETH                        "ETH"
-    capture label variable Female                     "Gender (Female)"
-    capture label variable Switzerland                "Swiss"
-    capture label variable Instagram_use              "Instagram User"
-    capture label variable ImageConcern               "Image Concern (1-5)"
-    capture label variable not_shared_handle          "Disclosure Concern"
-    capture label variable Donation                   "Donation (CHF)"
-    capture label variable index_Climate              "Climate Concern"
-    capture label variable BotKnow                    "AI Familiarity (1-5)"
-    capture label variable InitialAIEffective         "AI Persuasion (1-5)"
-    capture label variable BaseAIDiff                 "Base AI Difference (1-5)"
-    capture label variable ReadingReact1              "Reaction to Human Content"
-    capture label variable ReadingReact2              "Reaction to Pool Content"
-    capture label variable GuessWriterHuman           "Guess a Human Writer"
-    capture label variable GuessWriterAI              "Guess a AI Writer"
-    capture label variable PostReact                  "Reaction to (Human) Content"
-    capture label variable BotSupport_AI              "Customer Support Bot (1-5)"
-    capture label variable BotSocialMedia_AI          "Social Media Bot (1-5)"
-    capture label variable TimePost_W                 "Time on Post (s)"
-    capture label variable Post_TextLength            "Post Character Count"
-    capture label variable Base_TextLength            "Base Character Count"
-    capture label variable Post_TextLength_log        "Ln (1+Post Character Count)"
-    capture label variable Base_TextLength_log        "Ln(Base Character Count)"
-    capture label variable Post_AvgSentLen            "Post Average Sentence Length"
-    capture label variable Base_AvgSentLen            "Base Average Sentence Length"
-    capture label variable Post_typos_count           "Post Typo Count"
-    capture label variable Base_typos_count           "Base Typo Count"
-    capture label variable WTP                        "WTP to Remove Post (CHF)"
-    capture label variable TimeWTP_W                  "Time on WTP (s)"
-    capture label variable TimeWTPExplain_W           "Time on WTP Instruction (s)"
-    capture label variable GenAIEffective             "Like Attraction by AI"
-    capture label variable PerceiveAI                 "Post Perceived as AI"
-    capture label variable SignalValue                "Post Perceived Positively"
-    capture label variable PerceiveEngaged            "Post Perceived Engaged"
-    capture label variable Post_AIness                "Post AI-ness"
+    * ** Post-Treatment **
+    capture label variable Finished                   	"Survey Completion"
+    capture label variable Post_meaningfulness        	"Wrote Meaningful Post"
+    capture label variable Post_TextLength_log        	"Ln (1+ Post-Task Character Count)"
+    capture label variable Post_AIness                	"Post-Task Not Fully Human Written"
+	capture label variable index_Post_effort          	"Post-Task Effort Index"
+	capture label variable index_Post_nlp             	"Post-Task NLP Quality Index"
+    capture label variable TimePost_W                 	"Time on Post-Task (s)"
+    capture label variable WTP                        	"WTP to Remove Post (CHF)"
+    capture label variable TimeWTP_W                  	"Time Spent on WTP (s)"
+    capture label variable TimeWTPExplain_W           	"Time Spent on WTP Instruction (s)"
+    capture label variable GenAIEffective             	"AI Effectiveness to Attract Likes (1-3)"
+    capture label variable PerceiveAI                 	"Post-Task Likelihood to Perceived as AI (1-5)"
+    capture label variable SignalValue                	"Post-Task Perceived Positively Importance (1-5)"
+    capture label variable PerceiveEngaged            	"Post-Task Perceived Engagement with Climate (1-5)"
+		
+	capture label variable index_Post_overall         	"Post-Task Overall Quality Index"
+		
+    * ** Pre-Treatment **	
+    capture label variable Age                        		"Age"
+    capture label variable AgeBinary_p50              		"Age Above Median (24+)"
+    capture label variable AgeBinary_adult            		"Age 25 Or Older"
+    capture label variable Female                     		"Gender (Female)"
+    capture label variable Switzerland                		"Swiss"
+    capture label variable Grad_degree                		"Graduate Student"
+    capture label variable Vote                       		"Voted in Last Election"
+    capture label variable ETH                        		"ETH"
+    capture label variable Donation                   		"Donation (CHF)"
+    capture label variable DonationBinary_pos         		"Donated"
+    capture label variable DonationBinary_p50         		"Donation Above Median"
+    capture label variable Instagram_use              		"Instagram User"
+    capture label variable ImageConcern               		"Image Concern (1-5)"
+    capture label variable ImageConcernBinary2        		"Image Concern Above 2 from 5"
+    capture label variable ImageConcernBinary3        		"Image Concern Above 3 from 5"
+    capture label variable ImageConcernBinary4        		"Image Concern Above 4 from 5"
+    capture label variable ImageConcernBinary_p50     		"Image Concern Above Median"
+    capture label variable not_shared_handle          		"Exposure Sensitivity"
+    capture label variable index_Climate              		"Climate Concern Index"
+    capture label variable index_ClimateBinary        		"Climate Concern Index Above Median"
+    capture label variable BotKnow                    		"AI Familiarity (1-5)"
+    capture label variable BotKnowBinary              		"Frequent AI User"
+    capture label variable InitialAIEffective         		"AI Persuasion (1-5)"
+    capture label variable AIEffectiveBinary          		"High AI Persuasion"
+    capture label variable BaseAIDiff                 		"Base-Task Perceived Difference from AI (1-5)"
+    capture label variable AIDiffBinary               		"Base-Task Perceived Distinct from AI"
+    capture label variable PostReactBinary            		"React to Example Post"
+    capture label variable ReadingReact1Binary        		"React to Post 1 in Reading Task"
+    capture label variable ReadingReact2Binary        		"React to Post 2 in Reading Task"
+	capture label variable GuessWriter1         	  		"Guess for Writer Identity"
+    capture label variable Guess1_asHuman         	  		"Guess Human Writer for Post 1"
+	capture label variable GuessWriter2         	  		"Guess for Writer Identity"
+    capture label variable Guess2_asHuman             		"Guess Human Writer for Post 2"
+    capture label variable BotSupport_AI              		"Customer Support Bot (1-5)"
+    capture label variable BotSupport_AIBinary        		"Prefer Customer Support Bot"
+    capture label variable BotSocialMedia_AI          		"Social Media Bot (1-5)"
+    capture label variable BotSocialMedia_AIBinary    		"Prefer AI On Social Media"
+
+    * ** Index **
+    capture label variable index_Image_minus_privacy    	"(Image Concern - Exposure Sensitivity) Index"
+	capture label variable index_Image_minus_privacyBinary  "(Image Concern - Exposure Sensitivity) Index Above Median"
+	capture label variable index_Base_effort           		"Base-Task Effort Index"
+	capture label variable index_Base_nlp              		"Base-Task NLP Quality Index"
+	
+	capture label variable index_ai_trust              		"AI Familiarity and Trust (Anderson Index)"
+	capture label variable index_ai_trustBinary_p50    		"AI Familiarity and Trust Index — Above Median"
+	capture label variable index_bot_support           		"Support for AI Bots (Anderson Index)"
+	capture label variable index_bot_supportBinary_p50 		"Support for AI Bots Index — Above Median"
+	capture label variable index_react                 		"Reaction (Anderson Index)"
+	capture label variable index_reactBinary_p50       		"Reaction Index — Above Median"
+	capture label variable index_guess_human           		"Perceived Human Authorship (Anderson Index)"
+	capture label variable index_guess_humanBinary_p50 		"Perceived Human Authorship Index — Above Median"
+
+	
+    * ** Remaining **
+	capture label variable Base_TextLength_log        "Ln(1+ Base-Task Character Count)"
+	capture label variable Base_AIness                "Base-Task Not Fully Human Written"
+	capture label variable Base_meaningfulness        "Wrote Meaningful Base-Task"
+	capture label variable TimeInstructionsPost_W     "Time on Post Instructions (s)"
+	
+    capture label variable Post_TextLength            "Post-Task Character Count"
+    capture label variable Base_TextLength            "Base-Task Character Count"
+    capture label variable Post_AvgSentLen            "Post-Task Average Sentence Length"
+    capture label variable Base_AvgSentLen            "Base-Task Average Sentence Length"
+    capture label variable Post_typos_count           "Post-Task Typo Count"
+    capture label variable Base_typos_count           "Base-Task Typo Count"
     capture label variable Post_personal_anecdote     "Post Personal Anecdote"
+	capture label variable Base_personal_anecdote     "Base Personal Anecdote"
     capture label variable Post_emotional_appeal	  "Post Emotional Appeal"
+	capture label variable Base_emotional_appeal      "Base Emotional Appeal"
     capture label variable Post_scientific_argument   "Post Scientific Argument"
-    capture label variable Finished                   "Completed Survey"
-    capture label variable Post_meaningfulness        "Meaningful Post"
-    capture label variable Base_emotional_appeal      "Base Emotional Appeal"
-    capture label variable Base_moral_narratives      "Base Moral Narratives"
-    capture label variable Base_causal_narratives     "Base Causal Narratives"
-    capture label variable Base_personal_anecdote     "Base Personal Anecdote"
-    capture label variable Base_scientific_argument   "Base Scientific Argument"
-    capture label variable Base_meaningfulness        "Meaningful Base"
+	capture label variable Base_scientific_argument   "Base Scientific Argument"
     capture label variable Post_moral_narratives      "Post Moral Narratives"
-    capture label variable Post_causal_narratives     "Post Causal Narratives"
-    capture label variable index_ClimateBinary        "Climate Concern Above Med."
-    capture label variable DonationBinary_p50         "Donation Above Med."
-    capture label variable DonationBinary_pos         "Donation Positive Amount"
-    capture label variable AIDiffBinary               "Writing Differently From AI"
-    capture label variable ImageConcernBinary_p50     "Image Concern Above Med."
-    capture label variable ImageConcernBinary2        "Image Concern 2/5"
-    capture label variable ImageConcernBinary3        "Image Concern Above 3 from 5"
-    capture label variable ImageConcernBinary4        "Image Concern Above 4 from 5"
-    capture label variable AgeBinary_p50              "Age Above Median"
-    capture label variable AgeBinary_adult            "Age 25 Or Older"
-    capture label variable index_Image_minus_privacy  "(Image - Disclosure) Index"
-    capture label variable Image_minus_privacyBinary  "(Image - Disclosure) Index Above Med."
-    capture label variable BotKnowBinary              "Frequent AI User"
-    capture label variable AIEffectiveBinary          "AI Persuasion"
-    capture label variable BotSupport_AIBinary        "Prefer Customer Support Bot"
-    capture label variable BotSocialMedia_AIBinary    "Prefer AI On Social Media"
-    capture label variable ReadingReact1Binary        "Reacted to Human Content"
-    capture label variable ReadingReact2Binary        "Reacted to Pool Content"
-    capture label variable PostReactBinary            "Reacted to (Human) Content"
-    capture label variable GuessHuman_asHuman         "Guess Human Content as Human"
-    capture label variable GuessAI_asHuman            "Guess AI Content as Human"
+	capture label variable Base_moral_narratives      "Base Moral Narratives"
+    capture label variable Post_causal_narratives     "Post Causal Narratives"    
+    capture label variable Base_causal_narratives     "Base Causal Narratives"
     capture label variable TaskQuizCorrect            "Treatment Composition Correct"
     capture label variable TimePost                   "Time on Post, Raw(s)"
     capture label variable TimeInstructionsPost       "Time on Post Instructions, Raw (s)"
-    capture label variable TimeInstructionsPost_W     "Time on Post Instructions (s)"
     capture label variable TimeWTP                    "Time on WTP, Raw (s)"
     capture label variable TimeWTPExplain             "Time on WTP Instruction, Raw (s)"
     capture label variable WTPBinary_pos              "Positive WTP"
-    capture label variable WTPBinary_p50              "WTP Above Med."
+    capture label variable WTPBinary_p50              "WTP Above Median"
 	capture label variable ClimatePersonal            "Personal Climate Responsibility"
 	capture label variable ClimateWorry               "Worried about Climate"
-	
-	
+	capture label variable AITreat               	  "AI Treatment"
+	capture label variable Identify                   "Identified Treatment"
+	capture label variable AIXIdentifyTreat           "AI × Identified"
 
 end
+
+
+cap program drop yaxis_range_raw
+program define yaxis_range_raw
+    syntax, outcome(varname)
+
+    if "`outcome'" == "Finished" {
+        c_local ylow  = 0.60
+        c_local yhigh = 1.00
+        c_local ystep = 0.05
+        c_local yfmt    "%9.2f"
+    }
+    else if "`outcome'" == "Post_meaningfulness" {
+        c_local ylow  = 0.55
+        c_local yhigh = 1.00
+        c_local ystep = 0.05
+        c_local yfmt    "%9.2f"
+    }
+    else if "`outcome'" == "Post_TextLength_log" {
+        c_local ylow  = 3.0
+        c_local yhigh = 6.0
+        c_local ystep = 0.5
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "Post_AIness" {
+        c_local ylow  = -0.2
+        c_local yhigh = 0.5
+        c_local ystep = 0.1
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "index_Post_effort" {
+        c_local ylow  = -0.8
+        c_local yhigh = 0.6
+        c_local ystep = 0.2
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "index_Post_nlp" {
+        c_local ylow  = -0.75
+        c_local yhigh = 0.50
+        c_local ystep = 0.25
+        c_local yfmt    "%9.2f"
+    }
+    else if "`outcome'" == "TimePost_W" {
+        c_local ylow  = 0
+        c_local yhigh = 700
+        c_local ystep = 100
+        c_local yfmt    "%9.0f"
+    }
+    else if "`outcome'" == "WTP" {
+        c_local ylow  = -1.5
+        c_local yhigh = 2.5
+        c_local ystep = 0.5
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "TimeWTP_W" {
+        c_local ylow  = 40
+        c_local yhigh = 160
+        c_local ystep = 20
+        c_local yfmt    "%9.0f"
+    }
+    else if "`outcome'" == "TimeWTPExplain_W" {
+        c_local ylow  = 0
+        c_local yhigh = 120
+        c_local ystep = 20
+        c_local yfmt    "%9.0f"
+    }
+    else if "`outcome'" == "GenAIEffective" {
+        c_local ylow  = 1.25
+        c_local yhigh = 3.0
+        c_local ystep = 0.25
+        c_local yfmt    "%9.2f"
+    }
+    else if "`outcome'" == "PerceiveAI" {
+        c_local ylow  = 0.5
+        c_local yhigh = 3.0
+        c_local ystep = 0.5
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "SignalValue" {
+        c_local ylow  = 1.0
+        c_local yhigh = 3.5
+        c_local ystep = 0.5
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "PerceiveEngaged" {
+        c_local ylow  = 2.0
+        c_local yhigh = 4.5
+        c_local ystep = 0.5
+        c_local yfmt    "%9.1f"
+    }
+    else if "`outcome'" == "index_Post_overall" {
+        c_local ylow  = -1.1
+        c_local yhigh = 0.5
+        c_local ystep = 0.2
+        c_local yfmt    "%9.1f"
+    }
+    else {
+        quietly summ `outcome'
+        local _ylow  = r(min)
+        local _yhigh = r(max)
+        local _ystep = (`_yhigh' - `_ylow') / 5
+        c_local ylow  = `_ylow'
+        c_local yhigh = `_yhigh'
+        c_local ystep = `_ystep'
+        if      `_ystep' >= 1    c_local yfmt "%9.0f"
+        else if `_ystep' >= 0.1  c_local yfmt "%9.1f"
+        else                     c_local yfmt "%9.2f"
+    }
+end
+
 
 ********************************
 **** 	Data Analysis 		****
@@ -672,152 +801,230 @@ end
 
 * --- outcome_ciplot ---
 
+cap program drop y_title_range_diagnosis
+program y_title_range_diagnosis
+	// -------------------------------------------------------
+	// DIAGNOSIS BLOCK: Global CI ranges across all HTE plots
+	// -------------------------------------------------------
+	
+	local all_outcomes    Finished Post_meaningfulness index_Post_effort index_Post_nlp Post_AIness index_Post_overall ///
+						TimePost_W WTP TimeWTP_W TimeWTPExplain_W ///
+						GenAIEffective PerceiveAI SignalValue PerceiveEngaged
+	
+	local all_samples     2 20
+	local all_moderators  index_ClimateBinary DonationBinary_pos ///
+						ImageConcernBinary_p50 not_shared_handle Instagram_use index_Image_minus_privacyBinary ///
+						AgeBinary_adult Grad_degree Vote Switzerland Female ETH ///
+						index_ai_trustBinary_p50 index_bot_supportBinary_p50 index_reactBinary_p50 index_guess_humanBinary_p50
+	
+	foreach outcome of local all_outcomes {
+		
+			quietly summ `outcome'
+			local true_min = r(min)
+			local true_max = r(max)
+		
+			local global_ci_min = .
+			local global_ci_max = .
+		
+			foreach samp of local all_samples {
+				foreach cond in "none" "finished" {
+					foreach mod of local all_moderators {
+						foreach m_val in 0 1 {
+		
+							preserve
+		
+							quietly keep if sample`samp' == 1 & !missing(`outcome')
+							if "`cond'" == "finished" {
+								quietly keep if Finished == 1
+							}
+							quietly keep if `mod' == `m_val'
+		
+							capture {
+								collapse (count) n=`outcome' (mean) beta=`outcome' (sd) sd=`outcome', by(Treatment_Group)
+								gen se      = sd / sqrt(n)
+								gen tcrit   = invttail(n-1, 0.025)
+								gen ci_lo   = beta - tcrit*se
+								gen ci_hi   = beta + tcrit*se
+								replace ci_hi = `true_max' if ci_hi > `true_max'
+								replace ci_lo = `true_min' if ci_lo < `true_min'
+		
+								quietly summ ci_lo
+								if `global_ci_min' == . | r(min) < `global_ci_min' {
+									local global_ci_min = r(min)
+								}
+								quietly summ ci_hi
+								if `global_ci_max' == . | r(max) > `global_ci_max' {
+									local global_ci_max = r(max)
+								}
+							}
+		
+							restore
+						}
+					}
+				}
+			}
+		
+			di "OUTCOME: `outcome'   CI_MIN = `global_ci_min'   CI_MAX = `global_ci_max'"
+		}
+end
+	
+
 cap program drop nice_ciplot_4treat_pvalue
 program define nice_ciplot_4treat_pvalue
     version 17.0
-    syntax, outcome(varname) sample_number(integer) slabel(string) sname(string) ///
-            [ if_condition(string) YTITLE(string) YLOW(real 60) YHIGH(real 100) YSTEP(real 5) PRCT_var(integer 0) ]
+    syntax, outcome(varname) sample_number(integer) slabel(string) sname(string)
 
     // ---------------------------------------------------------
-    // Build unified filter condition (sample + optional Finished)
+    // 1. Finished-dataset detection (system macro — not a data op)
     // ---------------------------------------------------------
-    local base_cond "sample`sample_number' == 1 & !missing(`outcome')"
-    local full_cond "`base_cond'"
-    if `"`if_condition'"' == "if Finished == 1" {
-        local full_cond "`base_cond' & Finished == 1"
-    }
+    local finished_tag = regexm(c(filename), "_ff\.dta")
 
     // ---------------------------------------------------------
-    // xtitle and output filename (mirrors ciplot_4treat_pval_no_resid)
+    // 2. xtitle and filetag
     // ---------------------------------------------------------
-    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
-    local filetag "ciplot_`outcome'_`sname'_raw"
-
-    if `"`if_condition'"' == "if Finished == 1" {
-        local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
+    if `finished_tag' {
+        local xtitle  "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
         local filetag "ciplot_`outcome'_`sname'_raw_finished"
     }
-
-    // ytitle fallback (should always be supplied explicitly via outer locals)
-    local ytitle_final = cond(`"`ytitle'"' == "", "`outcome'", `"`ytitle'"')
-
-    // ---------------------------------------------------------
-    // 1. CALCULATIONS
-    // ---------------------------------------------------------
-    quietly count if `full_cond'
-    local total_N_val = r(N)
-    local total_N_str : di %9.0fc `total_N_val'
-    local total_N_str = strtrim("`total_N_str'")
-
-    // Arm sizes
-    forvalues i = 1/4 {
-        quietly count if Treatment_Group == `i' & `full_cond'
-        local n`i' = r(N)
-    }
-
-    // T-tests (two-sided, unequal variance)
-    quietly ttest `outcome' if `full_cond' & (Treatment_Group==1 | Treatment_Group==2), by(Treatment_Group) unequal
-    local p12_str : di %6.3f r(p)
-
-    quietly ttest `outcome' if `full_cond' & (Treatment_Group==3 | Treatment_Group==4), by(Treatment_Group) unequal
-    local p34_str : di %6.3f r(p)
-
-    quietly ttest `outcome' if `full_cond', by(Identify) unequal
-    local p12_34_str : di %6.3f r(p)
-
-    // ---------------------------------------------------------
-    // 2. DATA PREP
-    // ---------------------------------------------------------
-
-    // Capture true min/max before collapse so we can cap CIs correctly
-    quietly summ `outcome' if `full_cond'
-    local true_min = r(min)
-    local true_max = r(max)
-
-    preserve
-    keep if `full_cond'
-    collapse (count) n=`outcome' (mean) mean=`outcome' (sd) sd=`outcome', by(Treatment_Group)
-
-    gen se    = sd / sqrt(n)
-    gen tcrit = invttail(n-1, 0.025)
-    gen ci_lo = mean - tcrit*se
-    gen ci_hi = mean + tcrit*se
-
-    // Percentage vs continuous toggle + cap at true data bounds
-    if `prct_var' == 1 {
-        gen mean_plot  = 100 * mean
-        gen ci_lo_plot = 100 * ci_lo
-        gen ci_hi_plot = 100 * ci_hi
-        replace ci_hi_plot = 100 * `true_max' if ci_hi_plot > 100 * `true_max'
-        replace ci_lo_plot = 100 * `true_min' if ci_lo_plot < 100 * `true_min'
-    }
     else {
+        local xtitle  "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
+        local filetag "ciplot_`outcome'_`sname'_raw"
+    }
+
+    // ---------------------------------------------------------
+    // 3. Output directory (self-contained mkdir)
+    // ---------------------------------------------------------
+    local outdir "$output_dir/outcome_ciplot/raw_mean"
+    capture mkdir "`outdir'"
+
+    // ---------------------------------------------------------
+    // 4. Filter condition (string ops only — no data access)
+    // ---------------------------------------------------------
+    local full_cond "sample`sample_number' == 1 & !missing(`outcome')"
+
+    // ---------------------------------------------------------
+    // 5. ALL DATA OPERATIONS INSIDE PRESERVE / RESTORE
+    // ---------------------------------------------------------
+    preserve
+
+        keep if `full_cond'
+
+        // -- y-axis settings: ylow, yhigh, ystep, yfmt set via c_local --
+        yaxis_range_raw, outcome(`outcome')
+
+        // -- ytitle from standardised variable labels --
+        nice_name_as_label
+        local ytitle_final : variable label `outcome'
+        if `"`ytitle_final'"' == "" local ytitle_final "`outcome'"
+
+        // -- Total N --
+        quietly count
+        local total_N_val = r(N)
+        local total_N_str : di %9.0fc `total_N_val'
+        local total_N_str = strtrim("`total_N_str'")
+
+        // -- Arm sizes --
+        forvalues i = 1/4 {
+            quietly count if Treatment_Group == `i'
+            local n`i' = r(N)
+        }
+
+        // -- T-tests (two-sided, unequal variance) --
+        quietly ttest `outcome' if (Treatment_Group==1 | Treatment_Group==2), ///
+            by(Treatment_Group) unequal
+        local p12_str : di %6.3f r(p)
+
+        quietly ttest `outcome' if (Treatment_Group==3 | Treatment_Group==4), ///
+            by(Treatment_Group) unequal
+        local p34_str : di %6.3f r(p)
+
+        quietly ttest `outcome', by(Identify) unequal
+        local p12_34_str : di %6.3f r(p)
+
+        // -- True data bounds for CI capping --
+        quietly summ `outcome'
+        local true_min = r(min)
+        local true_max = r(max)
+
+        // -- Collapse to treatment-group cell means and CIs --
+        collapse (count) n=`outcome' (mean) mean=`outcome' (sd) sd=`outcome', ///
+            by(Treatment_Group)
+
+        gen se       = sd / sqrt(n)
+        gen tcrit    = invttail(n-1, 0.025)
+        gen ci_lo    = mean - tcrit*se
+        gen ci_hi    = mean + tcrit*se
+
         gen mean_plot  = mean
         gen ci_lo_plot = ci_lo
         gen ci_hi_plot = ci_hi
         replace ci_hi_plot = `true_max' if ci_hi_plot > `true_max'
         replace ci_lo_plot = `true_min' if ci_lo_plot < `true_min'
-    }
 
-    // ---------------------------------------------------------
-    // 3. PLOTTING
-    // ---------------------------------------------------------
+        // ---------------------------------------------------------
+        // 6. P-VALUE BOX POSITIONING (unchanged)
+        // ---------------------------------------------------------
+        local range_y  = `yhigh' - `ylow'
+        local gap      = `range_y' * 0.06
+        local line2_y  = `ylow' + (`range_y' * 0.15)
+        local line1_y  = `line2_y' + `gap'
+        local line3_y  = `line2_y' - `gap'
+        local box_x    = 0.7
 
-    // -- P-value box positioning --
-    local range_y  = `yhigh' - `ylow'
-    local gap      = `range_y' * 0.06
-    local line2_y  = `ylow' + (`range_y' * 0.15)   // Middle p-value
-    local line1_y  = `line2_y' + `gap'              // Top p-value
-    local line3_y  = `line2_y' - `gap'              // Bottom p-value
-    local box_x    = 0.7
+        // ---------------------------------------------------------
+        // 7. PLOT
+        // ---------------------------------------------------------
+        local c1 "navy"
+        local c2 "maroon"
+        local c3 "black"
 
-    // -- Colors --
-    local c1 "navy"
-    local c2 "maroon"
-    local c3 "black"
+        local txt1 "P-Value (No AI vs. AI | Anonymous) = `p12_str'"
+        local txt2 "P-Value (No AI vs. AI | Identified) = `p34_str'"
+        local txt3 "P-Value (Anonymous vs. Identified) = `p12_34_str'"
 
-    // -- P-value label strings --
-    local txt1 "P-Value (No AI vs. AI | Anonymous) = `p12_str'"
-    local txt2 "P-Value (No AI vs. AI | Identified) = `p34_str'"
-    local txt3 "P-Value (Anonymous vs. Identified) = `p12_34_str'"
+        twoway ///
+            (rcap ci_hi_plot ci_lo_plot Treatment_Group if Treatment_Group <= 2, ///
+                lcolor(`c1') lwidth(medthin)) ///
+            (scatter mean_plot Treatment_Group if Treatment_Group <= 2, ///
+                msymbol(Dh) msize(small) mcolor(none) mlcolor(`c1')) ///
+            (rcap ci_hi_plot ci_lo_plot Treatment_Group if Treatment_Group > 2, ///
+                lcolor(`c2') lwidth(medthin)) ///
+            (scatter mean_plot Treatment_Group if Treatment_Group > 2, ///
+                msymbol(Dh) msize(small) mcolor(none) mlcolor(`c2')) ///
+            /* Dummy series for legend only */ ///
+            (scatter mean_plot Treatment_Group if 1==0, ///
+                msymbol(Dh) msize(small) mcolor(none) mlcolor(black)) ///
+            (rcap ci_hi_plot ci_lo_plot Treatment_Group if 1==0, ///
+                lcolor(black) lwidth(medthin)), ///
+            xlabel(1 `""No AI, Anonymous" "(n=`n1')""' ///
+                   2 `""AI, Anonymous" "(n=`n2')""' ///
+                   3 `""No AI, Identified" "(n=`n3')""' ///
+                   4 `""AI, Identified" "(n=`n4')""', labsize(medsmall)) ///
+            xtitle(`"`xtitle'"', size(small)) ///
+            ytitle(`"`ytitle_final'"', size(small)) ///
+            xscale(range(0.5 4.5)) ///
+            yscale(range(`ylow' `yhigh')) ///
+            ylabel(`ylow'(`ystep')`yhigh', format(`yfmt') labsize(medsmall)) ///
+            /* LAYER 1: White box background */ ///
+            text(`line2_y' `box_x' "`txt1'" " " "`txt2'" " " "`txt3'", ///
+                 place(e) box fcolor(white) lcolor(black) margin(vsmall) ///
+                 size(small) justification(left) color(white)) ///
+            /* LAYER 2: Navy text (top) */ ///
+            text(`line1_y' `box_x' "`txt1'", ///
+                 place(e) margin(small) size(small) justification(left) color(`c1')) ///
+            /* LAYER 3: Maroon text (middle) */ ///
+            text(`line2_y' `box_x' "`txt2'", ///
+                 place(e) margin(small) size(small) justification(left) color(`c2')) ///
+            /* LAYER 4: Black text (bottom) */ ///
+            text(`line3_y' `box_x' "`txt3'", ///
+                 place(e) margin(small) size(small) justification(left) color(`c3')) ///
+            legend(off) ///
+            plotregion(margin(zero)) ///
+            name(Ci_4treat_nice, replace)
 
-    twoway ///
-        (rcap ci_hi_plot ci_lo_plot Treatment_Group if Treatment_Group <= 2, lcolor(`c1') lwidth(medthin)) ///
-        (scatter mean_plot Treatment_Group if Treatment_Group <= 2, msymbol(Dh) msize(small) mcolor(none) mlcolor(`c1')) ///
-        (rcap ci_hi_plot ci_lo_plot Treatment_Group if Treatment_Group > 2,  lcolor(`c2') lwidth(medthin)) ///
-        (scatter mean_plot Treatment_Group if Treatment_Group > 2,  msymbol(Dh) msize(small) mcolor(none) mlcolor(`c2')) ///
-        /* Dummy series for legend only */ ///
-        (scatter mean_plot Treatment_Group if 1==0, msymbol(Dh) msize(small) mcolor(none) mlcolor(black)) ///
-        (rcap ci_hi_plot ci_lo_plot Treatment_Group if 1==0, lcolor(black) lwidth(medthin)), ///
-        xlabel(1 `""No AI, Anonymous" "(n=`n1')""' ///
-               2 `""AI, Anonymous" "(n=`n2')""' ///
-               3 `""No AI, Identified" "(n=`n3')""' ///
-               4 `""AI, Identified" "(n=`n4')""', labsize(medsmall)) ///
-        xtitle(`"`xtitle'"', size(small)) ///
-        ytitle(`"`ytitle_final'"', size(medsmall)) ///
-        xscale(range(0.5 4.5)) ///
-        yscale(range(`ylow' `yhigh')) ///
-        ylabel(`ylow'(`ystep')`yhigh', labsize(medsmall)) ///
-        /* LAYER 1: White box background */ ///
-        text(`line2_y' `box_x' "`txt1'" " " "`txt2'" " " "`txt3'", ///
-             place(e) box fcolor(white) lcolor(black) margin(vsmall) size(small) justification(left) color(white)) ///
-        /* LAYER 2: Navy text (top) */ ///
-        text(`line1_y' `box_x' "`txt1'", ///
-             place(e) margin(small) size(small) justification(left) color(`c1')) ///
-        /* LAYER 3: Maroon text (middle) */ ///
-        text(`line2_y' `box_x' "`txt2'", ///
-             place(e) margin(small) size(small) justification(left) color(`c2')) ///
-        /* LAYER 4: Black text (bottom) */ ///
-        text(`line3_y' `box_x' "`txt3'", ///
-             place(e) margin(small) size(small) justification(left) color(`c3')) ///
-        legend(order(5 6) label(5 "Mean") label(6 "95% Confidence Interval") ///
-               cols(2) pos(6) ring(3) size(small) region(lcolor(black))) ///
-        plotregion(margin(zero)) ///
-        name(Ci_4treat_nice, replace)
-
-    graph display Ci_4treat_nice, xsize(10) ysize(7)
-    graph export "$output_folder/`filetag'.pdf", replace
-    graph drop Ci_4treat_nice
+        graph display Ci_4treat_nice, xsize(10) ysize(7)
+        graph export "`outdir'/`filetag'.pdf", replace
+        graph drop Ci_4treat_nice
 
     restore
 end
@@ -884,8 +1091,8 @@ program define ciplot_4treat_pval_no_resid
     }
     
     // Dynamic xtitle and filetag based on arguments
-    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
-    local filetag "ciplot_`outcome'_`sname'_raw"
+    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
+    local filetag "ciplot_`outcome'_`sname'_raw_finished"
     
     if "`if_condition'" == "if Finished == 1" {
         local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
@@ -1114,8 +1321,8 @@ program define ciplot_4treat_pval_fwl_resid
 
 
     // Dynamic xtitle and filetag
-    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
-    local filetag "ciplot_`outcome'_`sname'_resid"
+    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
+    local filetag "ciplot_`outcome'_`sname'_resid_finished"
     
     if "`if_condition'" == "if Finished == 1" {
         local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
@@ -1270,123 +1477,6 @@ program define ciplot_4treat_pval_fwl_resid
 end
 
 
-cap program drop lasso_diagnosis_controls1
-program define lasso_diagnosis_controls1
-	* ==============================================================================
-	* DIAGNOSIS TEST: Full Variable Pipeline Check
-	* ==============================================================================
-	set more off
-	cls
-	
-	display as text "{hline 80}"
-	display as result " RUNNING FULL DIAGNOSIS: PARSING -> LASSO -> FORMATTING"
-	display as text "{hline 80}"
-	
-	foreach outcome in $OUTCOMES $TEXT_OUTCOMES {
-		
-		* -------------------------------------------------------
-		* 1. PARSING LOGIC (Your Clean Loop)
-		* -------------------------------------------------------
-		local cand_clean ""
-		foreach v of global CONTROLS {
-			* If it starts with c., strip the first 2 characters
-			if substr("`v'", 1, 2) == "c." {
-				local new_v = substr("`v'", 3, .)
-				local cand_clean "`cand_clean' `new_v'"
-			}
-			* If it starts with i., keep it as is
-			else {
-				local cand_clean "`cand_clean' `v'"
-			}
-		}
-		
-		local cand "$CONTROLS"
-		local is_bin = 0
-		if strpos(" $OUTCOMES_BIN ", " `outcome' ") > 0 local is_bin = 1
-		
-		* -------------------------------------------------------
-		* 2. LASSO SELECTION (Execution)
-		* -------------------------------------------------------
-		local controls_sel_raw "INVALID/SKIPPED (N<20 or Error)"
-		local type_str ""
-		
-		quietly count if !missing(`outcome')
-		if r(N) >= 20 {
-			if `is_bin' {
-				local type_str "BINARY (Logit)"
-				* Logit uses RAW list (needs prefixes)
-				capture quietly lasso logit `outcome' `cand_clean', selection(plugin)
-				if !_rc local controls_sel_raw "`e(allvars_sel)'"
-				else local controls_sel_raw "ERROR in Lasso Logit"
-			}
-			else {
-				local type_str "CONTINUOUS (Linear)"
-				* Linear uses CLEAN list (prefixes stripped)
-				capture quietly lasso linear `outcome' `cand_clean', selection(plugin)
-				if !_rc local controls_sel_raw "`e(allvars_sel)'"
-				else local controls_sel_raw "ERROR in Lasso Linear"
-			}
-		}
-		
-		* -------------------------------------------------------
-		* 3. FORMATTING LOGIC (Re-applying Prefixes)
-		* -------------------------------------------------------
-		local controls_sel_formatted ""
-	
-		if "`controls_sel_raw'" != "INVALID/SKIPPED (N<20 or Error)" & substr("`controls_sel_raw'", 1, 5) != "ERROR" {
-			foreach v of local controls_sel_raw {
-				local is_cont = (strpos("$CONTROLS_CONT_NOFACTOR", "`v'") > 0)
-				local is_cat = (strpos("$CONTROLS_CAT_NOFACTOR", "`v'") > 0)
-	
-				if `is_cont' {
-					local controls_sel_formatted "`controls_sel_formatted' c.`v'"
-				}
-				else if `is_cat' {
-					local controls_sel_formatted "`controls_sel_formatted' i.`v'"
-				}
-				else {
-					local controls_sel_formatted "`controls_sel_formatted' c.`v'"
-				}
-			}
-		}
-		
-		* -------------------------------------------------------
-		* 4. BASE CONTROL LOGIC (For Final Controls)
-		* -------------------------------------------------------
-		local forced_base ""
-		if "`outcome'" == "PostTextLength"       local forced_base "c.BaseTextLength"
-		else if "`outcome'" == "PostTextLength_log"  local forced_base "c.BaseTextLength_log"
-		else if "`outcome'" == "Meaningful_post"     local forced_base "i.Meaningful_base"
-		else if "`outcome'" == "grammatical_mistakes" local forced_base "c.Base_grammatical_mistakes"
-		else {
-			capture confirm variable Base_`outcome'
-			if !_rc {
-				quietly inspect Base_`outcome'
-				if r(N_unique) > 10 local forced_base "c.Base_`outcome'"
-				else local forced_base "i.Base_`outcome'"
-			}
-		}
-		
-		local final_controls "`controls_sel_formatted' `forced_base'"
-		** This is actually redundent and messes up. No need for that as we can see in the ciplot_4treat_pval_fwl_resid
-		
-		* -------------------------------------------------------
-		* 5. OUTPUT DISPLAY
-		* -------------------------------------------------------
-		display as text "Outcome: " as result "`outcome'"
-		display as text "Type: " as result "`type_str'"
-		display as text "cand: " as result "`cand'"
-		display as text "cand_clean: " as result "`cand_clean'"
-		display as text "controls_sel_raw: " as result "`controls_sel_raw'"
-		display as text "controls_sel_formatted: " as result "`controls_sel_formatted'"
-		display as text "final_controls: " as result "`final_controls'"
-		display as text "{hline 40}"
-	}
-	
-	display as result "DIAGNOSIS COMPLETE"
-
-end
-
 * --- outcome_table ---
 
 capture program drop tbl_treat_eff_app
@@ -1394,34 +1484,19 @@ program define tbl_treat_eff_app
 
     syntax, outcome(varname) sample_number(integer) slabel(string) sname(string) [if_condition(string)]
 
-    // -------------------------------------------------------
-    // 0. Column Header Labels (edit here to rename columns)
-    // -------------------------------------------------------
+
     local col1_title "No Controls"
-    local col2_title "Focal Behavioral Controls"
-    local col3_title "All Behavioral Controls"
-    local col4_title "Full Controls"
+    local col2_title "Demographics"
+    local col3_title "All Controls"
 
-    // -------------------------------------------------------
-    // 1. Control Variable Lists
-    //    All variables are binary — entered without i. prefix
-    //    so esttab can display their variable labels cleanly.
-    //    forced_base (for Post_* outcomes) is handled below
-    //    and appended only to C4.
-    // -------------------------------------------------------
 
-    * C2: Focal Behavioral Controls
-    local c2_controls "Instagram_use ImageConcernBinary_p50 not_shared_handle"
+    * C2: Demographics
+    local c2_controls "AgeBinary_adult Female Switzerland Grad_degree ETH Vote"
 
-    * C3: All Behavioral Controls
-    local c3_controls "Instagram_use ImageConcernBinary_p50 not_shared_handle DonationBinary_pos BotKnowBinary AIEffectiveBinary AIDiffBinary ReadingReact1Binary ReadingReact2Binary GuessHuman_asHuman GuessAI_asHuman PostReactBinary BotSupport_AIBinary BotSocialMedia_AIBinary"
+    * C3: All Controls
+    local c3_add_controls "Instagram_use not_shared_handle ImageConcernBinary_p50 DonationBinary_pos BotKnowBinary AIEffectiveBinary AIDiffBinary PostReactBinary ReadingReact1Binary ReadingReact2Binary Guess1_asHuman Guess2_asHuman BotSupport_AIBinary BotSocialMedia_AIBinary"
 
-    * C4: Full Controls (C3 + Demographics)
-    local c4_controls "Instagram_use ImageConcernBinary_p50 not_shared_handle DonationBinary_pos BotKnowBinary AIEffectiveBinary AIDiffBinary ReadingReact1Binary ReadingReact2Binary GuessHuman_asHuman GuessAI_asHuman PostReactBinary BotSupport_AIBinary BotSocialMedia_AIBinary AgeBinary_adult Female Switzerland Grad_degree ETH Vote"
 
-    // -------------------------------------------------------
-    // 2. Setup: Sample + Condition Filter
-    // -------------------------------------------------------
     preserve
 
     quietly keep if sample`sample_number' == 1 & !missing(`outcome')
@@ -1429,53 +1504,46 @@ program define tbl_treat_eff_app
         keep `if_condition'
     }
 
-    // -------------------------------------------------------
-    // 3. Nice Names + Table-Specific Label Overrides
-    // -------------------------------------------------------
+
     nice_name_as_label
-
-    * Override labels for binary variables: drop "Above Med." suffix
-    capture label variable ImageConcernBinary_p50  "Image Concern"
-    capture label variable index_ClimateBinary     "Climate Concern"
-    capture label variable DonationBinary_p50      "Donated"
-    capture label variable AIDiffBinary            "Writing Differently From AI"
-    capture label variable Image_minus_privacyBinary "(Image - Disclosure) Index"
-
     local ytitle : variable label `outcome'
     if "`ytitle'" == "" local ytitle "`outcome'"
+	
+	if "`outcome'" == "ImageConcernBinary_p50" {
+		local ytitle "High Image Concern"
+	}
 
-    // -------------------------------------------------------
-    // 4. File Naming and Table Title
-    // -------------------------------------------------------
-    local fname  "table_te_`outcome'_`sname'"
-    local tbl_title "Treatment Effects on `ytitle'"
+    // ---------------------------------------------------------
+    // title and fname
+    // ---------------------------------------------------------
+	local finished_tag = regexm(c(filename), "_ff\.dta")
+	
+	
 
-    if "`if_condition'" == "if Finished == 1" {
+    if `finished_tag' {
         local fname  "table_te_`outcome'_`sname'_finished"
-        local tbl_title "Treatment Effects on `ytitle', Finished"
+        local tbl_title "Treatment Effects on `ytitle' - `slabel', Finished"
     }
-
-    capture mkdir "$output_folder/outcome_table"
-    local outdir "$output_folder/outcome_table"
+    else {
+        local fname  "table_te_`outcome'_`sname'"
+        local tbl_title "Treatment Effects on `ytitle' - `slabel'"
+    }
+	
+    local outdir "$output_dir/outcome_table/treatment_effect"
 
     // -------------------------------------------------------
-    // 5. Forced Base Control (Post_* outcomes only, used in C4)
+    // 5. Forced Base Control (Post_* outcomes only, used in C3)
     // -------------------------------------------------------
-    local forced_base ""
-
-    if strpos("`outcome'", "Post_") == 1 {
-        local suffix = substr("`outcome'", 6, .)
-        foreach bvar of global BASE_TEXT_CONTROLS {
-            if "`bvar'" == "Base_`suffix'" {
-                local forced_base "`bvar'"
-            }
-        }
-    }
+	local forced_base ""
+	
+	if inlist("`outcome'", "Post_meaningfulness", "Post_TextLength_log", "Post_AIness","index_Post_effort", "index_Post_nlp") {
+		local forced_base = subinstr("`outcome'", "Post_", "Base_", 1)
+	}
 
     // -------------------------------------------------------
     // 6. Three Treatment Arms (base = NoAI_x_Anon = _cons)
     // -------------------------------------------------------
-    local three_arms "AI_x_Anon NoAI_x_Iden AI_x_Iden"
+    local three_arms "Identify AITreat AIXIdentifyTreat"
 
     // -------------------------------------------------------
     // 7. Run Regressions
@@ -1483,32 +1551,23 @@ program define tbl_treat_eff_app
     eststo clear
     local models_to_tab ""
 
-    * -- C1: No Controls --
     capture quietly regress `outcome' `three_arms', vce(robust)
     if _rc == 0 {
         eststo model1
         local models_to_tab "`models_to_tab' model1"
     }
 
-    * -- C2: Focal Behavioral Controls --
     capture quietly regress `outcome' `three_arms' `c2_controls', vce(robust)
     if _rc == 0 {
         eststo model2
         local models_to_tab "`models_to_tab' model2"
     }
 
-    * -- C3: All Behavioral Controls --
-    capture quietly regress `outcome' `three_arms' `c3_controls', vce(robust)
+
+    capture quietly regress `outcome' `three_arms' `c2_controls' `forced_base' `c3_add_controls', vce(robust)
     if _rc == 0 {
         eststo model3
         local models_to_tab "`models_to_tab' model3"
-    }
-
-    * -- C4: Full Controls + forced base (if Post_*) --
-    capture quietly regress `outcome' `three_arms' `c4_controls' `forced_base', vce(robust)
-    if _rc == 0 {
-        eststo model4
-        local models_to_tab "`models_to_tab' model4"
     }
 
     // -------------------------------------------------------
@@ -1519,26 +1578,29 @@ program define tbl_treat_eff_app
             main(b %9.3f) aux(se %9.3f)                                    ///
             starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001)                   ///
             label                                                           ///
-            keep(_cons `three_arms' *)                                      ///
-            order(_cons `three_arms')                                       ///
-            coeflabels(_cons        "No AI \$\times\$ Anon"                ///
-                       AI_x_Anon   "AI \$\times\$ Anon"                    ///
-                       NoAI_x_Iden "No AI \$\times\$ Iden"                 ///
-                       AI_x_Iden   "AI \$\times\$ Iden")                   ///
+            keep(`three_arms' * _cons)                                      ///
+            order(`three_arms') 	                                      ///
+            coeflabels(Identify   "Identified Treatment"                    ///
+                       AITreat     "AI Treatment"                 ///
+                       AIXIdentifyTreat   "AI \$\times\$ Identified"            ///
+					   _cons       "Constant")                				   ///
             stats(r2_a N, fmt(%9.3f %9.0fc)                                ///
                 labels("Adj. \(R^2\)" "\(N\)"))                            ///
-            mtitles("`col1_title'" "`col2_title'"                          ///
-                    "`col3_title'" "`col4_title'")                         ///
+            mtitles("`col1_title'" "`col2_title'" "`col3_title'" )         ///
             numbers                                                         ///
             title("`tbl_title'") nonotes                                    ///
             booktabs compress width(\hsize)                                 ///
-            prehead(`"\documentclass{article}"'                            ///
+			prehead(`"\documentclass{article}"'                            ///
                     `"\usepackage{booktabs}"'                               ///
-                    `"\usepackage[paperheight=14in, paperwidth=10in, margin=0.5in]{geometry}"' ///
+                    `"\usepackage{caption}"'                                ///
+                    `"\usepackage[paperheight=11in, paperwidth=8.5in, margin=1in]{geometry}"' ///
                     `"\begin{document}"'                                    ///
                     `"\begin{table}[htbp]\centering"'                       ///
-                    `"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"'         ///
-                    `"\caption{@title}"'                                    ///
+                    `"\footnotesize"'                                       ///
+                    `"\renewcommand{\arraystretch}{0.85}"'                  ///
+                    `"\setlength{\defaultaddspace}{0.25em}"'                 ///
+                    `"\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}"'          ///
+                    `"\caption*{@title}"'                                    ///
                     `"\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{@M}{c}}"' ///
                     `"\toprule"')                                           ///
             postfoot(`"\bottomrule"'                                        ///
@@ -1546,7 +1608,7 @@ program define tbl_treat_eff_app
                      `"\begin{minipage}{\hsize}\vspace{1ex}\footnotesize"'  ///
                      `"Standard errors in parentheses. $^{+} p<0.10, ^{*} p<0.05, ^{**} p<0.01, ^{***} p<0.001$. \\"' ///
                      `"All the Behavioral and Demographics controls are binarized to match the HTE results. \\"' ///
-                     `"All time-based metrics are reported in seconds (s) and Winsorized at the 1\% level."' ///
+                     `"All time-based metrics are reported in seconds (s) and Winsorized at the 95th percentile (top 5\% only)."' ///
                      `"\end{minipage}"'                                     ///
                      `"\end{table}"'                                        ///
                      `"\end{document}"')
@@ -2509,6 +2571,7 @@ end
 
 * --- HTE ---
 
+/*
 * Table: With interaction
 capture program drop hte_table_generator0
 program define hte_table_generator0
@@ -3515,9 +3578,94 @@ program define hte_table_generator
     restore
 
 end
+*/
 
 *
 * CIplot: No interaction
+
+capture program drop diag_hte_lasso_range
+program define diag_hte_lasso_range
+    syntax, outcome(varname) moderator(varname) sample_number(integer)
+
+    local forced_base ""
+    if inlist("`outcome'", "Post_meaningfulness", "Post_AIness", "index_Post_effort", "index_Post_nlp", "Post_TextLength_log") {
+        local forced_base = subinstr("`outcome'", "Post_", "Base_", 1)
+    }
+
+    // Fully synced variable removal logic
+    local VARS_TO_REMOVE ""
+    if strpos("`moderator'", "Instagram_use") > 0       local VARS_TO_REMOVE "`VARS_TO_REMOVE' Instagram_use"
+    if strpos("`moderator'", "not_shared_handle") > 0   local VARS_TO_REMOVE "`VARS_TO_REMOVE' not_shared_handle index_Image_minus_privacy Image_minus_privacyBinary"
+    if strpos("`moderator'", "ImageConcern") > 0        local VARS_TO_REMOVE "`VARS_TO_REMOVE' ImageConcern ImageConcernBinary_p50 ImageConcernBinary2 ImageConcernBinary3 ImageConcernBinary4 index_Image_minus_privacy Image_minus_privacyBinary"
+    if strpos("`moderator'", "Image_minus_privacy") > 0 local VARS_TO_REMOVE "`VARS_TO_REMOVE' ImageConcern ImageConcernBinary_p50 ImageConcernBinary2 ImageConcernBinary3 ImageConcernBinary4 index_Image_minus_privacy Image_minus_privacyBinary not_shared_handle"
+    if strpos("`moderator'", "Grad_degree") > 0         local VARS_TO_REMOVE "`VARS_TO_REMOVE' Grad_degree"
+    if strpos("`moderator'", "Vote") > 0                local VARS_TO_REMOVE "`VARS_TO_REMOVE' Vote"
+    if strpos("`moderator'", "Switzerland") > 0         local VARS_TO_REMOVE "`VARS_TO_REMOVE' Switzerland"
+    if strpos("`moderator'", "Female") > 0              local VARS_TO_REMOVE "`VARS_TO_REMOVE' Female"
+    if strpos("`moderator'", "ETH") > 0                 local VARS_TO_REMOVE "`VARS_TO_REMOVE' ETH"
+    if strpos("`moderator'", "Age") > 0                 local VARS_TO_REMOVE "`VARS_TO_REMOVE' Age AgeBinary_p50 AgeBinary_adult"
+    if strpos("`moderator'", "index_Climate") > 0       local VARS_TO_REMOVE "`VARS_TO_REMOVE' index_Climate index_ClimateBinary ClimateWorry ClimatePersonal"
+    if strpos("`moderator'", "Donation") > 0            local VARS_TO_REMOVE "`VARS_TO_REMOVE' Donation DonationBinary_p50 DonationBinary_pos"
+    if strpos("`moderator'", "BotKnow") > 0             local VARS_TO_REMOVE "`VARS_TO_REMOVE' BotKnow BotKnowBinary"
+    if strpos("`moderator'", "AIEffective") > 0         local VARS_TO_REMOVE "`VARS_TO_REMOVE' InitialAIEffective AIEffectiveBinary"
+    if strpos("`moderator'", "AIDiff") > 0              local VARS_TO_REMOVE "`VARS_TO_REMOVE' BaseAIDiff AIDiffBinary"
+    if strpos("`moderator'", "BotSupport") > 0          local VARS_TO_REMOVE "`VARS_TO_REMOVE' BotSupport_AI BotSupport_AIBinary"
+    if strpos("`moderator'", "BotSocialMedia") > 0      local VARS_TO_REMOVE "`VARS_TO_REMOVE' BotSocialMedia_AI BotSocialMedia_AIBinary"
+    if strpos("`moderator'", "React") > 0               local VARS_TO_REMOVE "`VARS_TO_REMOVE' ReadingReact1 ReadingReact1Binary ReadingReact2 ReadingReact2Binary PostReact PostReactBinary"
+    if strpos("`moderator'", "Guess") > 0               local VARS_TO_REMOVE "`VARS_TO_REMOVE' GuessWriterHuman GuessWriterAI GuessHuman_asHuman GuessAI_asHuman"
+
+    local VARS_TO_REMOVE "`VARS_TO_REMOVE' `moderator'"
+    local VARS_TO_REMOVE_EXPANDED "`VARS_TO_REMOVE'"
+    foreach var in `VARS_TO_REMOVE' {
+        local VARS_TO_REMOVE_EXPANDED "`VARS_TO_REMOVE_EXPANDED' i.`var'"
+    }
+
+    local lasso_cands "$CONTROLS `forced_base'"
+    if "`VARS_TO_REMOVE_EXPANDED'" != "" {
+        local lasso_cands : list lasso_cands - VARS_TO_REMOVE_EXPANDED
+    }
+    if trim("`lasso_cands'") == "" {
+        local lasso_cands "i.Identify"
+    }
+
+    local is_bin = 0
+    if strpos(" $OUTCOMES_BIN ", " `outcome' ") > 0 local is_bin = 1
+
+    preserve
+    quietly keep if sample`sample_number' == 1 & !missing(`outcome')
+
+    local diag_min = 0
+    local diag_max = 0
+
+    foreach m_val in 0 1 {
+        local controls_sel_temp ""
+        quietly count if `moderator' == `m_val'
+        if r(N) >= 20 {
+            if `is_bin' {
+                capture quietly lasso logit `outcome' `lasso_cands' if `moderator' == `m_val', selection(plugin)
+                if _rc == 0 local controls_sel_temp "`e(allvars_sel)'"
+            }
+            else {
+                capture quietly lasso linear `outcome' `lasso_cands' if `moderator' == `m_val', selection(plugin)
+                if _rc == 0 local controls_sel_temp "`e(allvars_sel)'"
+            }
+        }
+
+        capture quietly regress `outcome' i.Treatment_Group `controls_sel_temp' if `moderator' == `m_val', vce(robust)
+        if _rc == 0 {
+            matrix T_diag = r(table)
+            forvalues i = 2/4 {
+                local lo = T_diag[5, `i']
+                local hi = T_diag[6, `i']
+                if `lo' < `diag_min' local diag_min = `lo'
+                if `hi' > `diag_max' local diag_max = `hi'
+            }
+        }
+    }
+
+    display "DIAG | outcome=`outcome' | moderator=`moderator' | sample=`sample_number' | CI_min=`diag_min' | CI_max=`diag_max'"
+    restore
+end
 
 capture program drop hte_ciplot_NoCtrl
 program define hte_ciplot_NoCtrl
@@ -3856,322 +4004,223 @@ program define hte_ciplot_NoCtrl
     restore
 end
 
-capture program drop hte_ciplot_raw
+cap program drop hte_ciplot_raw
 program define hte_ciplot_raw
-    syntax, outcome(varname) moderator(varname) sample_number(integer) slabel(string) sname(string) [if_condition(string)]
+    version 17.0
+    syntax, outcome(varname) moderator(varname) sample_number(integer) ///
+            slabel(string) sname(string)
 
-    // True data bounds for CI capping
-    quietly summ `outcome'
-    local true_min = r(min)
-    local true_max = r(max)
+    // ---------------------------------------------------------
+    // 1. Finished-dataset detection (system macro — not a data op)
+    // ---------------------------------------------------------
+    local finished_tag = regexm(c(filename), "_ff\.dta")
 
-    // -------------------------------------------------------
-    // 1. Global Y-Axis Range (across all samples & conditions)
-    // -------------------------------------------------------
-    local all_samples 2 20  // Must match RUN_SAMPLES!
-    local global_ci_min = .
-    local global_ci_max = .
-
-    foreach samp of local all_samples {
-        foreach cond in "" "if Finished == 1" {
-            foreach m_val in 0 1 {
-                preserve
-                quietly keep if sample`samp' == 1 & !missing(`outcome')
-                if "`cond'" != "" {
-                    keep `cond'
-                }
-                quietly keep if `moderator' == `m_val'
-                
-                capture collapse (count) n=`outcome' (mean) beta=`outcome' (sd) sd=`outcome', by(Treatment_Group)
-                if _rc == 0 & _N > 0 {
-                    gen se = sd/sqrt(n)
-                    gen tcrit = invttail(n-1, 0.025)
-                    gen temp_ci_lo = beta - tcrit*se
-                    gen temp_ci_hi = beta + tcrit*se
-                    
-                    replace temp_ci_hi = `true_max' if temp_ci_hi > `true_max'
-                    replace temp_ci_lo = `true_min' if temp_ci_lo < `true_min'
-                    
-                    quietly summ temp_ci_lo
-                    if `global_ci_min' == . | r(min) < `global_ci_min' {
-                        local global_ci_min = r(min)
-                    }
-                    quietly summ temp_ci_hi
-                    if `global_ci_max' == . | r(max) > `global_ci_max' {
-                        local global_ci_max = r(max)
-                    }
-                }
-                restore
-            }
-        }
-    }
-    
-    // Fallback
-    if `global_ci_min' == . local global_ci_min = 0
-    if `global_ci_max' == . local global_ci_max = 1
-
-    // -------------------------------------------------------
-    // 2. Actual Plot: Preserve & Subset
-    // -------------------------------------------------------
-    preserve
-    quietly keep if sample`sample_number' == 1 & !missing(`outcome')
-    if "`if_condition'" != "" {
-        keep `if_condition'
-    }
-
-    // Capture Ns for labels before collapse
-    forvalues i = 1/4 {
-        quietly count if Treatment_Group == `i' & `moderator' == 0
-        local n0`i' = r(N)
-        quietly count if Treatment_Group == `i' & `moderator' == 1
-        local n1`i' = r(N)
-    }
-
-    // Dynamic xtitle and filetag
-    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
-    local filetag "ciplot_`outcome'_hte_`moderator'_`sname'_raw"
-    
-    if "`if_condition'" == "if Finished == 1" {
-        local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
+    // ---------------------------------------------------------
+    // 2. xtitle and filetag
+    // ---------------------------------------------------------
+    if `finished_tag' {
+        local xtitle  "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
         local filetag "ciplot_`outcome'_hte_`moderator'_`sname'_raw_finished"
     }
-
-    // Dynamic ytitle from variable label
-    nice_name_as_label
-    local ytitle : variable label `outcome'
-    if "`ytitle'" == "" {
-        local ytitle "`outcome'"
+    else {
+        local xtitle  "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
+        local filetag "ciplot_`outcome'_hte_`moderator'_`sname'_raw"
     }
 
-    // Moderator label
-    local moderator_lbl : variable label `moderator'
-    if "`moderator_lbl'" == "" {
-        local moderator_lbl "`moderator'"
-    }
+    // ---------------------------------------------------------
+    // 3. Output directory (self-contained mkdir)
+    // ---------------------------------------------------------
+    local outdir "$output_dir/outcome_ciplot/hte_raw"
+    capture mkdir "`outdir'"
 
-    * Default (overridden below for every CIPLOT moderator)
-    local lab0 "Low `moderator_lbl'"
-    local lab1 "High `moderator_lbl'"
+    // ---------------------------------------------------------
+    // 4. ALL DATA OPERATIONS INSIDE PRESERVE / RESTORE
+    // ---------------------------------------------------------
+    preserve
 
-    * --- Median-split variables ---
-    if "`moderator'" == "index_ClimateBinary" {
-        local lab0 "Low Climate Concern"
-        local lab1 "High Climate Concern"
-    }
-    if "`moderator'" == "DonationBinary_p50" {
-        local lab0 "Low Donation"
-        local lab1 "High Donation"
-    }
-    if "`moderator'" == "DonationBinary_pos" {
-        local lab0 "Not Donated"
-        local lab1 "Donated"
-    }
-    if "`moderator'" == "ImageConcernBinary_p50" {
-        local lab0 "Low Image Concern"
-        local lab1 "High Image Concern"
-    }
-    if "`moderator'" == "AgeBinary_p50" {
-        local lab0 "18-23 Years"
-        local lab1 "24+ Years"
-    }
-    if "`moderator'" == "Image_minus_privacyBinary" {
-        local lab0 "Low (Image - Disclosure)"
-        local lab1 "High (Image - Disclosure)"
-    }
+        keep if sample`sample_number' == 1 & !missing(`outcome')
 
-    * --- Threshold-split variables ---
-    if "`moderator'" == "AIDiffBinary" {
-        local lab0 "Not Different to AI Writing"
-        local lab1 "Different from AI Writing"
-    }
-    if "`moderator'" == "ImageConcernBinary_p50" {
-        local lab0 "Low Image Concern"
-        local lab1 "High Image Concern"
-    }
-    if "`moderator'" == "ImageConcernBinary2" {
-        local lab0 "Image Concern = 1"
-        local lab1 "Image Concern ≥ 2"
-    }
-    if "`moderator'" == "ImageConcernBinary3" {
-        local lab0 "Image Concern ≤ 2"
-        local lab1 "Image Concern ≥ 3"
-    }
-    if "`moderator'" == "ImageConcernBinary4" {
-        local lab0 "Image Concern ≤ 3"
-        local lab1 "Image Concern ≥ 4"
-    }
-    if "`moderator'" == "AgeBinary_adult" {
-        local lab0 "18-24 Years"
-        local lab1 "25+ Years"
-    }
-    if "`moderator'" == "BotKnowBinary" {
-        local lab0 "Less Familiar with AI"
-        local lab1 "Frequent AI User"
-    }
-    if "`moderator'" == "AIEffectiveBinary" {
-        local lab0 "Low AI Persuasion Belief"
-        local lab1 "High AI Persuasion Belief"
-    }
-    if "`moderator'" == "BotSupport_AIBinary" {
-        local lab0 "Not Prefer AI Customer Support"
-        local lab1 "Prefers AI Customer Support"
-    }
-    if "`moderator'" == "BotSocialMedia_AIBinary" {
-        local lab0 "Not Prefer AI on Social Media"
-        local lab1 "Prefers AI on Social Media"
-    }
-    if "`moderator'" == "Instagram_use" {
-        local lab0 "Non-Instagram User"
-        local lab1 "Instagram User"
-    }
-    if "`moderator'" == "Grad_degree" {
-        local lab0 "Non-Graduate Degree"
-        local lab1 "Graduate Degree"
-    }
-    if "`moderator'" == "Vote" {
-        local lab0 "Did Not Vote"
-        local lab1 "Voted"
-    }
-    if "`moderator'" == "Switzerland" {
-        local lab0 "Non-Swiss"
-        local lab1 "Swiss"
-    }
-    if "`moderator'" == "Female" {
-        local lab0 "Male"
-        local lab1 "Female"
-    }
-    if "`moderator'" == "ETH" {
-        local lab0 "Non-ETH"
-        local lab1 "ETH"
-    }
+        // -- y-axis settings: ylow, yhigh, ystep, yfmt set via c_local --
+        yaxis_range_raw, outcome(`outcome')
 
-    * --- Reaction variables (0 = No Reaction, 1 = Reacted) ---
-    if "`moderator'" == "ReadingReact1Binary" {
-        local lab0 "No Reaction to Human Content"
-        local lab1 "Reacted to Human Content"
-    }
-    if "`moderator'" == "ReadingReact2Binary" {
-        local lab0 "No Reaction to Pool Content"
-        local lab1 "Reacted to Pool Content"
-    }
-    if "`moderator'" == "PostReactBinary" {
-        local lab0 "No Reaction to (Human) Post"
-        local lab1 "Reacted to (Human) Post"
-    }
+        // -- ytitle from standardised variable labels --
+        nice_name_as_label
+        local ytitle : variable label `outcome'
+        if "`ytitle'" == "" local ytitle "`outcome'"
 
-    * --- Guess variables (0 = Perceived as AI/Bot, 1 = Perceived as Human) ---
-    if "`moderator'" == "GuessHuman_asHuman" {
-        local lab0 "Guessed Human as AI"
-        local lab1 "Guessed Human as Human"
-    }
-    if "`moderator'" == "GuessAI_asHuman" {
-        local lab0 "Guessed AI as AI"
-        local lab1 "Guessed AI as Human"
-    }
+        // -- Moderator group labels --
+        local moderator_lbl : variable label `moderator'
+        if "`moderator_lbl'" == "" local moderator_lbl "`moderator'"
+        local lab0 "Low `moderator_lbl'"
+        local lab1 "High `moderator_lbl'"
 
+		if "`moderator'" == "index_ClimateBinary" {
+            local lab0 "Low Climate Concern"
+            local lab1 "High Climate Concern"
+        }
+        else if "`moderator'" == "DonationBinary_pos" {
+            local lab0 "Not Donated"
+            local lab1 "Donated"
+        }
+        else if "`moderator'" == "AIDiffBinary" {
+            local lab0 "Base-Task Perceived Similar to AI"
+            local lab1 "Base-Task Perceived Distinct from AI"
+        }
+        else if "`moderator'" == "ImageConcernBinary_p50" {
+            local lab0 "Low Image Concern"
+            local lab1 "High Image Concern"
+        }
+        else if "`moderator'" == "not_shared_handle" {
+            local lab0 "Low Exposure Sensitivity"
+            local lab1 "High Exposure Sensitivity"
+        }
+        else if "`moderator'" == "BotKnowBinary" {
+            local lab0 "Less Familiar with AI"
+            local lab1 "Frequent AI User"
+        }
+        else if "`moderator'" == "AgeBinary_adult" {
+            local lab0 "18-24 Years"
+            local lab1 "25+ Years"
+        }
+        else if "`moderator'" == "Grad_degree" {
+            local lab0 "Undergraduate Student"
+            local lab1 "Graduate Student"
+        }
+        else if "`moderator'" == "Vote" {
+            local lab0 "Did Not Vote in Last Election"
+            local lab1 "Voted in Last Election"
+        }
+        else if "`moderator'" == "Switzerland" {
+            local lab0 "Non-Swiss"
+            local lab1 "Swiss"
+        }
+        else if "`moderator'" == "Female" {
+            local lab0 "Male"
+            local lab1 "Female"
+        }
+        else if "`moderator'" == "ETH" {
+            local lab0 "Non-ETH"
+            local lab1 "ETH"
+        }
+        else if "`moderator'" == "index_Base_effortBinary_p50" {
+            local lab0 "Low Base-Task Effort"
+            local lab1 "High Base-Task Effort"
+        }
+        else if "`moderator'" == "index_Base_nlpBinary_p50" {
+            local lab0 "Low Base-Task NLP Quality"
+            local lab1 "High Base-Task NLP Quality"
+        }
+        else if "`moderator'" == "Instagram_use" {
+            local lab0 "Non-Instagram User"
+            local lab1 "Instagram User"
+        }
+        else if "`moderator'" == "index_Image_minus_privacyBinary" {
+            local lab0 "Low (Image - Exposure Sen.)"
+            local lab1 "High (Image - Exposure Sen.)"
+        }
 
-    capture mkdir "$output_folder/hte"
-    capture mkdir "$output_folder/hte/hte_ciplot_no_interaction"
-    local outdir "$output_folder/hte/hte_ciplot_no_interaction"
+        // -- Ns for x-axis labels --
+        forvalues i = 1/4 {
+            quietly count if Treatment_Group == `i' & `moderator' == 0
+            local n0`i' = r(N)
+            quietly count if Treatment_Group == `i' & `moderator' == 1
+            local n1`i' = r(N)
+        }
 
-    // -------------------------------------------------------
-    // 3. Compute Cell Means & CIs for Both Moderator Groups
-    // -------------------------------------------------------
-    // Save current data for second collapse
-    tempfile current_data
-    quietly save `current_data'
+        // -- P-values (computed before collapse) --
+        capture quietly ttest `outcome' if `moderator'==0 & ///
+            (Treatment_Group==3 | Treatment_Group==4), by(Treatment_Group) unequal
+        if _rc == 0  local p_lab0 : di %6.3f r(p)
+        else         local p_lab0 "N/A"
 
-    // Moderator = 0
-    keep if `moderator' == 0
-    collapse (count) n=`outcome' (mean) beta=`outcome' (sd) sd=`outcome', by(Treatment_Group)
-    gen se    = sd/sqrt(n)
-    gen tcrit = invttail(n-1, 0.025)
-    gen ci_lo = beta - tcrit*se
-    gen ci_hi = beta + tcrit*se
-    replace ci_hi = `true_max' if ci_hi > `true_max'
-    replace ci_lo = `true_min' if ci_lo < `true_min'
-    gen mod_group = 0
-    tempfile mod0
-    quietly save `mod0'
+        capture quietly ttest `outcome' if `moderator'==1 & ///
+            (Treatment_Group==3 | Treatment_Group==4), by(Treatment_Group) unequal
+        if _rc == 0  local p_lab1 : di %6.3f r(p)
+        else         local p_lab1 "N/A"
 
-    // Moderator = 1
-    use `current_data', clear
-    keep if `moderator' == 1
-    collapse (count) n=`outcome' (mean) beta=`outcome' (sd) sd=`outcome', by(Treatment_Group)
-    gen se    = sd/sqrt(n)
-    gen tcrit = invttail(n-1, 0.025)
-    gen ci_lo = beta - tcrit*se
-    gen ci_hi = beta + tcrit*se
-    replace ci_hi = `true_max' if ci_hi > `true_max'
-    replace ci_lo = `true_min' if ci_lo < `true_min'
-    gen mod_group = 1
+        // -- P-value label strings --
+        local txt1 "P-Value (No AI vs. AI | Identified, `lab0') = `p_lab0'"
+        local txt2 "P-Value (No AI vs. AI | Identified, `lab1') = `p_lab1'"
 
-    // Combine
-    append using `mod0'
+        // -- P-value box positioning (unchanged) --
+        local range_y = `yhigh' - `ylow'
+        local gap     = `range_y' * 0.06
+        local line2_y = `ylow' + (`range_y' * 0.12)
+        local line1_y = `line2_y' + `gap'
+        local box_y   = `line2_y' + (`gap' / 2)
+        local box_x   = 0.7
 
-    // X-offset: moderator=0 slightly left, moderator=1 slightly right
-    gen xpos = Treatment_Group - 0.15 if mod_group == 0
-    replace xpos = Treatment_Group + 0.15 if mod_group == 1
+        // -- Collapse for moderator == 0 --
+        tempfile current_data
+        quietly save `current_data'
 
-    // -------------------------------------------------------
-    // 4. Nice Y-Axis
-    // -------------------------------------------------------
-    local max_val = `global_ci_max'
-    local min_val = `global_ci_min'
-    
-    local range = `max_val' - `min_val'
-    if `range' == 0 local range = 1
+        local c1 "navy"
+        local c2 "maroon"
 
-    local ybottom = `min_val' - (`range' * 0.1)
-    local ytop    = `max_val' + (`range' * 0.1)
-    
-    local raw_step = (`ytop' - `ybottom') / 5
-    local mag = 10^floor(log10(`raw_step'))
-    local norm = `raw_step' / `mag'
-    if `norm' <= 1       local step = 1 * `mag'
-    else if `norm' <= 2  local step = 2 * `mag'
-    else if `norm' <= 5  local step = 5 * `mag'
-    else                 local step = 10 * `mag'
-    
-    local ybottom = `step' * floor(`ybottom' / `step')
-    local ytop    = `step' * ceil(`ytop' / `step')
-    
-	if inlist("`outcome'", "Finished", "Post_meaningfulness") local ytop = 1
-	if inlist("`outcome'", "Finished", "Post_meaningfulness") local ybottom = 0.6
-	if inlist("`outcome'", "Finished", "Post_meaningfulness") local step = 0.1
-		
-    if `ytop' < 1        local yfmt "%9.2f"
-    else if `ytop' < 10  local yfmt "%9.1f"
-    else                 local yfmt "%9.0f"
+        keep if `moderator' == 0
+        collapse (count) n=`outcome' (mean) beta=`outcome' (sd) sd=`outcome', ///
+            by(Treatment_Group)
+        gen se    = sd/sqrt(n)
+        gen tcrit = invttail(n-1, 0.025)
+        gen ci_lo = beta - tcrit*se
+        gen ci_hi = beta + tcrit*se
+        gen mod_group = 0
+        tempfile mod0
+        quietly save `mod0'
 
-    // -------------------------------------------------------
-    // 5. Plot
-    // -------------------------------------------------------
-    local c1 "navy"
-    local c2 "maroon"
+        // -- Collapse for moderator == 1 --
+        use `current_data', clear
+        keep if `moderator' == 1
+        collapse (count) n=`outcome' (mean) beta=`outcome' (sd) sd=`outcome', ///
+            by(Treatment_Group)
+        gen se    = sd/sqrt(n)
+        gen tcrit = invttail(n-1, 0.025)
+        gen ci_lo = beta - tcrit*se
+        gen ci_hi = beta + tcrit*se
+        gen mod_group = 1
 
-    twoway ///
-        (rcap ci_hi ci_lo xpos if mod_group==0, lcolor(`c1') lwidth(medthin)) ///
-        (scatter beta xpos if mod_group==0, msymbol(Dh) msize(medium) mcolor(none) mlcolor(`c1')) ///
-        (rcap ci_hi ci_lo xpos if mod_group==1, lcolor(`c2') lwidth(medthin)) ///
-        (scatter beta xpos if mod_group==1, msymbol(Dh) msize(medium) mcolor(none) mlcolor(`c2')) ///
-        , ///
-        xlabel(1 `""No AI, Anonymous" "(n0=`n01') & (n1=`n11')""' ///
-               2 `""AI, Anonymous" "(n0=`n02') & (n1=`n12')""' ///
-               3 `""No AI, Identified" "(n0=`n03') & (n1=`n13')""' ///
-               4 `""AI, Identified" "(n0=`n04') & (n1=`n14')""', ///
-               labsize(small)) ///
-        xscale(range(0.5 4.5)) ///
-        ylabel(`ybottom'(`step')`ytop', format(`yfmt') labsize(small)) ///
-        yscale(range(`ybottom' `ytop') noextend) ///
-        xtitle("`xtitle'", size(small)) ///
-        ytitle("`ytitle'", size(small)) ///
-        legend(order(2 "`lab0'" 4 "`lab1'") pos(6) rows(1) region(lcolor(black) lwidth(thin))) ///
-        graphregion(color(white) margin(medium)) ///
-        name(g_raw_hte, replace)
-             
-    graph export "`outdir'/`filetag'.pdf", replace
-    graph drop g_raw_hte
+        append using `mod0'
+
+        gen xpos = Treatment_Group - 0.15 if mod_group == 0
+        replace xpos = Treatment_Group + 0.15 if mod_group == 1
+
+        // -- Plot --
+        twoway ///
+            (rcap ci_hi ci_lo xpos if mod_group==0, lcolor(`c1') lwidth(medthin)) ///
+            (scatter beta xpos if mod_group==0, ///
+                msymbol(Dh) msize(small) mcolor(none) mlcolor(`c1')) ///
+            (rcap ci_hi ci_lo xpos if mod_group==1, lcolor(`c2') lwidth(medthin)) ///
+            (scatter beta xpos if mod_group==1, ///
+                msymbol(Dh) msize(small) mcolor(none) mlcolor(`c2')) ///
+            , ///
+            xlabel(1 `""No AI, Anonymous" "(n0=`n01') & (n1=`n11')""' ///
+                   2 `""AI, Anonymous" "(n0=`n02') & (n1=`n12')""' ///
+                   3 `""No AI, Identified" "(n0=`n03') & (n1=`n13')""' ///
+                   4 `""AI, Identified" "(n0=`n04') & (n1=`n14')""', ///
+                   labsize(small)) ///
+            xscale(range(0.5 4.5)) ///
+            yscale(range(`ylow' `yhigh')) ///
+            ylabel(`ylow'(`ystep')`yhigh', format(`yfmt') labsize(medsmall)) ///
+            xtitle("`xtitle'", size(small)) ///
+            ytitle("`ytitle'", size(small)) ///
+            /* LAYER 1: White box background */ ///
+            text(`box_y' `box_x' "`txt1'" " " "`txt2'", ///
+                 place(e) box fcolor(white) lcolor(black) margin(small) ///
+                 size(small) justification(left) color(white)) ///
+            /* LAYER 2: Navy text (top row) */ ///
+            text(`line1_y' `box_x' "`txt1'", ///
+                 place(e) margin(small) size(small) justification(left) color(`c1')) ///
+            /* LAYER 3: Maroon text (bottom row) */ ///
+            text(`line2_y' `box_x' "`txt2'", ///
+                 place(e) margin(small) size(small) justification(left) color(`c2')) ///
+            legend(order(2 "`lab0'" 4 "`lab1'") pos(6) rows(1) ///
+                size(small) region(lcolor(black) lwidth(thin))) ///
+            plotregion(margin(zero)) ///
+            name(g_raw_hte, replace)
+
+        graph display g_raw_hte, xsize(10) ysize(7)
+        graph export "`outdir'/`filetag'.pdf", replace
+        graph drop g_raw_hte
 
     restore
 end
@@ -4180,31 +4229,14 @@ capture program drop hte_ciplot_Lasso
 program define hte_ciplot_Lasso
     syntax, outcome(varname) moderator(varname) sample_number(integer) slabel(string) sname(string) [if_condition(string)]
 
-    // -------------------------------------------------------
-    // 1. Identify Forced Base Control (Post_ → Base_ mapping)
-    // -------------------------------------------------------
-    local forced_base ""
-    
-    if strpos("`outcome'", "Post_") == 1 {
-        local suffix = substr("`outcome'", 6, .)
-        foreach bvar of global BASE_TEXT_CONTROLS {
-            if "`bvar'" == "Base_`suffix'" {
-                local forced_base "`bvar'"
-            }
-        }
-        if "`forced_base'" == "" {
-            local suffix_l = lower("`suffix'")
-            foreach bvar of global BASE_TEXT_CONTROLS {
-                local bsuffix_l = lower(substr("`bvar'", 6, .))
-                if strpos("`suffix_l'", "`bsuffix_l'") > 0 {
-                    local forced_base "`bvar'"
-                }
-            }
-        }
-    }
+	local forced_base ""
+	
+	if inlist("`outcome'", "Post_meaningfulness", "Post_AIness", "index_Post_effort", "index_Post_nlp") {
+		local forced_base = subinstr("`outcome'", "Post_", "Base_", 1)
+	}
 
     // -------------------------------------------------------
-    // 2. Dynamic Variable Removal Logic
+    // Dynamic Variable Removal Logic (unchanged from original)
     // -------------------------------------------------------
     local VARS_TO_REMOVE ""
 
@@ -4237,7 +4269,6 @@ program define hte_ciplot_Lasso
         local VARS_TO_REMOVE_EXPANDED "`VARS_TO_REMOVE_EXPANDED' i.`var'"
     }
 
-    // Prepare candidate list
     local lasso_cands "$CONTROLS `forced_base'"
     if "`VARS_TO_REMOVE_EXPANDED'" != "" {
         local lasso_cands : list lasso_cands - VARS_TO_REMOVE_EXPANDED
@@ -4247,84 +4278,22 @@ program define hte_ciplot_Lasso
     }
 
     // -------------------------------------------------------
-    // 3. Setup
+    // Setup
     // -------------------------------------------------------
     local is_bin = 0
     if strpos(" $OUTCOMES_BIN ", " `outcome' ") > 0 local is_bin = 1
     local vce "robust"
 
-    // -------------------------------------------------------
-    // 4. Global Y-Axis Range (across all samples & conditions)
-    //    Now scanning DIFFERENCES relative to Group 1 (anchored at 0).
-    //    Uses i.Treatment_Group so columns 1-3 = effects for Groups 2-4.
-    // -------------------------------------------------------
-    local all_samples 2 5 8 20 80  // Should match RUN_SAMPLES
-    local global_min_ll = 0   // Include 0 since Group 1 is anchored there
-    local global_max_ul = 0
 
-    foreach samp of local all_samples {
-        foreach cond in "" "if Finished == 1" {
-            foreach m_val in 0 1 {
-                preserve
-                quietly keep if sample`samp' == 1 & !missing(`outcome')
-                if "`cond'" != "" {
-                    keep `cond'
-                }
-                quietly keep if `moderator' == `m_val'
-
-                // Lasso selection for this subsample
-                local controls_sel_temp ""
-                quietly count
-                if r(N) >= 20 {
-                    if `is_bin' {
-                        capture quietly lasso logit `outcome' `lasso_cands', selection(plugin)
-                        if !_rc local controls_sel_temp "`e(allvars_sel)'"
-                    }
-                    else {
-                        capture quietly lasso linear `outcome' `lasso_cands', selection(plugin)
-                        if !_rc local controls_sel_temp "`e(allvars_sel)'"
-                    }
-                }
-
-                // FIX: Use i.Treatment_Group (Group 1 = omitted base)
-                capture quietly regress `outcome' i.Treatment_Group `controls_sel_temp', vce(`vce')
-                if !_rc {
-                    matrix T_temp = r(table)
-                    // Col 1 = 1b.TG (base, omitted), Cols 2-4 = 2.TG, 3.TG, 4.TG
-                    forvalues c = 2/4 {
-                        local this_ll = T_temp[5, `c']
-                        local this_ul = T_temp[6, `c']
-                        
-                        // Guard: skip missing values (Stata's . = +infinity)
-                        if `this_ll' < . & `this_ll' < `global_min_ll' {
-                            local global_min_ll = `this_ll'
-                        }
-                        if `this_ul' < . & `this_ul' > `global_max_ul' {
-                            local global_max_ul = `this_ul'
-                        }
-                    }
-                }
-                restore
-            }
-        }
-    }
-
-    // Fallback: ensure some range if everything is zero
-    if `global_min_ll' == 0 & `global_max_ul' == 0 {
-        local global_min_ll = -0.1
-        local global_max_ul = 0.1
-    }
-
-    // -------------------------------------------------------
-    // 5. Actual Plot: Preserve & Subset
-    // -------------------------------------------------------
     preserve
     quietly keep if sample`sample_number' == 1 & !missing(`outcome')
     if "`if_condition'" != "" {
         keep `if_condition'
     }
 
-    // Ns for labels
+    // -------------------------------------------------------
+    // Ns for x-axis labels
+    // -------------------------------------------------------
     forvalues i = 1/4 {
         quietly count if Treatment_Group == `i' & `moderator' == 0
         local n0`i' = r(N)
@@ -4332,29 +4301,38 @@ program define hte_ciplot_Lasso
         local n1`i' = r(N)
     }
 
-    // Dynamic xtitle and filetag
-    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel'"
-    local filetag "ciplot_`outcome'_hte_`moderator'_`sname'_resid"
-    
+    // -------------------------------------------------------
+    // P-values for box (raw ttest on outcome, TG3 vs TG4,
+    //    computed here BEFORE drop _all below)
+    // -------------------------------------------------------
+    capture quietly ttest `outcome' if `moderator'==0 & (Treatment_Group==3 | Treatment_Group==4), by(Treatment_Group) unequal
+    if _rc == 0  local p_lab0 : di %6.3f r(p)
+    else         local p_lab0 "N/A"
+
+    capture quietly ttest `outcome' if `moderator'==1 & (Treatment_Group==3 | Treatment_Group==4), by(Treatment_Group) unequal
+    if _rc == 0  local p_lab1 : di %6.3f r(p)
+    else         local p_lab1 "N/A"
+
+    // -------------------------------------------------------
+    // xtitle, filetag, ytitle
+    // -------------------------------------------------------
+    local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
+    local filetag "ciplot_`outcome'_hte_`moderator'_`sname'_resid_finished"
+
     if "`if_condition'" == "if Finished == 1" {
         local xtitle "Treatment Group (Co-sender Composition × Disclosure) - `slabel', Finished"
         local filetag "ciplot_`outcome'_hte_`moderator'_`sname'_resid_finished"
     }
 
-    // Dynamic ytitle from variable label
     nice_name_as_label
     local ytitle : variable label `outcome'
-    if "`ytitle'" == "" {
-        local ytitle "`outcome'"
-    }
-    // Append "relative to No AI, Anonymous" to clarify the anchoring
-    local ytitle "`ytitle'"
+    if "`ytitle'" == "" local ytitle "`outcome'"
 
-    // Moderator label
+    // -------------------------------------------------------
+    // Moderator group labels (unchanged from original)
+    // -------------------------------------------------------
     local moderator_lbl : variable label `moderator'
-    if "`moderator_lbl'" == "" {
-        local moderator_lbl "`moderator'"
-    }
+    if "`moderator_lbl'" == "" local moderator_lbl "`moderator'"
 
     local lab0 "Low `moderator_lbl'"
     local lab1 "High `moderator_lbl'"
@@ -4363,117 +4341,242 @@ program define hte_ciplot_Lasso
         local lab0 "Low Climate Concern"
         local lab1 "High Climate Concern"
     }
-    if "`moderator'" == "DonationBinary_p50" {
+    else if "`moderator'" == "DonationBinary_p50" {
         local lab0 "Low Donation"
         local lab1 "High Donation"
     }
-    if "`moderator'" == "DonationBinary_pos" {
+    else if "`moderator'" == "DonationBinary_pos" {
         local lab0 "Not Donated"
         local lab1 "Donated"
     }
-    if "`moderator'" == "ImageConcernBinary_p50" {
+    else if "`moderator'" == "ImageConcernBinary_p50" {
         local lab0 "Low Image Concern"
         local lab1 "High Image Concern"
     }
-    if "`moderator'" == "AgeBinary_p50" {
+    else if "`moderator'" == "AgeBinary_p50" {
         local lab0 "18-23 Years"
         local lab1 "24+ Years"
     }
-    if "`moderator'" == "Image_minus_privacyBinary" {
+    else if "`moderator'" == "Image_minus_privacyBinary" {
         local lab0 "Low (Image - Disclosure)"
         local lab1 "High (Image - Disclosure)"
     }
-    if "`moderator'" == "AIDiffBinary" {
+    else if "`moderator'" == "index_Image_minus_privacyBinary" {
+        local lab0 "Low (Image - Disclosure)"
+        local lab1 "High (Image - Disclosure)"
+    }
+    else if "`moderator'" == "AIDiffBinary" {
         local lab0 "Not Different to AI Writing"
         local lab1 "Different from AI Writing"
     }
-    if "`moderator'" == "ImageConcernBinary2" {
+    else if "`moderator'" == "ImageConcernBinary2" {
         local lab0 "Image Concern = 1"
         local lab1 "Image Concern ≥ 2"
     }
-    if "`moderator'" == "ImageConcernBinary3" {
+    else if "`moderator'" == "ImageConcernBinary3" {
         local lab0 "Image Concern ≤ 2"
         local lab1 "Image Concern ≥ 3"
     }
-    if "`moderator'" == "ImageConcernBinary4" {
+    else if "`moderator'" == "ImageConcernBinary4" {
         local lab0 "Image Concern ≤ 3"
         local lab1 "Image Concern ≥ 4"
     }
-    if "`moderator'" == "AgeBinary_adult" {
+    else if "`moderator'" == "AgeBinary_adult" {
         local lab0 "18-24 Years"
         local lab1 "25+ Years"
     }
-    if "`moderator'" == "BotKnowBinary" {
+    else if "`moderator'" == "BotKnowBinary" {
         local lab0 "Less Familiar with AI"
         local lab1 "Frequent AI User"
     }
-    if "`moderator'" == "AIEffectiveBinary" {
+    else if "`moderator'" == "AIEffectiveBinary" {
         local lab0 "Low AI Persuasion Belief"
         local lab1 "High AI Persuasion Belief"
     }
-    if "`moderator'" == "BotSupport_AIBinary" {
+    else if "`moderator'" == "BotSupport_AIBinary" {
         local lab0 "Not Prefer AI Customer Support"
         local lab1 "Prefers AI Customer Support"
     }
-    if "`moderator'" == "BotSocialMedia_AIBinary" {
+    else if "`moderator'" == "BotSocialMedia_AIBinary" {
         local lab0 "Not Prefer AI on Social Media"
         local lab1 "Prefers AI on Social Media"
     }
-    if "`moderator'" == "Instagram_use" {
+    else if "`moderator'" == "Instagram_use" {
         local lab0 "Non-Instagram User"
         local lab1 "Instagram User"
     }
-    if "`moderator'" == "Grad_degree" {
+    else if "`moderator'" == "Grad_degree" {
         local lab0 "Non-Graduate Degree"
         local lab1 "Graduate Degree"
     }
-    if "`moderator'" == "Vote" {
+    else if "`moderator'" == "Vote" {
         local lab0 "Did Not Vote"
         local lab1 "Voted"
     }
-    if "`moderator'" == "Switzerland" {
+    else if "`moderator'" == "Switzerland" {
         local lab0 "Non-Swiss"
         local lab1 "Swiss"
     }
-    if "`moderator'" == "Female" {
+    else if "`moderator'" == "Female" {
         local lab0 "Male"
         local lab1 "Female"
     }
-    if "`moderator'" == "ETH" {
+    else if "`moderator'" == "ETH" {
         local lab0 "Non-ETH"
         local lab1 "ETH"
     }
-    if "`moderator'" == "ReadingReact1Binary" {
+    else if "`moderator'" == "ReadingReact1Binary" {
         local lab0 "No Reaction to Human Content"
         local lab1 "Reacted to Human Content"
     }
-    if "`moderator'" == "ReadingReact2Binary" {
+    else if "`moderator'" == "ReadingReact2Binary" {
         local lab0 "No Reaction to Pool Content"
         local lab1 "Reacted to Pool Content"
     }
-    if "`moderator'" == "PostReactBinary" {
+    else if "`moderator'" == "PostReactBinary" {
         local lab0 "No Reaction to (Human) Post"
         local lab1 "Reacted to (Human) Post"
     }
-    if "`moderator'" == "GuessHuman_asHuman" {
+    else if "`moderator'" == "GuessHuman_asHuman" {
         local lab0 "Guessed Human as AI"
         local lab1 "Guessed Human as Human"
     }
-    if "`moderator'" == "GuessAI_asHuman" {
+    else if "`moderator'" == "GuessAI_asHuman" {
         local lab0 "Guessed AI as AI"
         local lab1 "Guessed AI as Human"
     }
+    else if "`moderator'" == "index_ai_trustBinary_p50" {
+        local lab0 "Low AI Trust Index"
+        local lab1 "High AI Trust Index"
+    }
+    else if "`moderator'" == "index_bot_supportBinary_p50" {
+        local lab0 "Low Bot Support Index"
+        local lab1 "High Bot Support Index"
+    }
+    else if "`moderator'" == "index_reactBinary_p50" {
+        local lab0 "Low Reaction Rate Index"
+        local lab1 "High Reaction Rate Index"
+    }
+    else if "`moderator'" == "index_guess_humanBinary_p50" {
+        local lab0 "Low Propensity to Guess Human Index"
+        local lab1 "High Propensity to Guess Human Index"
+    }
 
-    capture mkdir "$output_folder/hte"
-    capture mkdir "$output_folder/hte/hte_ciplot_no_interaction"
-    local outdir "$output_folder/hte/hte_ciplot_no_interaction"
+	// -------------------------------------------------------
+    // 6. Hardcoded y-axis (UPDATED FOR Lasso EFFECTS: Centered around 0)
+    // -------------------------------------------------------
+    if "`outcome'" == "Finished" {
+        local ylow = -0.20
+        local yhigh = 0.20
+        local ystep = 0.10
+		local yfmt "%4.2f"
+    }
+    else if "`outcome'" == "Post_meaningfulness" {
+        local ylow = -0.20
+        local yhigh = 0.20
+        local ystep = 0.10
+		local yfmt "%4.2f"
+    }
+    else if "`outcome'" == "Post_TextLength_log" {
+        local ylow = -3.00
+        local yhigh = 3.00
+        local ystep = 0.05
+    }
+    else if "`outcome'" == "Post_AIness" {
+        local ylow = -0.30
+        local yhigh = 0.30
+        local ystep = 0.10
+    }
+    else if "`outcome'" == "index_Post_effort" {
+        local ylow = -1.00
+        local yhigh = 0.50
+        local ystep = 0.25
+		local yfmt "%4.2f"
+    }
+    else if "`outcome'" == "index_Post_nlp" {
+        local ylow = -0.80
+        local yhigh = 0.40
+        local ystep = 0.20
+		local yfmt "%4.2f"
+    }
+    else if "`outcome'" == "TimePost_W" {
+        local ylow = -200
+        local yhigh = 200
+        local ystep = 100
+    }
+    else if "`outcome'" == "index_Post_overall" {
+        local ylow = -0.80
+        local yhigh = 0.40
+        local ystep = 0.20
+    }
+    else if "`outcome'" == "WTP" {
+        local ylow = -1.50
+        local yhigh = 2.00
+        local ystep = 0.50
+    }
+    else if "`outcome'" == "TimeWTP_W" {
+        local ylow = -40
+        local yhigh = 40
+        local ystep = 20
+    }
+    else if "`outcome'" == "TimeWTPExplain_W" {
+        local ylow = -40
+        local yhigh = 40
+        local ystep = 20
+    }
+    else if "`outcome'" == "GenAIEffective" {
+        local ylow = -0.60
+        local yhigh = 0.60
+        local ystep = 0.30
+    }
+    else if "`outcome'" == "PerceiveAI" {
+        local ylow = -1.00
+        local yhigh = 1.00
+        local ystep = 0.50
+    }
+    else if "`outcome'" == "SignalValue" {
+        local ylow = -1.00
+        local yhigh = 1.00
+        local ystep = 0.50
+    }
+    else if "`outcome'" == "PerceiveEngaged" {
+        local ylow = -1.00
+        local yhigh = 1.00
+        local ystep = 0.50
+    }
+    else {
+        // Fallback for any unlisted outcome: dynamic range for EFFECTS
+        // Centers around 0 using the standard deviation as a reasonable range
+        quietly summ `outcome'
+        local sd = r(sd)
+        local yhigh = round(`sd', 0.1)
+        if `yhigh' == 0 local yhigh = 0.5
+        local ylow  = -`yhigh'
+        local ystep = `yhigh' / 2
+    }
 
     // -------------------------------------------------------
-    // 6. Run Lasso + Regression per Moderator Subgroup
-    //    FIX: Use `if` qualifiers instead of preserve/restore
-    //    to avoid nested-preserve error (r(621)).
-    //    FIX: Use i.Treatment_Group (Group 1 = omitted base)
-    //    so coefficients are treatment effects with correct SEs.
+    // P-value box positioning (same formula as nice_ciplot)
+    // -------------------------------------------------------
+    local range_y = `yhigh' - `ylow'
+    local gap     = `range_y' * 0.06
+    local line2_y = `ylow' + (`range_y' * 0.12)   // maroon (bottom row)
+    local line1_y = `line2_y' + `gap'              // navy   (top row)
+	local box_y   = `line2_y' + (`gap' / 2)
+    local box_x   = 0.7
+
+    local txt1 "P-Value (No AI vs. AI | Identified, `lab0') = `p_lab0'"
+    local txt2 "P-Value (No AI vs. AI | Identified, `lab1') = `p_lab1'"
+
+    // -------------------------------------------------------
+    // Output directory
+    // -------------------------------------------------------
+    capture mkdir "$output_folder/outcome_ciplot/hte_residualized"
+    local outdir "$output_folder/outcome_ciplot/hte_residualized"
+
+    // -------------------------------------------------------
+    //  Run Lasso + Regression per moderator subgroup
+    //     (i.Treatment_Group: Group 1 = omitted base)
     // -------------------------------------------------------
     local success_count = 0
 
@@ -4500,30 +4603,26 @@ program define hte_ciplot_Lasso
     }
 
     // -------------------------------------------------------
-    // 7. Plot
-    //    Group 1 is anchored at 0 (omitted base category).
-    //    Groups 2-4 are treatment effects relative to Group 1.
-    //    Matrix columns: 1=1b.TG (base), 2=2.TG, 3=3.TG, 4=4.TG, 5=_cons, ...
+    // 13. Build plotting dataset and draw
+    //     Group 1 anchored at 0; Groups 2-4 = treatment effects
+    //     Matrix cols: 1=1b.TG (base), 2=2.TG, 3=3.TG, 4=4.TG
     // -------------------------------------------------------
     if `success_count' == 2 {
-
-        // Build plotting dataset
+		
         drop _all
         set obs 8
         gen Treatment_Group = .
-        gen beta = .
+        gen beta  = .
         gen ci_lo = .
         gen ci_hi = .
         gen mod_group = .
 
-        // --- Moderator = 0 ---
-        // Group 1: anchored at zero
+        // Moderator = 0
         replace Treatment_Group = 1 in 1
         replace beta  = 0 in 1
         replace ci_lo = 0 in 1
         replace ci_hi = 0 in 1
         replace mod_group = 0 in 1
-        // Groups 2-4: columns 2-4 of T_0 (col 1 = omitted base 1b.TG)
         forvalues i = 2/4 {
             replace Treatment_Group = `i' in `i'
             replace beta  = T_0[1, `i'] in `i'
@@ -4532,14 +4631,12 @@ program define hte_ciplot_Lasso
             replace mod_group = 0 in `i'
         }
 
-        // --- Moderator = 1 ---
-        // Group 1: anchored at zero
+        // Moderator = 1
         replace Treatment_Group = 1 in 5
         replace beta  = 0 in 5
         replace ci_lo = 0 in 5
         replace ci_hi = 0 in 5
         replace mod_group = 1 in 5
-        // Groups 2-4: columns 2-4 of T_1 (col 1 = omitted base 1b.TG)
         forvalues i = 2/4 {
             local row = `i' + 4
             replace Treatment_Group = `i' in `row'
@@ -4549,45 +4646,17 @@ program define hte_ciplot_Lasso
             replace mod_group = 1 in `row'
         }
 
-        // X-offset for side-by-side display
         gen xpos = Treatment_Group - 0.15 if mod_group == 0
         replace xpos = Treatment_Group + 0.15 if mod_group == 1
-
-        // -------------------------------------------------------
-        // Nice Y-Axis (no hardcoding for any outcome)
-        // -------------------------------------------------------
-        local max_val = `global_max_ul'
-        local min_val = `global_min_ll'
-        
-        local range = `max_val' - `min_val'
-        if `range' == 0 local range = 0.2
-
-        local ybottom = `min_val' - (`range' * 0.1)
-        local ytop    = `max_val' + (`range' * 0.1)
-        
-        local raw_step = (`ytop' - `ybottom') / 5
-        local mag = 10^floor(log10(`raw_step'))
-        local norm = `raw_step' / `mag'
-        if `norm' <= 1       local step = 1 * `mag'
-        else if `norm' <= 2  local step = 2 * `mag'
-        else if `norm' <= 5  local step = 5 * `mag'
-        else                 local step = 10 * `mag'
-        
-        local ybottom = `step' * floor(`ybottom' / `step')
-        local ytop    = `step' * ceil(`ytop' / `step')
-
-        if abs(`ytop') < 1 & abs(`ybottom') < 1  local yfmt "%9.2f"
-        else if abs(`ytop') < 10                  local yfmt "%9.1f"
-        else                                      local yfmt "%9.0f"
 
         local c1 "navy"
         local c2 "maroon"
 
         twoway ///
             (rcap ci_hi ci_lo xpos if mod_group==0, lcolor(`c1') lwidth(medthin)) ///
-            (scatter beta xpos if mod_group==0, msymbol(Dh) msize(medium) mcolor(none) mlcolor(`c1')) ///
+            (scatter beta xpos if mod_group==0, msymbol(Dh) msize(small) mcolor(none) mlcolor(`c1')) ///
             (rcap ci_hi ci_lo xpos if mod_group==1, lcolor(`c2') lwidth(medthin)) ///
-            (scatter beta xpos if mod_group==1, msymbol(Dh) msize(medium) mcolor(none) mlcolor(`c2')) ///
+            (scatter beta xpos if mod_group==1, msymbol(Dh) msize(small) mcolor(none) mlcolor(`c2')) ///
             , ///
             xlabel(1 `""No AI, Anonymous" "(n0=`n01') & (n1=`n11')""' ///
                    2 `""AI, Anonymous" "(n0=`n02') & (n1=`n12')""' ///
@@ -4595,15 +4664,25 @@ program define hte_ciplot_Lasso
                    4 `""AI, Identified" "(n0=`n04') & (n1=`n14')""', ///
                    labsize(small) grid) ///
             xscale(range(0.5 4.5)) ///
-            ylabel(`ybottom'(`step')`ytop', format(`yfmt') labsize(small)) ///
-            yscale(range(`ybottom' `ytop') noextend) ///
+            yscale(range(`ylow' `yhigh')) ///
+            ylabel(`ylow'(`ystep')`yhigh', format(`yfmt') labsize(medsmall)) ///
             yline(0, lcolor(gs10) lpattern(dash) lwidth(thin)) ///
             xtitle("`xtitle'", size(small)) ///
             ytitle("`ytitle'", size(small)) ///
-            legend(order(2 "`lab0'" 4 "`lab1'") pos(6) rows(1) region(lcolor(black) lwidth(thin))) ///
-            graphregion(color(white) margin(medium)) ///
+			/* LAYER 1: White box background */ ///
+			text(`box_y' `box_x' "`txt1'" " " "`txt2'", ///
+				place(e) box fcolor(white) lcolor(black) margin(small) size(small) justification(left) color(white)) ///
+			/* LAYER 2: Navy text (top row) */ ///
+			text(`line1_y' `box_x' "`txt1'", ///
+				place(e) margin(small) size(small) justification(left) color(`c1')) ///
+			/* LAYER 3: Maroon text (bottom row) */ ///
+			text(`line2_y' `box_x' "`txt2'", ///
+				place(e) margin(small) size(small) justification(left) color(`c2')) ///
+            legend(order(2 "`lab0'" 4 "`lab1'") pos(6) rows(1) size(small) region(lcolor(black) lwidth(thin))) ///
+            plotregion(margin(zero)) ///
             name(g_lasso, replace)
 
+        graph display g_lasso, xsize(10) ysize(7)
         graph export "`outdir'/`filetag'.pdf", replace
         graph drop g_lasso
     }

@@ -1,0 +1,522 @@
+\documentclass[9pt,aspectratio=1610]{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{blue_text}{RGB}{0,115,197}
+\definecolor{blue1}{RGB}{26,129,203}
+\definecolor{blue2}{RGB}{102,171,220}
+\definecolor{blue3}{RGB}{154,199,232}
+
+\definecolor{green1}{RGB}{0,128,0}
+\definecolor{green2}{RGB}{204,229,204}
+\definecolor{green3}{RGB}{229,242,229}
+
+\definecolor{lightblue2}{RGB}{204,227,243}
+\definecolor{lightblue3}{RGB}{229,241,249}
+
+\definecolor{orange0}{RGB}{255,116,0}
+\definecolor{blue0}{RGB}{0,103,169}%vaidya
+\definecolor{green0}{RGB}{0,148,104}
+
+
+\setbeamercolor*{palette tertiary}{bg=blue1,fg=white}
+\setbeamercolor*{palette secondary}{bg=blue2,fg=white}
+\setbeamercolor*{palette primary}{bg=blue3,fg=black}
+
+\setbeamercolor{titlelike}{bg=white,fg=blue_text}
+\setbeamertemplate{title page}[default][rounded=false, shadow=false]
+
+\setbeamercolor{frametitle}{bg=white,fg=blue_text}
+
+\setbeamercolor{item projected}{bg=blue_text}
+
+\setbeamertemplate{blocks}[rounded]%[shadow]
+\setbeamercolor{block title example}{bg=green2,fg=green1}
+\setbeamercolor{block body example}{bg=green3,fg=black}
+
+\setbeamercolor{block title}{bg=lightblue2,fg=blue_text}
+\setbeamercolor{block body}{bg=lightblue3,fg=black}
+
+\setbeamercolor{button}{bg=blue2,fg=white}
+
+\setbeamertemplate{navigation symbols}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{eqnarray,amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern} 
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{changepage}
+\usepackage{array,booktabs}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{plotmarks}
+\usepgfplotslibrary{fillbetween}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\supp}{supp}
+
+\usepackage{transparent}
+\newcommand{\semitransp}[2][35]{\color{fg!#1}#2}
+
+\usetikzlibrary{arrows.meta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%====================================================
+%========== DEFINITION OF AUTHORS ETC...=============
+%====================================================
+
+\author[Ash, Lou, Song]{%
+    \texorpdfstring{%
+    \begin{columns}
+        \column{.3333\linewidth}
+        \centering
+        Elliot Ash \\\vspace{.5em} \small ETH Zurich
+        \column{.3333\linewidth}
+        \centering
+        Yichuan Lou \\\vspace{.5em} \small UTokyo
+        \column{.3333\linewidth}
+        \centering
+        Lena Song \\\vspace{.5em} \small UIUC
+    \end{columns}}{Elliot Ash, Yichuan Lou, Lena Song}
+}
+
+\title[AI and Communication]{AI and Communication}
+%\subtitle{Subtitle}
+\date[Conference Name]{May 2024}
+
+
+
+
+%====================================================
+%========== BEGINNING OF DOCUMENT ===================
+%====================================================
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+
+
+
+\begin{frame}{Compositions of Senders and Receivers}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Both senders and receivers consist of \textcolor{orange0}{three identity groups}: humans, gen-AI bots, and rule-based bots
+    \item Denote by $p_h,p_g,p_r$ the probability measure of different groups of senders 
+    \begin{itemize}
+        \item Let $\vec{p} \triangleq (p_h,p_g,p_r)$ with $p_h+p_g+p_r=1$
+    \end{itemize}
+    \item Denote by $q_h,q_g,q_r$ the probability measure of different groups of recipients
+    \begin{itemize}
+        \item Let $\vec{q} \triangleq (q_h,q_g,q_r)$ with $q_h+q_g+q_r=1$
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Human Senders and Receivers}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Each human (sender or receiver) has a private ideology type $\theta$, distributed on some interval $[\underline{\theta},\overline{\theta}]$ according to the cumulative distribution function $F$, with $\underline{\theta}<0<\overline{\theta}$ (\textcolor{red}{YL: We assume human senders and receivers share the same ideology type distribution})
+    \item The parameter $\theta$ represents the political leaning of an individual
+    \begin{itemize}
+        \item $\theta<0$ indicates a preference for left-wing ideology
+        \item $\theta>0$ indicates a preference for right-wing ideology
+    \end{itemize}
+    \item $S^L \triangleq F(0)$ and $S^R\triangleq 1-F(0)$ are the shares of left-leaning and right-leaning individuals in both groups of human senders and human receivers
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Human Sender's Motivations}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A human sender chooses an action $a\in \{-1,0,+1\}$
+    \begin{itemize}
+        \item $a=-1$ means participating in a left-wing activity
+        \item $a=+1$ means participating in a right-wing activity
+        \item $a=0$ means abstaining or staying neutral
+    \end{itemize}
+    \item A human sender's choice $a$ reflects a mixture of three motivations:
+    \begin{itemize}
+        \item intrinsic
+        \item reputational/image-related
+        \item residual social interaction (independent of both actual and perceived ideology type) %% LS- what about persusasion? e.g., if I care about persuading the receiver, wouldn't both sender and receiver types matter. where would that go? 
+    \end{itemize}
+\end{itemize}  
+\end{frame}
+
+
+
+\begin{frame}{Human Sender: Non-Image Payoff}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A human sender's \textcolor{orange0}{non-image payoff} from action $a$:
+    \begin{align*}
+        \theta a  - c|a| + \lambda |a|
+    \end{align*}
+    \begin{itemize}
+        \item $\theta a$ captures the intrinsic utility from participation
+        \item The parameter $c>0$ represents a fixed participation cost
+        \item $\lambda |a|$ captures the residual interaction utility from participation that depends neither on $\theta$ nor on perceptions of $\theta$; the parameter $\lambda$ could depend on both $\vec{p}$ and $\vec{q}$ (\textcolor{red}{YL: $\lambda$ is important; We will make more assumptions later; it also depends on our pilot results})
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Human Sender: Image-Related Payoff}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Let $P^R = P^R(a)$ and $P^L = P^L(a)$ be the perceived probability that the sender with action $a$ is a right-leaning human and a left-leaning human, respectively
+    \begin{itemize}
+        \item Note that $P^R+P^L$ can be strictly less than $1$ because the sender can be identified as non-human with positive probability
+    \end{itemize}
+    \item The image-related payoff for a right-leaning sender is
+    \begin{align*}
+        \gamma(q_h)S^R P^R
+    \end{align*}
+    where
+    \begin{itemize}
+        \item $q_h$ is the probability of human receivers
+        \item the function $\gamma(\cdot)$ is increasing
+        \item $\gamma(q_h)$ measures how much human senders care about the perception of human receivers from the same political party
+    \end{itemize}
+    \item Similarly, the image-related payoff for a left-leaning sender is
+    \begin{align*}
+        \gamma(q_h)S^LP^L
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bot Sender}
+
+\begin{exampleblock}{Assumption 1}
+     A bot sender, either gen-AI or rule-based, has no types or preferences. Moreover, each bot sender chooses some fixed action:
+     \begin{itemize}
+         \item A rule-based bot sender always stays neutral: $a=0$
+         \item A gen-AI bot sender always participates in left-wing activity: $a = -1$
+     \end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}{Signaling Game}
+
+Timing:
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A single sender is matched with receivers of composition $\vec{q} = (q_h,q_g,q_r)$ 
+    \item The sender's identity (human or bot) and type ($\theta\in [\underline{\theta},\overline{\theta}]$ if human) is initially unknown to the receivers
+    \item The sender chooses an action $a\in \{-1,0,+1\}$
+    \item The belief about the sender's identity and type is updated
+    \item If the sender is a human, his payoff is realized
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Equilibrium}
+\begin{exampleblock}{Proposition 1}
+Assume $|\underline{\theta}|,|\overline{\theta}|$ are large enough. Then there exists a unique equilibrium characterized by two cutoffs $\underline{\theta}^*$ and $\overline{\theta}^*$, with $\underline{\theta}<\underline{\theta}^*<0<\overline{\theta}^*<\overline{\theta}$, such that
+\begin{align*}
+a=
+\begin{cases}
+    1\quad &\text{if }\theta>\overline{\theta}^*\\
+    0\quad &\text{if }\underline{\theta}^*<\theta<\overline{\theta}^*\\
+    -1\quad &\text{if }\theta<\underline{\theta}^*
+\end{cases}
+\end{align*}    
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Equilibrium Characterization and Comparative Statics}
+\vspace{-1em}
+\begin{exampleblock}{Proposition 2}
+    Assume that (i) $F$ is uniform on $[\underline{\theta},\overline{\theta}]$ with $\overline{{\theta}}=-\underline{\theta}$; (ii) $\lambda=0$; (iii) $\gamma(q_h) = q_h$; (iv) $c>\frac{1}{2}q_h$. Letting $t_g\triangleq \frac{p_h}{p_h+p_g}$ and $t_r\triangleq\frac{p_r}{p_h+p_r}$, the equilibrium cutoffs $\underline{\theta}^*$ and $\overline{\theta}^*$ are given by
+    \begin{align*}
+        \underline{\theta}^* = \frac{(-c+\frac{1}{2}q_ht_g)(-c+\frac{1}{4}q_h(t_r + t_g))}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g},\quad \overline{\theta}^* = \frac{-(-c+\frac{1}{2}q_h)(-c+\frac{1}{4}q_h(t_r + t_g))}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g}
+    \end{align*}
+    Moreover, $\underline{\theta}^*$ and $\overline{\theta}^*$ satisfy the following:
+    \begin{enumerate}
+        \item $\overline{\theta}^*<|\underline{\theta}^*|$: right-wing human senders have stronger incentives to take his own favorite action
+        \item comparative statics w.r.t. cost $c$: 
+        \begin{itemize}
+            \item If $t_g>t_r$, $\underline{\theta}^*$ first increases in $c$ then decreases in $c$; if $t_g<t_r$, $\underline{\theta}^*$ always decreases in $c$
+            \item $\overline{\theta}^*$ always increases in $c$
+        \end{itemize}
+        \item comparative statics w.r.t. human receiver probability $q_h$:
+        \begin{itemize}
+            \item $\underline{\theta}^*$ can be always increasing in $q_h$, or always decreasing in $q_h$, or first increasing then decreasing in $q_h$
+            \item $\overline{\theta}^*$ always decreases in $q_h$
+        \end{itemize}
+        \item comparative statics w.r.t. $t_g$:
+        \begin{itemize}
+            \item Both $\underline{\theta}^*$ and $\overline{\theta}^*$ always increases in $t_g$
+        \end{itemize}
+        \item comparative statics w.r.t. $t_r$
+        \begin{itemize}
+            \item $\underline{\theta}^*$ always increases in $t_r$
+            \item $\overline{\theta}^*$ always decreases in $t_r$
+        \end{itemize}
+    \end{enumerate}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+The following slides prove Proposition 2 and can be skipped.
+\end{frame}
+
+
+\begin{frame}{Computing Equilibrium under Assumptions of Proposition 2}
+\begin{itemize}
+    \item By Assumption (i) it must be $S^R = S^L=\frac{1}{2}$
+    \item The utility for a right-wing sender from participating in right-wing activity is $\theta + \lambda - c + q_h S^R$, simplifying to
+    \begin{align*}
+         \theta - c + \frac{1}{2}q_h
+    \end{align*}
+    \item The utility for a right-wing sender from abstaining is $q_hS^R\frac{p_h}{p_h+p_r}\frac{\overline{\theta}^*}{\overline{\theta}^* - \underline{\theta}^*}$, simplifying to
+    \begin{align*}
+         \frac{1}{2}q_h\frac{p_h}{p_h+p_r}\frac{\overline{\theta}^*}{\overline{\theta}^* - \underline{\theta}^*}
+    \end{align*}
+    \item The utility for a left-wing sender from participating in left-wing activity is $-\theta + \lambda - c + q_h S^L\frac{p_h}{p_h+p_g}$, simplifying to
+    \begin{align*}
+        -\theta - c + \frac{1}{2}q_h \frac{p_h}{p_h+p_g}
+    \end{align*}
+    \item The utility for a left-wing sender from abstaining is $q_h S^L\frac{p_h}{p_h+p_r}\frac{-\underline{\theta}^*}{\overline{\theta}^* - \underline{\theta}^*}$, simplifying to
+    \begin{align*}
+         \frac{1}{2}q_h\frac{p_h}{p_h+p_r}\frac{-\underline{\theta}^*}{\overline{\theta}^* - \underline{\theta}^*}
+    \end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Computing Equilibrium under Assumptions of Proposition 2 (Cont'd)}
+
+By construction, $\overline{\theta}^*$ is such that a right-wing sender of $\overline{\theta}^*$ is indifferent between $a=+1$ and $a=0$:
+\begin{align}\label{eq:indifference_right}
+    \overline{\theta}^* + \lambda - c + \frac{1}{2}q_h = \frac{1}{2}q_h\frac{p_h}{p_h+p_r}\frac{\overline{\theta}^*}{\overline{\theta}^* - \underline{\theta}^*}
+\end{align}
+
+Likewise, $\underline{\theta}^*$ satisfies
+\begin{align}\label{eq:indifference_left}
+    -\underline{\theta}^* + \lambda - c + \frac{1}{2}q_h \frac{p_h}{p_h+p_g} = \frac{1}{2}q_h\frac{p_h}{p_h+p_r}\frac{-\underline{\theta}^*}{\overline{\theta}^* - \underline{\theta}^*}
+\end{align}
+
+
+Letting $t_g\triangleq \frac{p_h}{p_h+p_g}$ and $t_r\triangleq\frac{p_r}{p_h+p_r}$, the two equations (\ref{eq:indifference_right}) and (\ref{eq:indifference_left}) yield
+\begin{align*}
+    \underline{\theta}^* &= \frac{(-c+\frac{1}{2}q_ht_g)(-c+\frac{1}{4}q_h(t_r + t_g))}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g}\\
+    \overline{\theta}^* &= \frac{-(-c+\frac{1}{2}q_h)(-c+\frac{1}{4}q_h(t_r + t_g))}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g}
+\end{align*}
+To ensure interior solution, we further assume
+\begin{align*}
+    c>\frac{1}{2}q_h
+\end{align*}
+\end{frame}
+
+
+
+\begin{frame}{$\frac{\partial\underline{\theta}^*}{\partial c}$ and $\frac{\partial\overline{\theta}^*}{\partial c}$}\label{partial_c}
+
+The cutoffs $\underline{\theta}^*$ and $\overline{\theta}^*$ can be written as as functions of $c$:
+\begin{align*}
+    \underline{\theta}^* = \frac{c^2 - \frac{1}{4}q_h(t_r+3t_g)c +\frac{1}{8}q_h^2t_g(t_r+t_g)}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g},\quad \overline{\theta}^* = \frac{-c^2 + \frac{1}{4}q_h(2+t_r+t_g)c  - \frac{1}{8}q_h^2(t_r+t_g)}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g}
+\end{align*}
+
+The sign of $\frac{\partial \underline{\theta}^*}{\partial c}$ is the same as its numerator
+\begin{align*}
+     -c^2 + \frac{1}{2}q_h(1+t_g)c + \frac{1}{16}q_h^2(t_gt_r-t_r-t_g^2-3t_g),
+\end{align*}
+which is negative if $t_g<t_r$, or if both $t_g>t_r$ and $c\geq \frac{q_h}{2}$ is large enough; is positive if both $t_g>t_r$ and $c\geq \frac{q_h}{2}$ is small 
+\vspace{1em}
+
+The sign of $\frac{\partial \overline{\theta}^*}{\partial q_h}$ is the same as its numerator
+\begin{align*}
+    c^2-\frac{1}{2}q_h(1+t_g)c + \frac{1}{16}q_h^2(t_g^2+t_g+2-t_r+t_gt_r)\geq 0
+\end{align*}
+
+
+\vspace{1em}
+\hyperlink{proof_partial_c}{\beamergotobutton{Proof}}
+\vspace{1em}
+\end{frame}
+
+
+
+
+\begin{frame}{$\frac{\partial\underline{\theta}^*}{\partial q_h}$ and $\frac{\partial\overline{\theta}^*}{\partial q_h}$}\label{partial_qh}
+
+The cutoffs $\underline{\theta}^*$ and $\overline{\theta}^*$ can be written as as functions of $q_h$:
+
+\begin{align*}
+    \underline{\theta}^* = \frac{\frac{1}{8}(t_r+t_g)t_gq_h^2 - \frac{1}{4}c(t_r+3t_g)q_h +c^2}{\frac{1}{4}(1+t_g)q_h -c},\quad \overline{\theta}^* = \frac{-\frac{1}{8}(t_r+t_g)q_h^2 +\frac{1}{4}c(2+t_r+t_g)q_h -c^2}{\frac{1}{4}(1+t_g)q_h -c}
+\end{align*}
+The sign of $\frac{\partial \underline{\theta}^*}{\partial q_h}$ is the same as its numerator
+\begin{align*}
+    \frac{1}{32}(1+t_g)(t_r+t_g)t_gq_h^2 -\frac{1}{4}c(t_r+t_g)t_gq_h + \frac{1}{4}c^2(2t_g+t_r-1), 
+\end{align*}
+which can be always positive, or always negative, or first positive and then negative
+\vspace{1em}
+
+The sign of $\frac{\partial \overline{\theta}^*}{\partial c}$ is the same as its numerator
+\begin{align*}
+    -\frac{1}{32}(1+t_g)(t_r+t_g)q_h^2 +\frac{1}{4}c(t_r+t_g)q_h -\frac{1}{4}c^2(1+t_r)<0
+\end{align*}
+\vspace{1em}
+
+\hyperlink{proof_partial_qh}{\beamergotobutton{Proof}}
+\vspace{1em}
+\end{frame}
+
+
+
+\begin{frame}{$\frac{\partial\underline{\theta}^*}{\partial t_g}$ and $\frac{\partial\overline{\theta}^*}{\partial t_g}$}\label{partial_tg}
+
+The cutoffs $\underline{\theta}^*$ and $\overline{\theta}^*$ can be written as functions of $t_g$:
+
+\begin{align*}
+    \underline{\theta}^* = \frac{\frac{1}{8}q_h^2t_g^2 + (\frac{1}{8}t_rq_h^2 - \frac{3}{4}cq_h)t_g +c^2 - \frac{1}{4}ct_rq_h}{\frac{1}{4}q_ht_g + \frac{1}{4}q_h-c},\quad \overline{\theta}^* = \frac{(-\frac{1}{8}q_h^2+\frac{1}{4}cq_h)t_g -\frac{1}{8}t_rq_h^2+\frac{1}{4}c(2+t_r)q_h-c^2}{\frac{1}{4}q_ht_g + \frac{1}{4}q_h-c}
+\end{align*}
+The sign of $\frac{\partial \underline{\theta}^*}{\partial t_g}$ is the same as its numerator
+\begin{align*}
+    \frac{1}{32}q_h^3t_g^2 + \frac{1}{4}q_h^2(\frac{1}{4}q_h-c)t_g + \frac{1}{4}q_h\big[\frac{1}{8}t_rq_h(q_h-2c) + c(2c-\frac{3}{4}q_h)\big]>0
+\end{align*}
+
+\vspace{.5em}
+\hyperlink{proof_partial_tg}{\beamergotobutton{Proof}}
+\vspace{1em}
+
+The sign of $\frac{\overline{\theta}^*}{\partial t_g}$ is the same as its numerator
+\begin{align*}
+    \frac{1}{16}q^2(1-t_r)(c-\frac{1}{2}q_h)>0
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{$\frac{\partial\underline{\theta}^*}{\partial t_r}$ and $\frac{\partial\overline{\theta}^*}{\partial t_r}$}
+
+The cutoffs $\underline{\theta}^*$ and $\overline{\theta}^*$ can be written as as functions of $t_r$:
+
+\begin{align*}
+    \frac{\partial \underline{\theta}^*}{\partial t_r} = \frac{(-c+\frac{1}{2}q_ht_g)\frac{1}{4}q_h}{-c+\frac{1}{4}q_h + \frac{1}{4}q_ht_g}>0,\quad \frac{\overline{\theta}^*}{\partial t_r} = \frac{-(-c+\frac{1}{2}q_h)\frac{1}{4}q_h}{-c+\frac{1}{4}q_h+\frac{1}{4}q_ht_g}<0
+\end{align*}
+\end{frame}
+
+
+
+
+\begin{frame}{Proof: the Sign of $\frac{\partial \underline{\theta}^*}{\partial c}$}\label{proof_partial_c}
+Consider the quadratic function of $c$:
+\begin{align*}
+     -c^2 + \frac{1}{2}q_h(1+t_g)c + \frac{1}{16}q_h^2(t_gt_r-t_r-t_g^2-3t_g)
+\end{align*}
+Its midpoint is 
+\begin{align*}
+    -\frac{\frac{1}{2}q_h(1+t_g)}{-2} = \frac{q_h(1+t_g)}{4}<\frac{q_h}{2}
+\end{align*}
+So the maximum value of the quadratic function for $c\geq \frac{q_h}{2}$ is smaller than its value at $\frac{q_h}{2}$, which is
+\begin{align*}
+    \frac{1}{16}q_h^2(1-t_g)(t_g-t_r)
+\end{align*}
+As a result, there are two cases:
+\begin{itemize}
+    \item If $t_g< t_r$, then $\underline{\theta}^*$ always decreases in $c$
+    \item If $t_g>t_r$, then $\underline{\theta}^*$ increases in $c$ for small $c\geq \frac{q_h}{2}$ and decreases for large enough $c$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proof: the Sign of $\frac{\partial \overline{\theta}^*}{\partial c}$}
+Next, we show 
+\begin{align*}
+    c^2-\frac{1}{2}q_h(1+t_g)c + \frac{1}{16}q_h^2(t_g^2+t_g+2-t_r+t_gt_r)\geq 0
+\end{align*}
+The midpoint of the quadratic function of $c$ is
+\begin{align*}
+    -\frac{-\frac{1}{2}q_h(1+t_g)}{2} = \frac{1}{4}q_h(1+t_g)\leq\frac{q_h}{2}
+\end{align*}
+
+So the minimum value of the quadratic function for $c\geq \frac{q_h}{2}$ is greater than its value at $\frac{q_h}{2}$, which is equal to
+\begin{align*}
+    \frac{q_h^2}{16}[t_g^2-3t_g+2-t_r-t_gt_r] = \frac{q_h^2}{16}(1-t_g)(2-t_g-t_r)\geq 0
+\end{align*}
+\vspace{1em}
+\hyperlink{partial_c}{\beamerreturnbutton{Back}}
+\end{frame}
+
+
+\begin{frame}{Proof: the Sign of $\frac{\partial\underline{\theta}^*}{\partial q_h}$}\label{proof_partial_qh}
+First, consider the quadratic function of $q_h$:
+\begin{align*}
+    \frac{1}{32}(1+t_g)(t_r+t_g)t_gq_h^2 -\frac{1}{4}c(t_r+t_g)t_gq_h + \frac{1}{4}c^2(2t_g+t_r-1)
+\end{align*}
+
+The midpoint is
+\begin{align*}
+    -\frac{-\frac{1}{4}c(t_r+t_g)t_g}{\frac{1}{16}(1+t_g)(t_r+t_g)t_g} = \frac{4c}{1+t_g}\geq 2c
+\end{align*}
+Therefore, the value of the quadratic function for $q_h\in[0,2c)$ is greater than its value at $2c$, which is
+\begin{align*}
+    &\frac{1}{8}(1+t_g)(t_r+t_g)t_gc^2 - \frac{1}{2}(t_r+t_g)t_gc^2 + \frac{1}{4}(2t_g+t_r-1)c^2\\
+    =& \frac{1}{8}c^2[(1+t_g)(t_g+t_r)t_g - 4t_g(t_g+t_r) + 2(2t_g+t_r-1)],
+\end{align*}
+the sign of which is undetermined.
+\end{frame}
+
+
+\begin{frame}{Proof: the Sign of $\frac{\partial\overline{\theta}^*}{\partial q_h}$}
+Next, we show
+\begin{align*}
+    -\frac{1}{32}(1+t_g)(t_r+t_g)q_h^2 +\frac{1}{4}c(t_r+t_g)q_h -\frac{1}{4}c^2(1+t_r)<0
+\end{align*}
+The midpoint of the quadratic function of $q_h$ on the left satisfies
+\begin{align*}
+    -\frac{\frac{1}{4}c(t_r+t_g)}{-\frac{1}{16}(1+t_g)(t_r+t_g)} = \frac{4c}{1+t_g}\geq 2c
+\end{align*}
+Therefore, the value of the quadratic function for $q_h\in[0,2c)$ is strictly smaller than its value at $2c$, which satisfies
+\begin{align*}
+    &-\frac{1}{8}(1+t_g)(t_r+t_g)c^2 + \frac{1}{2}(t_r+t_g)c^2 - \frac{1}{4}(1+t_r)c^2\\
+    =& -\frac{1}{8}c^2(t_g-1)(t_g+t_r-2)\leq 0
+\end{align*}
+
+\vspace{1em}
+\hyperlink{partial_qh}{\beamerreturnbutton{Back}}
+\end{frame}
+
+
+
+\begin{frame}{Proof: the Sign of $\frac{\partial\underline{\theta}^*}{\partial t_g}$}\label{proof_partial_tg}
+Consider the quadratic function of $t_g$:
+\begin{align*}
+    \frac{1}{32}q_h^3t_g^2 + \frac{1}{4}q_h^2(\frac{1}{4}q_h-c)t_g + \frac{1}{4}q_h\big[\frac{1}{8}t_rq_h(q_h-2c) + c(2c-\frac{3}{4}q_h)\big]
+\end{align*}
+
+Since $c>\frac{q_h}{2}$, the midpoint of the quadratic function satisfies
+\begin{align*}
+    -\frac{\frac{1}{4}q_h^2(\frac{1}{4}q_h-c)}{2\frac{1}{32}q_h^3} = \frac{4c-q_h}{q_h}>1
+\end{align*}
+
+Therefore, the value of the quadratic function for $t_g\in[0,1]$ is greater than its value at $t_g=1$, which satisfies
+\begin{align*}
+    &\frac{1}{32}q_h^3 + \frac{1}{4}q_h^2(\frac{1}{4}q_h-c) + \frac{1}{4}q_h\big[\frac{1}{8}t_rq_h(q_h-2c) + c(2c-\frac{3}{4}q_h)\big]\\
+    \geq &\frac{1}{32}q_h^3 + \frac{1}{4}q_h^2(\frac{1}{4}q_h-c) + \frac{1}{4}q_h\big[\frac{1}{8}q_h(q_h-2c) + c(2c-\frac{3}{4}q_h)\big]\\
+    =&\frac{1}{8}q_h(q_h-2c)^2>0
+\end{align*}
+
+
+\vspace{1em}
+\hyperlink{partial_tg}{\beamerreturnbutton{Back}}
+\end{frame}
+
+
+
+
+
+
+
+\end{document}

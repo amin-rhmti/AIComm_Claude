@@ -1,0 +1,389 @@
+\documentclass[english,12pt]{article}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{esint}  
+\usepackage[authoryear]{natbib}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{enumerate}
+\makeatletter
+\makeatother
+%\numberwithin{equation}{section} %numbering equation with section number
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usepackage{babel}
+\usepackage{bbm}
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{\protect\theoremname}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{\protect\theoremname}
+\theoremstyle{definition}
+\newtheorem{definition}{\protect\definitionname}
+\theoremstyle{definition}
+\newtheorem*{definition*}{\protect\definitionname}
+\theoremstyle{assumption}
+\newtheorem{assumption}{\protect\assumptionname}
+\theoremstyle{plain}
+\newtheorem{corollary}{\protect\corollaryname}
+\theoremstyle{plain}
+\newtheorem{lemma}{\protect\lemmaname}
+\theoremstyle{plain}
+\newtheorem{proposition}{\protect\propositionname}
+\theoremstyle{plain}
+\newtheorem{conjecture}{\protect\conjecturename}
+\theoremstyle{definition}%%%12/28/2019
+\newtheorem{remark}{\protect\remarkname}
+\theoremstyle{plain}
+\newtheorem{claim}{\protect\claimname}
+\theoremstyle{plain}
+\newtheorem{fact}{\protect\factname}
+\theoremstyle{plain}
+\newtheorem{result}{\protect\resultname}
+\theoremstyle{plain}
+\newtheorem{observation}{\protect\observationname}
+\theoremstyle{plain}
+\newtheorem{prediction}{\protect\predictionname}
+\theoremstyle{plain}
+\newtheorem{requirement}{\protect\requirementname}
+
+\providecommand{\claimname}{Claim}
+\providecommand{\conjecturename}{Conjecture}
+\providecommand{\corollaryname}{Corollary}
+\providecommand{\lemmaname}{Lemma}
+\providecommand{\definitionname}{Definition}
+\providecommand{\assumptionname}{Assumption}
+\providecommand{\examplename}{Example}
+\providecommand{\factname}{Fact}
+\providecommand{\propositionname}{Proposition}
+\providecommand{\remarkname}{Remark}
+\providecommand{\theoremname}{Theorem}
+\providecommand{\resultname}{Result}
+\providecommand{\observationname}{Observation}
+\providecommand{\predictionname}{Prediction}
+\providecommand{\requirementname}{Requirement}
+
+
+\usepackage{subcaption}
+\makeatletter
+\renewcommand{\fnum@figure}{Figure \thefigure}
+\makeatother
+
+%%%%%%%%%%OWN%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[font=footnotesize]{caption} 
+
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\supp}{Supp}
+\DeclareMathOperator{\proj}{Proj}
+
+\usepackage{istgame}
+\usetikzlibrary{shapes.geometric,arrows}
+
+\usepackage{xcolor}
+
+\newcommand{\pdfcolor}{blue!85!black}
+\hypersetup{colorlinks=true,linkcolor=\pdfcolor,citecolor=\pdfcolor,urlcolor=\pdfcolor}
+
+
+\usepackage{bm}
+
+\pgfplotsset{compat = newest}
+%%%%%%%%END%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\title{Intelligence or Interference?\\ AI and Online Social Interactions}
+
+\author{\large
+\begin{tabular}{ccccccccccc}
+Elliot Ash\thanks{ETH Zurich. E-mail:.} &&&&&  Yichuan Lou\thanks{Department of Economics, University of Tokyo. E-mail: \url{yichuanlou@e.u-tokyo.ac.jp}.}  &&&&& Lena Song\thanks{UIUC. E-mail:.}
+\end{tabular}
+}
+
+\date{This Version: 08/01/2024}
+
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+\noindent
+\end{abstract}
+
+
+
+\section{Partisan Theoretical Framework}
+
+
+In this section, we present a partisan signaling model of social behavior concerning divisive issues such as immigration, gun control, and abortion. In partisan signaling, there is disagreement on what constitutes ``good" and ``bad" behavior. Thus senders of different types prefer to be perceived as different types. \textcolor{red}{[More elaborations...]}
+
+\subsection{Setting}
+
+Consider two sets of agents: senders and receivers. Senders are divided into three identity groups: humans, gen-AI bots, and rule-based bots. Denote by $\bm{p} \triangleq (p_h,p_g,p_r)$ the probability measure of these groups. Receivers are all humans.
+
+\textit{Human Agent}.---A human (sender or receiver) has two possible types, denoted $L$ and $R$. A type $L$ human prefers left-wing ideology and a type $R$ human prefers right-wing ideology. We assume that human agents place a common prior probability $\rho$ and $\eta$, respectively, on a human sender and a human receiver being $R$.
+
+\textit{Human Sender's Choice and Payoff}.---Each human sender chooses an action $a\in \{-1,0,+1\}$: $a=-1$ means engaging in a left-wing activity (e.g., arguing for a left-wing idea), $a=0$ means abstaining or staying neutral, and $a=+1$ means engaging in a right-wing activity. Choosing $a=+1$ or $a=-1$ incurs a cost $c>0$. A human sender's \textit{direct} utility is $v-c$ for selecting an ideology-consistent action and $-v-c$ for selecting an ideology-opposing action. The parameter $v>0$ captures the intrinsic value of taking an action aligned with one's ideology.
+
+In addition to the direct payoffs, actions also carry \textit{indirect} payoffs. A human receiver can infer a sender's identity and political preference from the observed choice of $a$. Let $P_R=P_R(a)$ and $P_L=P_L(a)$ denote the perceived probabilities that the sender is a right-wing human and a left-wing human, respectively. We assume that the utility a sender expects from interacting with a receiver depends on the alignment of their political affiliations. Specifically, the indirect utility for a right-wing human sender is $\mu\eta P_R$, where the parameter $\mu$ captures the strength of political homophily, and $\eta P_R$ represents the probability that a right-wing receiver sympathizes with the sender. Analogously, the indirect utility for a left-wing human sender is given by $\mu(1-\eta)P_L$. 
+
+Summing up, the utilities for a right-wing human sender from taking actions $a=+1$, $a=0$, and $a=-1$ are given by $v-c+\mu\eta P_R(+1)$, $\mu\eta P_R(0)$, and $-v-c+\mu\eta P_R(-1)$, respectively. Likewise, the utilities for a left-wing human sender from taking actions $a=+1$, $a=0$, and $a=-1$ are $-v-c+\mu(1-\eta) P_L(+1)$, $\mu(1-\eta) P_L(0)$, and $v-c+\mu\eta P_L(-1)$, respectively.
+
+
+\textit{Bot Sender's Choice}.---A bot sender, whether it is gen-AI or rule-based, has no types or preferences. Additionally, we assume that a bot sender always chooses a fixed action.
+
+\begin{assumption}\label{assumption:bot_action}
+    A rule-based bot sender always chooses an action $a_0$ outside $\{-1,0,+1\}$. A gen-AI bot sender always chooses $a=-1$.
+\end{assumption}
+
+Therefore, a rule-based bot always reveals its identity, whereas a gen-AI bot can disguise its identity if $a=-1$ is also chosen by a human sender. \textcolor{red}{[Need justification...]}
+
+\textit{Timing}.---The timing is as follows. Nature draws a sender from $\bm{p}=(p_h,p_g,p_r)$. If the sender is a human, his political type is determined according to the distribution $(\rho,1-\rho)$. Both the sender's identity and type (if applicable) are private information. The receiver has her private type determined according to the distribution $(\eta,1-\eta)$. Upon observing his identity and type, the sender takes an action $a\in \{-1,0,+1\}$. The receiver observes the sender's choice of $a$ and updates her belief about the sender's identity and type. After this the sender's payoff is realized.
+
+
+\subsection{Equilibrium}
+
+Next, we define an equilibrium in this signaling game. The strategy of a type $R$ (resp. type $L$) sender is a probability distribution $\alpha_R$ (resp. $\alpha_L$) over $\{-1,0,+1\}$. Let $P_R(a)$ (resp. $P_L(a)$) denote the receiver's posterior that the sender being a type $R$ human (resp. a type $L$ human). A perfect Bayesian equilibrium is a profile $(\alpha_R,\alpha_L, P_R, P_L)$ such that $\alpha_R$ (resp. $\alpha_L$) maximizes the expected payoff of type $R$ (resp. type $L$) given $(P_R,P_L)$ , and $(P_R,P_L)$ can be deduced from $(\alpha_R,\alpha_L)$ using Bayes' rule whenever possible.
+
+As common in signaling models, multiple equilibria may coexist because off-path beliefs are not pinned down by Bayes' rule. In addition to the standard D1 criterion \`{a} la \cite{ChoKreps:87}, we refine the set of equilibria by imposing the following belief requirement:
+
+\begin{requirement}\label{requirement1}
+    The receiver assigns a probability of zero to sender types playing strictly dominated strategies.
+\end{requirement}
+
+
+The following assumption ensures that $a=+1$ (resp. $a=-1$) is a strictly dominated action for type $L$ (resp. type $R$). Given this assumption, upon observing $a=+1$ (resp. $a=-1$), Requirement \ref{requirement1} says that the receiver's posterior must satisfy $P_L=0$ (resp. $P_R=0$).
+
+
+\begin{assumption}\label{assumption:dominated}
+    $v>\max\{\mu\eta/2,\mu(1-\eta)/2\}$.
+\end{assumption}
+
+To ease the equilibrium characterization, we make the following additional assumption that human senders and receivers have the same political type distribution, and there are more left-wing individuals than right-wing individuals.
+
+\begin{assumption}\label{assumption:leftworld}
+    $\rho=\eta\leq \frac{1}{2}$.
+\end{assumption}
+
+Some notation is needed to describe equilibria. Let $(P_a)$ denote a pooling equilibrium at $a$. Let $(S_{a,a'})$, with $a>a'$, denote a separating equilibrium where type $R$ chooses $a$ and type $L$ chooses $a'$.
+
+In the next two propositions, we characterize all equilibria for the cases without and with gen-AI bots. 
+
+\begin{proposition}\label{prop:noAI}
+    Let $p_g=0$. Under Assumption \ref{assumption:bot_action} through \ref{assumption:leftworld}, equilibria are characterized as follows:
+    \begin{itemize}
+        \item[(i)] For $c<v$, there is a unique equilibrium $(S_{+1,-1})$.
+        \item[(ii)] For $v\leq c<v+\mu\eta(1-\eta)$, there are two Pareto efficient equilibria $(S_{+1,0})$ and $(S_{0,-1})$.
+        \item[(iii)] For $v+\mu\eta(1-\eta)\leq c\leq v+\mu\eta$, there are three Pareto efficient equilibria $(S_{+1,0})$, $(S_{0,-1})$, and $(P_0)$.
+        \item[(iv)] For $v+\mu\eta<c\leq v+\mu(1-\eta)$, there are two Pareto efficient equilibria $(S_{0,-1})$ and $(P_0)$.
+        \item[(v)] For $v+\mu(1-\eta)<c$, there is a unique equilibrium $(P_0)$.
+    \end{itemize}
+\end{proposition}
+
+We depict equilibrium regions in the $(c,\mu)$ space in the following Figure \ref{fig:wihoutAI}.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+% Insert parameters for Graph 1
+scale = 1.3,
+xmin = 0, xmax = 16,
+ymin = 0, ymax = 12,
+axis lines* = left,
+xtick = {0}, ytick = \empty,
+axis on top,
+clip = false,
+]
+\node [right] at (current axis.right of origin){$\mu$};
+\node [above] at (current axis.above origin) {$c$};
+\node [left] at (0,5) {$v$};
+
+\addplot[color = black] coordinates {(0,5) (10,5)};
+\addplot[domain=0:10, color=black]{6/25*x+5};
+\addplot[domain=0:10, color=black]{2/5*x+5};
+\addplot[domain=0:10, color=black]{3/5*x+5};
+\draw[-Triangle] (10,10)to (11,10)node[right,draw]{\tiny $(P_0),(S_{0,-1})$};
+\draw[-Triangle] (10,8)to (11,8)node[right,draw]{\tiny $(P_0),(S_{+1,0}),(S_{0,-1})$};
+\node [draw] at (8,5.8){\tiny$(S_{+1,0}), (S_{0,-1})$};
+
+\node [draw] at (4, 10){\tiny$(P_0)$};
+\node [draw] at (5,3){\tiny$(S_{+1,-1})$};
+\end{axis}
+\end{tikzpicture}
+\caption{Equilibria without AI ($\eta=\rho=\frac{2}{5}$, $p_h=1$, $p_g=0$)}
+\label{fig:wihoutAI}
+\end{figure}
+
+Now let us turn to the case with the presence of gen-AI bots, i.e., $p_g>0$. The following proposition characterizes equilibria for $\eta<\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}<\frac{\eta}{1-\eta}$. This parameter restriction is used to ease the presentation of the results. We can similarly characterize equilibria for other parameter ranges (using the proof of Proposition \ref{prop:withAI}), but detailing each case would be redundant.
+
+
+\begin{proposition}\label{prop:withAI}
+    Let $p_g>0$ and $\eta<\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$. Under Assumption \ref{assumption:bot_action} through \ref{assumption:leftworld}, equilibria are characterized as follows:
+    \begin{itemize}
+        \item[(i)] For $c<v-\mu(1-\eta)$, there is a unique equilibrium $(S_{+1,-1})$.
+        \item[(ii)] For $v-\mu(1-\eta)\leq c\leq v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}$, there is a Pareto efficient equilibrium $(S_{+1,-1})$.
+        \item[(iii)] For $v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}<c<v$, there is a unique equilibrium $(S_{+1,0})$.
+        \item[(iv)] For $v\leq c<v+\mu\eta(1-\eta)$, there are two Pareto efficient equilibria $(S_{+1,0})$ and $(S_{0,-1})$.
+        \item[(v)] For $v+\mu\eta(1-\eta)\leq v\leq v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$, there are three Pareto efficient equilibria $(S_{+1,0})$, $(S_{0,-1})$, and $(P_0)$.
+        \item[(vi)] For $v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}<c\leq v+\mu\eta$, there are two Pareto efficient equilibria $(S_{+1,0})$ and ($P_0$).
+        \item[(vii)] For $v+\mu\eta<c$, there is a unique equilibrium $(P_0)$.
+    \end{itemize}
+\end{proposition}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+% Insert parameters for Graph 1
+scale = 1.3,
+xmin = 0, xmax = 16,
+ymin = 0, ymax = 10,
+axis lines* = left,
+xtick = {0}, ytick = \empty,
+axis on top,
+clip = false,
+]
+\node [right] at (current axis.right of origin){$\mu$};
+\node [above] at (current axis.above origin) {$c$};
+\node [left] at (0,6) {$v$};
+
+\addplot[color = black] coordinates {(0, 5) (10, 5)};
+\addplot[domain=0:10, color=black]{6/25*x+5};
+\addplot[domain=0:10, color=black]{18/55*x+5};
+\addplot[domain=0:10, color=black]{2/5*x+5};
+\addplot[domain=0:10, color=black]{-3/11*x+5};
+\draw[-Triangle] (10, 8.6) to (11, 8.6)node[right,draw]{\tiny $(P_0),(S_{+1,0})$};
+\draw[-Triangle] (10, 7.8)to (11, 7.8)node[right,draw]{\tiny $(P_0),(S_{+1,0}),(S_{0,-1})$};
+%\draw[-Triangle] (10, 7.8)[out = 0, in = 90] to (12.8, 7.3)node[below,draw]{\tiny $(P_0),(S_{+1,0}),(S_{0,-1})$};
+
+\node [draw] at (4, 8){\tiny$(P_0)$};
+\node [draw] at (8, 5.8){\tiny$(S_{+1,0}), (S_{0,-1})$};
+\node [draw] at (8, 4){\tiny$(S_{+1,0})$};
+\node [draw] at (4, 2.5){\tiny$(S_{+1,-1})$};
+\end{axis}
+\end{tikzpicture}
+\caption{Equilibria with AI ($\eta=\rho=\frac{2}{5}$, $p_h = \frac{2}{3}$, $p_g = \frac{1}{3}$)}
+\label{fig:withAI}
+\end{figure}
+
+
+
+\subsection{Comparative statics}
+
+The following result reports comparative statics for each of the four equilibria, $(S_{+1,-1}), (S_{+1,0}), (S_{0,-1}), (P_0)$, with respect to the share of gen-AI bots $p_g$.
+
+
+\begin{result}\label{result:comparative_pg}
+    Fix any $\mu>0$ and $0\leq p_r<1$. As $p_g$ jumps from $0$ to positive value, 
+    \begin{itemize}
+        \item[(i)] the range of costs where separation equilibrium $(S_{+1,-1})$ occurs shrinks.
+        %from $[0,v+\mu\eta(1-\eta)]$ to $[0,v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}]\cup [v, v+\mu\eta(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}]$
+        \item[(ii)] the range of costs where separation equilibrium $(S_{+1,0})$ occurs expands.
+        %For $(S_{+1,0})$, the feasible set of $c$ expands from $[v,v+\mu\eta]$ to $[v-\mu(1-\eta),v+\mu\eta]$
+        \item[(iii)] the range of costs where separation equilibrium $(S_{0,-1})$ occurs shrinks.
+        %For $(S_{0,-1})$, the feasible set of $c$ shrinks from $[v,v+\mu(1-\eta)]$ to $[v, v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}]$
+        \item[(iv)] the range of costs where pooling equilibrium $(P_0)$ occurs is unchanged.
+        %For $(P_0)$, the feasible set of $c$ stays the same: $[v+\mu\eta(1-\eta),\infty)$
+    \end{itemize}
+    As $p_g>0$ continues to increase,
+    \begin{itemize}
+        \item[(i)] the range of costs where separation equilibrium $(S_{+1,-1})$ occurs further shrinks.
+        \item[(ii)] the range of costs where separation equilibrium $(S_{+1,0})$ occurs further expands.
+        \item[(iii)] the range of costs where separation equilibrium $(S_{0,-1})$ occurs further shrinks.
+        \item[(iv)] the range of costs where pooling equilibrium $(P_0)$ occurs is unchanged.
+    \end{itemize}
+\end{result}
+
+Result \ref{result:comparative_pg} predicts that the presence and increasing proportion of gen-AI bots induce human senders to participate in more neutral and right-wing activities. In other words, the left-wing-human-like behavior of gen-AI bots can systematically crowd out left-wing activities by actual left-wing humans, due to the latter's avoidance be considered as bots.
+
+
+
+\newpage
+\appendix
+\section{Appendix}
+
+\subsection{Proof of Proposition \ref{prop:noAI}}
+
+Before proceeding, note that since $a=-1$ is a strictly dominated action for type $R$, it is never chosen in equilibrium. Therefore, we only consider $\alpha_R$ supported on $\{0,+1\}$. Likewise, we only consider the $\alpha_L$ supported on $\{-1,0\}$. Moreover, since $p_g=0$, any belief $(P_R,P_L)$ must satisfy $P_R+P_L=1$.
+
+We exhaust all possible equilibria as follows:
+
+\textit{Equilibrium $(P_0)$}: $a_R=a_L=0$, with $(P_R,P_L)=(1,0)$ following $a=+1$ and $(P_R,P_L)=(0,1)$ following $a=-1$ (both by Requirement \ref{requirement1}), is an equilibrium if and only if $\max\{v+\mu\eta(1-\rho), v+\mu(1-\eta)\rho\}\leq c$. To see this, $R$ prefers $a=0$ to $a=+1$ if $\mu\eta\rho\geq v-c+\mu\eta$, i.e., $v+\mu\eta(1-\rho)\leq c$; $L$ prefers $a=0$ to $a=-1$ if $\mu(1-\eta)(1-\rho)\geq v-c+\mu(1-\eta)$, i.e., $v+\mu(1-\eta)\rho\leq c$.
+
+\textit{Equilibrium $(S_{+1,-1})$}: $a_R=+1$ and $a_L=-1$, with any $(P_R,P_L)$, is an equilibrium if and only if $c\leq v$, or, $v<c\leq v+\mu\eta(1-\eta)$ with additional $\frac{-(v-c)}{\mu(1-\eta)}\leq P_R\leq \frac{v-c}{\mu\eta}+1$. There are two cases to consider. When $c\leq v$, $R$ prefers $a=+1$ to $a=0$ even $P_R=1$ following $a=0$, i.e., $v-c+\mu\eta\geq \mu\eta$; $L$ prefers $a=-1$ to $a=0$ even $P_L=1$ following $a=0$, i.e., $v-c+\mu(1-\eta)\geq \mu(1-\eta)$. Thus $a_R=+1$ and $a_L=-1$ can be sustained by any $(P_R,P_L)$ following $a=0$. When $v<c$, there are two subcases: one where the D1 criterion further refines beliefs and one where it fails. In the former, D1 implies $P_R=1$ or $P_R=0$. To sustain $a_R=+1$ and $a_L=-1$ in equilibrium, we need $R$ prefers $a=+1$ to $a=0$ when $P_R=1$ and $L$ prefers $a=-1$ to $a=0$ when $P_R=0$, both of which require $v\geq c$, contradicting $v<c$. In the latter, let us first define the two belief sets: $\mathcal{P}_R = \{P_R:\frac{v-c}{\mu\eta}+1\leq P_R\leq 1\}$ and $\mathcal{P}_L = \{P_R:0\leq P_R\leq \frac{-(v-c)}{\mu(1-\eta)}\}$, given which $R$ and $L$ prefer to deviate to $a=0$, respectively. When D1 fails, it must be that either $\mathcal{P}_R=\mathcal{P}_L=[0,1]$, or both $\mathcal{P}_R\subsetneq [0,1]$ and $\mathcal{P}_L\subsetneq [0,1]$. When $\mathcal{P}_R=\mathcal{P}_L=[0,1]$ holds, we have $c\geq \max\{v+\mu\eta, v+\mu(1-\eta)\}$. For $(S_{+1,-1})$ to be an equilibrium, $P_R$ must be such that $R$ is indifferent between $a=+1$ and $a=0$ and $L$ is indifferent between $a=0$ and $a=-1$. This requires $c=v+\mu\eta(1-P_R) = v+\mu(1-\eta)P_R$, which, however, is impossible given $c\geq \max\{v+\mu\eta, v+\mu(1-\eta)\}$. When $\mathcal{P}_R\subsetneq [0,1]$ and $\mathcal{P}_L\subsetneq [0,1]$ holds, we have $c<\min\{v+\mu\eta,v+\mu(1-\eta)\}$. Now for $(S_{+1,-1})$ to be a PBE, the value of $P_R$ must ensure that $R$ does not deviate to $a=0$, i.e., $v-c+\mu\eta\geq \mu\eta P_R$; and $L$ does not deviate to $a=0$, i.e., $v-c+\mu(1-\eta)\geq \mu(1-\eta)(1-P_R)$. This requires $\frac{-(v-c)}{\mu(1-\eta)}\leq P_R\leq \frac{v-c}{\mu\eta}+1$. We need $\frac{v-c}{\mu\eta}+1\geq \frac{-(v-c)}{\mu(1-\eta)}$, i.e., $c\leq v+ \mu\eta(1-\eta)$.
+
+
+\textit{Equilibrium $(S_{+1,0})$}: $a_R=+1$ and $a_L=0$, with $(P_R,P_L)=(0,1)$ following $a=-1$ (by Requirement \ref{requirement1}), is an equilibrium if and only if $v\leq c\leq v+\mu\eta$. To see this, $R$ does not mimic $L$ if $v-c+\mu\eta\geq 0$, i.e., $c\leq v+\mu\eta$; $L$ prefers $a=0$ to $a=-1$ if $\mu(1-\eta)\geq v-c+\mu(1-\eta)$, i.e., $v\leq c$.
+
+\textit{Equilibrium $(M_{+1,0})$}: $\alpha_R = \alpha_R(a=+1)\in [0,1]$ and $a_L=0$, with $(P_R,P_L)=(0,1)$ following $a=-1$ (by Requirement \ref{requirement1}), is an equilibrium if and only if $\max\{v+\mu\eta(1-\rho),v+\mu\eta(1-\eta)\}\leq c\leq v+\mu\eta$. To see this, $R$ being indifferent between $a=1$ and $a=0$ requires $v-c+\mu\eta = \mu\eta\frac{\rho (1-\alpha_R)}{\rho(1-\alpha_R)+(1-\rho)}$, i.e., $c = v+\mu\eta\frac{1-\rho}{\rho(1-\alpha_R)+(1-\rho)}$. Thus $c\in [v+\mu\eta(1-\rho), v+\mu\eta]$ for $\alpha_R\in[0,1]$. On the other hand, $L$ prefers $a=0$ to $a=-1$ if $\mu(1-\eta)\frac{1-\rho}{\rho(1-\alpha_R) + (1-\rho)}\geq v-c+\mu(1-\eta)$, i.e., $c\geq v+\mu(1-\eta)\frac{\rho (1-\alpha_R)}{\rho(1-\alpha_R)+(1-\rho)} = v+\mu(1-\eta)\frac{v-c+\mu\eta}{\mu\eta}$, or equivalently, $c\geq v+\mu\eta(1-\eta)$.
+
+\textit{Equilibrium $(S_{0,-1})$}: $a_R=0$ and $a_L=-1$, with $(P_R,P_L)=(1,0)$ following $a=+1$ (by Requirement \ref{requirement1}), is an equilibrium if and only if $v\leq c\leq v+\mu(1-\eta)$. To see this, $R$ prefers $a=0$ to $a=+1$ if $\mu\eta\geq v-c+\mu\eta$, i.e., $v\leq c$; $L$ does not mimic $R$ if $v-c+\mu(1-\eta)\geq 0$, i.e., $c\leq v+\mu(1-\eta)$. 
+
+\textit{Equilibrium $(M_{0,-1})$}: $a_R=0$ and $\alpha_L=\alpha_L(a=-1)\in[0,1]$, with $(P_R,P_L)=(1,0)$ following $a=+1$ (by Requirement \ref{requirement1}), is an equilibrium if and only if $\max\{v+\mu(1-\eta)\rho,v+\mu\eta(1-\eta)\}\leq c\leq v+\mu(1-\eta)$. To see this, $L$ being indifferent between $a=0$ and $a=-1$ requires $\mu(1-\eta)\frac{(1-\rho)(1-\alpha_L)}{\rho+(1-\rho)(1-\alpha_L)} = v-c+\mu(1-\eta)$. Thus $c\in [v+\mu(1-\eta)\rho, v+\mu(1-\eta)]$ for $\alpha_L\in[0,1]$. On the other hand, $R$ prefers $a=0$ to $a=+1$ if $\mu\eta\frac{\rho}{\rho+(1-\rho)(1-\alpha_L)}\geq v-c+\mu\eta$, i.e., $c\geq v+\mu\eta\frac{(1-\rho)(1-\alpha_L)}{\rho+(1-\rho)(1-\alpha_L)}$, or equivalently, $c\geq v+\mu\eta(1-\eta)$.
+
+\textit{Equilibrium $(M_{+1,0,-1})$}: $\alpha_R=\alpha_R(a=+1)\in(0,1)$ and $\alpha_L=\alpha_L(a=-1)\in(0,1)$ is an equilibrium if and only if $c=v+\mu\eta(1-\eta)$. To see this, $R$ being indifferent between $a=1$ and $a=0$ requires $v-c+\mu\eta = \mu\eta\frac{\rho (1-\alpha_R)}{\rho(1-\alpha_R)+(1-\rho)(1-\alpha_L)}$; $L$ being indifferent between $a=0$ and $a=-1$ requires $\mu(1-\eta)\frac{(1-\rho)(1-\alpha_L)}{\rho(1-\alpha_R)+(1-\rho)(1-\alpha_L)} = v-c+\mu(1-\eta)$. This implies $c = v+\mu\eta(1-\eta)$.
+
+\paragraph{Pareto efficient Equilibria.} In addition to D1 and Requirement \ref{requirement1}, we use Pareto efficiency to further select equilibria. Specifically, whenever two equilibria coexist for a given value of $c$, we rank their payoffs. By straightforward calculation, it follows that $(S_{+1,-1})$ and $(M_{+1,0,-1})$ (which are Pareto equivalent) are Pareto dominated by both $(S_{+1,0})$ and $(S_{0,-1})$; $(M_{+1,0})$ is Pareto dominated by $(S_{+1,0})$; $(M_{0,-1})$ is Pareto dominated by $(S_{0,-1})$. It also follows that $(P_0)$ and $(S_{+1,0})$, $(P_0)$ and $(S_{0,-1})$, $(S_{+1,0})$ and $(S_{-1,0})$, are not Pareto ranked.
+
+
+
+
+
+\subsection{Proof of Proposition \ref{prop:withAI}}
+
+We exhaust all possible equilibria as follows:
+
+\textit{Equilibrium $(P_0)$}: $a_R=a_L=0$, with $(P_R,P_L)=(1,0)$ following $a=+1$ (by Requirement \ref{requirement1}) and $(P_R,P_L)=(0,0)$ following $a=-1$ (which is an on-path action taken by the gen-AI sender), is an equilibrium if and only if $v+\mu\eta(1-\rho)\leq c$. To see this, $R$ prefers $a=0$ to $a=+1$ if $\mu\eta\rho\geq v-c+\mu\eta$, i.e., $v+\mu\eta(1-\rho)\leq c$; $L$ prefers $a=0$ to $a=-1$ if $\mu(1-\eta)(1-\rho)\geq v-c$, i.e., $v - \mu(1-\eta)(1-\rho)\leq c$.
+
+\textit{Equilibrium $(S_{+1,-1})$}: $a_R=+1$ and $a_L=-1$, with $(P_R,P_L)$ such that $P_R+P_L=1$, is an equilibrium if and only if $c\leq v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}$, or, $v\leq c\leq v+\mu\eta(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$ with additional $P_R\in[\frac{-(v-c)}{\mu(1-\eta)}+\frac{p_g}{p_h(1-\rho)+p_g}, \frac{v-c}{\mu\eta}+1]$. There are three cases to consider. 
+
+First, when $c\leq v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}$, $R$ prefers $a=+1$ to $a=0$ even $P_R=1$ following $a=0$, i.e., $v-c+\mu\eta\geq \mu\eta$, i.e., $c\leq v$; $L$ prefers $a=-1$ to $a=0$ even $P_L=1$ following $a=0$, i.e., $v-c+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}\geq \mu(1-\eta)$, i.e., $c\leq v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}$. 
+
+Second, when $v-\mu(1-\eta)\frac{\alpha}{(1-\alpha)(1-\rho)+\alpha}<c< v$, $(S_{+1,-1})$ cannot be an equilibrium. To see this, note that $R$ strictly prefers $a=+1$ to $a=0$ even $P_R=1$ following $a=0$, while $L$ strictly prefers $a=0$ to $a=-1$ if $P_L$ is sufficiently close to $1$ following $a=0$. Then D1 implies that $P_L=1$, which induces $L$ to deviate and hence $(S_{+1,-1})$ cannot be an equilibrium. 
+
+Third, when $c\geq v$, there are two subcases: one where the D1 criterion further refines beliefs and one where it fails. In the former, D1 implies $(P_R,P_L)=(1,0)$ or $(P_R,P_L)=(0,1)$ following $a=0$. To sustain $a_R=+1$ and $a_L=-1$ in equilibrium, we need $R$ still prefers $a=+1$ to $a=0$ whenever $(P_R,P_L)=(1,0)$ and $L$ still prefers $a=-1$ to $a=0$ whenever $(P_R,P_L)=(0,1)$, each of which respectively requires $v\geq c$ and $v\geq c+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$, contradicting $v\leq c$. In the latter, let us first define the two belief sets: $\mathcal{P}_R= \{P_R:\frac{v-c}{\mu\eta}+1\leq P_R\leq 1\}$ and $\mathcal{P}_L = \{P_R:0\leq P_R\leq \frac{-(v-c)}{\mu(1-\eta)}+\frac{p_g}{p_h(1-\rho)+p_g}\}$, given which $R$ and $L$ prefer to deviate to $a=0$, respectively. When D1 fails, it must be that either $\mathcal{P}_R=\mathcal{P}_L=[0,1]$, or both $\mathcal{P}_R\subsetneq [0,1]$ and $\mathcal{P}_L\subsetneq [0,1]$. When $\mathcal{P}_R=\mathcal{P}_L=[0,1]$ holds, we have $c\geq \max\{v+\mu\eta, v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}\}$. For $(S_{+1,-1})$ to be an equilibrium, $P_R$ must be such that $R$ is indifferent between $a=+1$ and $a=0$ and $L$ is indifferent between $a=0$ and $a=-1$. This requires $c = v+\mu\eta(1-P_R) = v +\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g} -\mu(1-\eta)(1-P_R)$, which, however, is impossible given $c\geq \max\{v+\mu\eta, v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}\}$. When $\mathcal{P}_R\subsetneq [0,1]$ and $\mathcal{P}_L\subsetneq [0,1]$ holds, we have $c<\min\{v+\mu\eta,v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}\}$. Now for $(S_{+1,-1})$ to be a PBE, the value of $P_R$ must ensure that $R$ does not deviate to $a=0$, i.e., $v-c+\mu\eta\geq \mu\eta P_R$; and $L$ does not deviate to $a=0$, i.e., $v-c+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}\geq \mu(1-\eta)(1-P_R)$. This requires $\frac{-(v-c)}{\mu(1-\eta)}+\frac{p_g}{p_h(1-\rho)+p_g}\leq P_R\leq \frac{v-c}{\mu\eta}+1$. We need $\frac{v-c}{\mu\eta}+1\geq \frac{-(v-c)}{\mu(1-\eta)}+\frac{p_g}{p_h(1-\rho)+p_g}$, i.e., $c\leq v+\mu\eta(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$.
+
+
+
+\textit{Equilibrium $(S_{+1,0})$}: $a_R=+1$ and $a_L=0$, with $(P_R,P_L)=(0,0)$ following $a=-1$, is an equilibrium if and only if $v-\mu(1-\eta)\leq c\leq v+\mu\eta$. To see this, $R$ does not mimic $L$ if $v-c+\mu\eta\geq 0$, i.e., $c\leq v+\mu\eta$; $L$ prefers $a=0$ to $a=-1$ if $\mu(1-\eta)\geq v-c$, i.e., $v-\mu(1-\eta)\leq c$.
+
+\textit{Equilibrium $(M_{+1,0})$}: $\alpha_R = \alpha_R(a=+1)\in [0,1]$ and $a_L=0$, with $(P_R,P_L)=(0,0)$ following $a=-1$, is an equilibrium if and only if $v+\mu\eta(1-\rho)\leq c\leq v+\mu\eta$. To see this, $R$ being indifferent between $a=1$ and $a=0$ requires $v-c+\mu\eta = \mu\eta\frac{\rho (1-\alpha_R)}{\rho(1-\alpha_R)+(1-\rho)}$, i.e., $c = v+\mu\eta\frac{1-\rho}{\rho(1-\alpha_R)+(1-\rho)}$. Thus $c\in [v+\mu\eta(1-\rho), v+\mu\eta]$ for $\alpha_R\in[0,1]$. On the other hand, $L$ prefers $a=0$ to $a=-1$ if $\mu(1-\eta)\frac{1-\rho}{\rho(1-\alpha_R) + (1-\rho)}\geq v-c$, i.e., $c\geq v-\mu(1-\eta)\frac{1-\rho}{\rho(1-\alpha_R)+(1-\rho)} = v-\mu(1-\eta)\frac{-(v-c)}{\mu\eta}$, or equivalently, $v\leq c$.
+
+
+\textit{Equilibrium $(S_{0,-1})$}: $a_R=0$ and $a_L=-1$, with $(P_R,P_L)=(1,0)$ following $a=+1$ (by Requirement \ref{requirement1}), is an equilibrium if and only if $v\leq c\leq v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$. To see this, $R$ prefers $a=0$ to $a=+1$ if $\mu\eta\geq v-c+\mu\eta$, i.e., $v\leq c$; $L$ does not mimic $R$ if $v-c+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}\geq 0$, i.e., $c\leq v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$. 
+
+\textit{Equilibrium $(M_{0,-1})$}: $a_R=0$ and $\alpha_L=\alpha_L(a=-1)\in[0,1]$, with $(P_R,P_L)=(1,0)$ following $a=+1$ (by Requirement \ref{requirement1}), is an equilibrium if and only if $c^*\leq c\leq v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}$ for some $c^*\geq v$. To see this, $L$ being indifferent between $a=0$ and $a=-1$ requires $\mu(1-\eta)\frac{(1-\rho)(1-\alpha_L)}{\rho+(1-\rho)(1-\alpha_L)} = v-c+\mu(1-\eta)\frac{p_h(1-\rho)\alpha_L}{p_h(1-\rho)\alpha_L+p_g}$. Thus $c\in [v-\mu(1-\eta)(1-\rho), v+\mu(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}]$ for $\alpha_L\in[0,1]$. On the other hand, $R$ prefers $a=0$ to $a=+1$ if $\mu\eta\frac{\rho}{\rho+(1-\rho)(1-\alpha_L)}\geq v-c+\mu\eta$, i.e., $c\geq v+\mu\eta\frac{(1-\rho)(1-\alpha_L)}{\rho+(1-\rho)(1-\alpha_L)}$. Thus, $c\geq v$ must hold.
+
+
+\textit{Equilibrium $(M_{+1,0,-1})$}: $\alpha_R=\alpha_R(a=+1)\in(0,1)$ and $\alpha_L=\alpha_L(a=-1)\in(0,1)$ is an equilibrium if and only if $c = c^*$ for some $c^*\geq v$. To see this, $R$ being indifferent between $a=1$ and $a=0$ requires $v-c+\mu\eta = \mu\eta\frac{\rho (1-\alpha_R)}{\rho(1-\alpha_R)+(1-\rho)(1-\alpha_L)}$; $L$ being indifferent between $a=0$ and $a=-1$ requires $\mu(1-\eta)\frac{(1-\rho)(1-\alpha_L)}{\rho(1-\alpha_R)+(1-\rho)(1-\alpha_L)} = v-c+\mu(1-\eta)\frac{p_h(1-\rho)\alpha_L}{p_h(1-\rho)\alpha_L+p_g}$. The two equations pins down a unique $c^*\geq v$.
+
+
+\paragraph{Pareto efficient Equilibria.} In addition to D1 and Requirement \ref{requirement1}, we use Pareto efficiency to further select equilibria. Specifically, whenever two equilibria coexist for a given value of $c$, we rank their payoffs. By straightforward calculation, it follows that $(M_{+1,0,-1})$ is Pareto dominated by both $(S_{+1,0})$ and $(S_{0,-1})$; $(M_{+1,0})$ is Pareto dominated by $(S_{+1,0})$; $(M_{0,-1})$ is Pareto dominated by $(S_{0,-1})$. Additionally, $(S_{+1,-1})$ is Pareto dominated by $(S_{0,-1})$. Between $(S_{+1,-1})$ and $(S_{+1,0})$, $(S_{+1,-1})$ dominates for $c\in [v-\mu(1-\eta),v-\mu(1-\eta)\frac{p_g}{p_h(1-\rho)+p_g}]$, while $(S_{+1,0})$ dominates for $c\in [v,v+\mu\eta(1-\eta)\frac{p_h(1-\rho)}{p_h(1-\rho)+p_g}]$. It also follows that $(P_0)$ and $(S_{+1,0})$, $(P_0)$ and $(S_{0,-1})$, $(S_{+1,0})$ and $(S_{-1,0})$, are not Pareto ranked.
+
+\newpage
+\bibliography{related_lit.bib}
+\bibliographystyle{jpe} 
+
+\end{document}

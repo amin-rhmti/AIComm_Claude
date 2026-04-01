@@ -1,0 +1,214 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{blue_text}{RGB}{0,115,197}
+\definecolor{blue1}{RGB}{26,129,203}
+\definecolor{blue2}{RGB}{102,171,220}
+\definecolor{blue3}{RGB}{154,199,232}
+
+\definecolor{green1}{RGB}{0,128,0}
+\definecolor{green2}{RGB}{204,229,204}
+\definecolor{green3}{RGB}{229,242,229}
+
+\definecolor{lightblue2}{RGB}{204,227,243}
+\definecolor{lightblue3}{RGB}{229,241,249}
+
+\definecolor{orange0}{RGB}{255,116,0}
+\definecolor{blue0}{RGB}{0,103,169}%vaidya
+\definecolor{green0}{RGB}{0,148,104}
+
+
+\setbeamercolor*{palette tertiary}{bg=blue1,fg=white}
+\setbeamercolor*{palette secondary}{bg=blue2,fg=white}
+\setbeamercolor*{palette primary}{bg=blue3,fg=black}
+
+\setbeamercolor{titlelike}{bg=white,fg=blue_text}
+\setbeamertemplate{title page}[default][rounded=false, shadow=false]
+
+\setbeamercolor{frametitle}{bg=white,fg=blue_text}
+
+\setbeamercolor{item projected}{bg=blue_text}
+
+\setbeamertemplate{blocks}[rounded]%[shadow]
+\setbeamercolor{block title example}{bg=green2,fg=green1}
+\setbeamercolor{block body example}{bg=green3,fg=black}
+
+\setbeamercolor{block title}{bg=lightblue2,fg=blue_text}
+\setbeamercolor{block body}{bg=lightblue3,fg=black}
+
+\setbeamercolor{button}{bg=blue2,fg=white}
+
+\setbeamertemplate{navigation symbols}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{eqnarray,amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern} 
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{changepage}
+\usepackage{array,booktabs}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{plotmarks}
+\usepgfplotslibrary{fillbetween}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\prob}{Pr}
+
+\usepackage{transparent}
+\newcommand{\semitransp}[2][35]{\color{fg!#1}#2}
+
+\usetikzlibrary{arrows.meta}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%====================================================
+%========== DEFINITION OF AUTHORS ETC...=============
+%====================================================
+
+\author[Ash, Lou, Song]{%
+    \texorpdfstring{%
+    \begin{columns}
+        \column{.3333\linewidth}
+        \centering
+        Elliot Ash \\\vspace{.5em} \small ETH Zurich
+        \column{.3333\linewidth}
+        \centering
+        Yichuan Lou \\\vspace{.5em} \small UTokyo
+        \column{.3333\linewidth}
+        \centering
+        Lena Song \\\vspace{.5em} \small UIUC
+    \end{columns}}{Elliot Ash, Yichuan Lou, Lena Song}
+}
+
+\title[AI and Communication]{AI and Communication}
+%\subtitle{Subtitle}
+\date[Conference Name]{September 2025}
+
+
+
+
+%====================================================
+%========== BEGINNING OF DOCUMENT ===================
+%====================================================
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+
+
+
+
+\begin{frame}{Theoretical Framework: Overview}
+
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item Framework based on Benabou and Tirole (2006) to model social signaling with image concerns in the presence of AI senders/receivers
+    \item Two novel ingredients: outside option and privacy concerns
+    \item Human sender makes two sequential decisions: whether to join the game or not; if he joins, how much effort to exert
+    \item Human sender makes his decision based on
+    \begin{enumerate}
+        \item intrinsic motivation
+        \item effort cost
+        \item image concerns
+        \item privacy concerns
+    \end{enumerate}
+\end{itemize}
+    
+\end{frame}
+
+
+
+\begin{frame}{Composition of Senders}
+
+\begin{itemize}
+    \item Three identity groups: humans, Gen-AI bots, and rule-based bots
+    \item Denote by $m_h,m_g,m_r$ the number of different groups of senders 
+\end{itemize}
+    
+\end{frame}
+
+
+
+\begin{frame}{Timing}
+
+\begin{enumerate}\setlength{\itemsep}{1em}
+    \item A sender is matched with a receiver
+    \item The sender's identity (human or bot) and type ($v\in [\underline{v},\overline{v}]$ if human) is initially unknown to the receiver
+    \item The human sender chooses whether to participate in the signaling game
+    \item If the human sender chooses to not participate, he obtains outside option with payoff $u_0$
+    \item If the human sender chooses to participate, he further chooses a signaling action $a\in \mathbb{R}$
+    \item The belief about the sender's identity and type is updated
+    \item If the sender is a human, his payoff is realized
+\end{enumerate}
+    
+\end{frame}
+
+
+\begin{frame}{Human Sender}
+If a human sender participates and then chooses action $a\in \{a_1,a_2\}$, he obtains
+\begin{align*}
+    U = va - C(a) + \prob(\text{human}|a)\Big[\underbrace{\mu E(v|a)}_{\text{image concerns}} - \underbrace{\gamma}_{{\text{privacy concern}}}\Big]
+\end{align*}
+\vspace{1em}
+
+\begin{itemize}
+    \item $\prob(\text{human}|a)$ is the posterior probability that the sender is human
+    \item $E(v|a)$ is the posterior expectation of the human sender's type $v$ 
+    \item $\mu$ captures the strength of the human sender's image concerns
+    \item $\gamma$ captures the human sender's concern about privacy leakage, i.e., the risk of revealing his identity (human v.s. bot), which is independent of the belief about $v$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bot Senders}
+\begin{itemize}\setlength{\itemsep}{1em}
+    \item A bot sender, whether Gen-AI or rule-based, has no private types or preferences
+    \item Each bot sender follows a fixed action pattern
+\end{itemize}
+\vspace{1em}
+
+\begin{exampleblock}{Assumption 1}
+    A rule-based bot sender always chooses a detectable action $a_r\notin\{a_1,a_2\}$.
+\end{exampleblock}
+
+\begin{exampleblock}{Assumption 2}
+    A Gen-AI sender always randomizes between $a_1$ and $a_2$: it plays $a_1$ w.p. $\alpha$ and $a_2$ w.p. $(1-\alpha)$.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Interior Equilibrium with Cutoffs $v_1<v_2$}
+
+We focus on threshold equilibria characterized by two cutoffs $v_1<v_2$. In such an equilibrium, the human sender chooses
+\begin{itemize}
+    \item \textbf{Out} if $v\in [\underline{v},v_1)$
+    \item (\textbf{In}, $a_1$) if $v\in (v_1,v_2)$
+    \item (\textbf{In}, $a_2$) if $v\in (v_2,\bar{v}]$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Testing Hypotheses}
+
+\begin{exampleblock}{Hypothesis I}
+    Under some conditions \textcolor{red}{(high $\gamma$?)}, the cutoff $v_1$ decreases in the share of Gen-AI bots $\frac{m_g}{m_g+m_h}$. In other words, a higher proportion of Gen-AI bots raises overall human participation.
+\end{exampleblock}
+\vspace{2em}
+
+\begin{exampleblock}{Hypothesis II}
+    Under some conditions, the cutoff $v_2$ decreases in the share of Gen-AI bots $\frac{m_g}{m_g+m_h}$. In other words, a higher proportion of Gen-AI bots raises effort level among participating human senders.
+\end{exampleblock}
+    
+\end{frame}
+
+
+\end{document}
