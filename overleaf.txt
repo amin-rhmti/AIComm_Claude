@@ -1,0 +1,104 @@
+Folder PATH listing for volume Files
+Volume serial number is 28CA-C410
+D:.
+|   additional figures.tex
+|   aea.bst
+|   balance.tex
+|   ciplot_Finished_Full_raw.pdf
+|   ciplot_Finished_hte_AgeBinary_adult_Full_raw.pdf
+|   ciplot_Finished_hte_Female_Full_raw.pdf
+|   ciplot_Finished_hte_not_shared_handle_Full_raw.pdf
+|   ciplot_Finished_hte_not_shared_handle_IGUsers_raw.pdf
+|   ciplot_Finished_hte_Switzerland_Full_raw.pdf
+|   ciplot_Post_meaningfulness_Full_raw.pdf
+|   ciplot_Post_TextLength_log_Full_raw.pdf
+|   ciplot_TimePost_W_Full_raw.pdf
+|   ciplot_WTP_Full_raw_finished.pdf
+|   directory_map.txt
+|   GuessWriter2_Dist.pdf
+|   main.tex
+|   main_SSRN draft.tex
+|   MapFolder.bat
+|   references.bib
+|   summary_stat.tex
+|   table_te_Finished_Full.tex
+|   
++---archive
+|       draft 2-9-2026.tex
+|       
++---figures
+|       ciplot_Finished_Full_raw.pdf
+|       ciplot_Finished_hte_AgeBinary_adult_Full_raw.pdf
+|       ciplot_Finished_hte_AIDiffBinary_Full_raw.pdf
+|       ciplot_Finished_hte_DonationBinary_pos_Full_raw.pdf
+|       ciplot_Finished_hte_Female_Full_raw.pdf
+|       ciplot_Finished_hte_ImageConcernBinary_p50_Full_raw.pdf
+|       ciplot_Finished_hte_index_ClimateBinary_Full_raw.pdf
+|       ciplot_Finished_hte_not_shared_handle_Full_raw.pdf
+|       ciplot_Finished_hte_not_shared_handle_IGUsers_raw.pdf
+|       ciplot_Finished_hte_Switzerland_Full_raw.pdf
+|       ciplot_GenAIEffective_Full_raw_finished.pdf
+|       ciplot_index_Post_effort_Full_raw_finished.pdf
+|       ciplot_index_Post_nlp_Full_raw_finished.pdf
+|       ciplot_PerceiveAI_Full_raw_finished.pdf
+|       ciplot_PerceiveEngaged_Full_raw_finished.pdf
+|       ciplot_Post_AIness_Full_raw_finished.pdf
+|       ciplot_Post_meaningfulness_Full_raw.pdf
+|       ciplot_Post_TextLength_log_Full_raw.pdf
+|       ciplot_SignalValue_Full_raw_finished.pdf
+|       ciplot_TimePost_W_Full_raw.pdf
+|       ciplot_WTP_Full_raw_finished.pdf
+|       GuessWriter2_Dist.pdf
+|       
++---graphics
+|       Internet_dog.jpg
+|       
++---tables
+|       balance.tex
+|       summary_stat.tex
+|       table_te_Finished_Full.tex
+|       
+\---theory
+    |   draft1.tex
+    |   draft2-Aug-2024.tex
+    |   related_lit.bib
+    |   
+    +---images
+    |       chatbot-bland.png
+    |       chatbot-empathy.png
+    |       chatbots-linkedin.png
+    |       chatbots-reduce-toxic.png
+    |       chatgpt.png
+    |       dalle-1.webp
+    |       dalle-2.webp
+    |       eliza.png
+    |       eliza1.png
+    |       gpt-fake-news.png
+    |       gpt-is-nice.png
+    |       mixed-senders-1.png
+    |       mixed-senders-2.png
+    |       mixed-senders-3.png
+    |       open-ai.png
+    |       qualtrics-1.png
+    |       qualtrics-2.png
+    |       qualtrics-3.png
+    |       qualtrics-3b.png
+    |       qualtrics-3c.png
+    |       qualtrics-3d.png
+    |       qualtrics-4a.png
+    |       qualtrics-4b.png
+    |       qualtrics1.png
+    |       tay.png
+    |       
+    +---new-Sep-2025
+    |       slides-0914-2025.tex
+    |       slides-0917-2025.tex
+    |       slides-0918-2025.tex
+    |       
+    +---slides
+    |       slides_nonpartisan.tex
+    |       slides_partisan.tex
+    |       
+    \---_archive
+            (old) slides_2024-04-25.tex
+            
